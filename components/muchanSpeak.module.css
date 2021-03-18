@@ -1,0 +1,14 @@
+.hukidasi {
+    position: relative;
+    background: url("../public/images/hukidasi.svg") no-repeat;
+    background-size: cover;
+    width: 320px;
+    height: 200px;
+}
+
+.hukidasitext {
+    position: absolute;
+    padding-top: 10%;
+    padding-left: 15%;
+    padding-right: 20%;
+}
