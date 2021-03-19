@@ -14,9 +14,14 @@ import { useSetRecoilState } from "recoil";
 
 import MuchanSpeak from "components/muchanSpeak";
 
+import { answerTextAtom } from "state/talkState";
+
+import { getWord } from "reqests/word";
+
 export default function Summary() {
   // const [state, setState] = useRecoilState(talkState);
   const [test, settest] = useState(false);
+  const answerText = useRecoilValue(answerTextAtom);
   // const state = useSetRecoilState(testState);
 
   // 初期状態セット
@@ -42,9 +47,31 @@ export default function Summary() {
     }
   }
 
-  function changeState() {
-    console.log("Call:Summary changeState");
+  async function changeState() {
+    // console.log("Call:Summary changeState");
     // setState(state+"1")
+    // https://muchan-api-6gun3ieocq-an.a.run.app
+
+    //   fetch(apiRoot + "/words", {
+    //     method: "POST",
+    //     cache: "no-cache",
+    //     body: JSON.stringify(data)
+    //   })
+    //     .then((res) => {
+    //       if (!res.ok) {
+    //         throw new Error(`${res.status} ${res.statusText}`);
+    //       }
+    //       return res.json();
+    //     })
+    //     .then((json) => {
+    //       // blob にレスポンスデータが入る
+    //       console.log(json);
+    //     })
+    //     .catch((reason) => {
+    //       console.log("reason:" + reason);
+    //     });
+    await getWord(answerText);
+    console.log("changeState")
   }
 
   return (
@@ -56,11 +83,14 @@ export default function Summary() {
 
       {list_draw()}
 
-      <div onClick={changeState}>{/* {state} */}</div>
+      <div onClick={changeState}>{"post"}</div>
 
       <InputAnswer />
 
-      <MuchanSpeak strings="こんにちわ！あそｄふぁおｄふぁｊｄふぃあじぇいあじｄｊふぃあｊｄ" />
+      <MuchanSpeak
+        pause="nomal"
+        strings="こんにちわ！あそｄふぁおｄふぁｊｄふぃあじぇいあじｄｊふぃあｊｄ"
+      />
 
       <h2>
         <Link href="/">

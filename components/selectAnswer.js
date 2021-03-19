@@ -24,7 +24,11 @@ function SelectAnswer(props) {
         key={cnt}
         onClick={function () {
           setState(props.nextState);
-          setanswerText(props.answerList[cnt]);
+          setanswerText({
+            text: props.answerList[cnt],
+            res: false,
+            select: cnt
+          });
         }}
       >
         {props.answerList[cnt]}
