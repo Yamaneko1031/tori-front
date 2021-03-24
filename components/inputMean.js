@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-
 import { talkState, answerTextAtom } from "state/talkState";
 import { postWord } from "reqests/word";
+import { random } from "util/random";
 
 function InputMean(props) {
   let workText = "";
@@ -19,11 +19,22 @@ function InputMean(props) {
 
   async function onformSubmit(e) {
     let response = await postWord(props.word, workText);
+
+    let selectList = [0];
+    if (response.known) {
+      selectList.push(1);
+    }
+    if (response.unknown) {
+      selectList.push(2);
+    }
+
     setanswerText({
       word: props.word,
       text: workText,
       response: response,
-      select: 0
+      select: selectList[random(0, selectList.length - 1)],
+      targetWord: response.create.word,
+      targetMean: response.create.mean,
     });
     setState(props.nextState);
   }

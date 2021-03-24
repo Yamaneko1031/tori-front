@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { talkState, answerTextAtom } from "state/talkState";
 import { getWord } from "reqests/word";
 
-function InputAnswer(props) {
+function InputWord(props) {
   let items = [];
   let workText = "";
   const setState = useSetRecoilState(talkState);
@@ -20,12 +20,26 @@ function InputAnswer(props) {
 
   async function onformSubmit(e) {
     let response = await getWord(workText);
-    setanswerText({
-      text: workText,
-      response: response,
-      select: 0
-    });
-    setState(props.nextState);
+    console.log(response)
+    if (response) {
+      setanswerText({
+        text: "",
+        response: response,
+        select: 0,
+        targetWord: response.word,
+        targetMean: response.mean,
+      });
+      setState(props.nextStateKnown);
+    } else {
+      setanswerText({
+        text: "",
+        response: response,
+        select: 0,
+        targetWord: workText,
+        targetMean: "",
+      });
+      setState(props.nextStateUnknown);
+    }
   }
 
   function onTextAreaChange(e) {
@@ -49,4 +63,4 @@ function InputAnswer(props) {
   );
 }
 
-export default InputAnswer;
+export default InputWord;

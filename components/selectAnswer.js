@@ -6,7 +6,7 @@ import { talkState, answerTextAtom } from "state/talkState";
 function SelectAnswer(props) {
   let items = [];
   const setState = useSetRecoilState(talkState);
-  const setanswerText = useSetRecoilState(answerTextAtom);
+  const setAnswerText = useSetRecoilState(answerTextAtom);
 
   // 初期状態セット
   useEffect(() => {
@@ -23,9 +23,8 @@ function SelectAnswer(props) {
       <div
         key={cnt}
         onClick={function () {
-          setState(props.nextState);
-          setanswerText({
-            text: props.answerList[cnt],
+          setState(props.nextState[cnt]);
+          setAnswerText({
             res: false,
             select: cnt
           });

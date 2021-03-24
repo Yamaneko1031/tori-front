@@ -2,8 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import MuchanSpeak from "components/muchanSpeak";
 import SelectAnswer from "components/selectAnswer";
-import InputAnswer from "components/inputAnswer";
+import InputWord from "components/inputWord";
 import InputMean from "components/inputMean";
+import WaitTimer from "components/waitTimer";
 
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
@@ -20,131 +21,298 @@ export default function Talk() {
   const getTypewriteStateEnd = useRecoilValue(typewriteStateEnd);
   const answerText = useRecoilValue(answerTextAtom);
 
-  // let apiRoot = "https://muchan-api-6gun3ieocq-an.a.run.app";
-  // const data = {
-  //   word: "コップ",
-  //   mean: "飲み物を入れる器",
-  //   tag_list: ["便利", "小さい"]
-  // };
-  // let response = await fetch(apiRoot + "/words", {
-  //   method: "POST",
-  //   cache: "no-cache",
-  //   body: JSON.stringify(data)
-  // })
-
   useEffect(() => {
     console.log("Talk");
     return () => {
       console.log("Talk Unmount");
-      setState("start");
+      setState("開始");
     };
   }, []);
 
+  function setInteraction(interaction) {
+    let items = [];
+    items.push(interaction.MUCHAN);
+    if (getTypewriteStateEnd) {
+      items.push(interaction.USER);
+    }
+    return items;
+  }
+
   function content() {
     let items = [];
-    if (state === "start") {
-      console.log("start");
-      items.push(
-        <MuchanSpeak
-          key={state}
-          pause="nomal"
-          strings="こんにちは。<br>むーちゃんです。<br>一緒に遊んでほしいな。"
-        />
-      );
-      if (getTypewriteStateEnd) {
-        console.log("start getTypewriteStateEnd");
-        items.push(
-          <SelectAnswer
-            key="answer"
-            answerList={["お話する", "言葉を教えてあげる"]}
-            nextState="select"
-          />
-        );
-      }
-    } else if (state === "select") {
-      console.log("select");
-      if (answerText.text == "お話する") {
-        items.push(
-          <MuchanSpeak
-            key={state}
-            pause="nomal"
-            strings={"ポテトチップって何？"}
-          />
-        );
-        if (getTypewriteStateEnd) {
-          items.push(
-            <SelectAnswer
-              key="answer"
-              answerList={["じゃがいも", "サツマイモ", "鶏肉"]}
-              nextState="act1"
+
+    console.log(state);
+
+    switch (state) {
+      // 状態 ------------------------------------------------------------------------
+      case "開始":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="happy"
+              strings="こんにちは！<br>むーちゃんだよ！<br>たくさんお話しようね！"
             />
-          );
-        }
-      } else {
-        items.push(
-          <MuchanSpeak
-            key={state}
-            pause="nomal"
-            strings={"やったー！<br>何を教えてくれるの？"}
-          />
-        );
-        if (getTypewriteStateEnd) {
-          items.push(<InputAnswer key="answer" nextState="act2" />);
-        }
-      }
-    } else if (state === "act1") {
-      items.push(
-        <MuchanSpeak
-          key={state}
-          pause="nomal"
-          strings={answerText.text + "<br>おいしいいいいいい"}
-        />
-      );
-    } else if (state === "act2") {
-      let text = "";
-      if (answerText.response) {
-        console.log(answerText.response);
-        text =
-          answerText.text +
-          "は知ってるの！<br>「" +
-          answerText.response["mean"] +
-          "」<br>のことだよ！むーちゃん偉い？？";
-        items.push(<MuchanSpeak key={state} pause="nomal" strings={text} />);
-        if (getTypewriteStateEnd) {
-          items.push(
+          ),
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "何する選択肢":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak key={state} pause="nomal" strings="何して遊ぶ？？" />
+          ),
+          USER: (
             <SelectAnswer
               key="answer"
               answerList={["お話する", "言葉を教えてあげる"]}
-              nextState="select"
+              nextState={["お話する", "単語入力"]}
             />
-          );
-        }
-      } else {
-        text = answerText.text + "は知らないの。どういう意味なの？？";
-        items.push(<MuchanSpeak key={state} pause="nomal" strings={text} />);
-        if (getTypewriteStateEnd) {
-          items.push(
-            <InputMean key="answer" word={answerText.text} nextState="act3" />
-          );
-        }
-      }
-    } else if (state === "act3") {
-      items.push(
-        <MuchanSpeak
-          key={state}
-          pause="nomal"
-          strings={answerText.word + "は" + answerText.text + "の事なんだね！"}
-        />
-      );
-      if (getTypewriteStateEnd) {
-        items.push(
-          <SelectAnswer
-            key="answer"
-            answerList={["お話する", "言葉を教えてあげる"]}
-            nextState="select"
-          />
-        );
-      }
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "お話する":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={"あのね。ちょっと話を聞いてほしいの。"}
+            />
+          ),
+          USER: (
+            <WaitTimer
+              key="answer"
+              setTime={1500}
+              nextStateRandom={["気になる単語", "単語の詳細", "最近覚えた単語"]}
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "気になる単語":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={"ちょっと前に「" + "○○" + "」っていう言葉を聞いたの。"}
+            />
+          ),
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "単語の詳細":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={"「" + "○○" + "」って" + "[形容詞]" + "？"}
+            />
+          ),
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "最近覚えた単語":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={"最近覚えた単語：まだ実装されてないよ！"}
+            />
+          ),
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "単語入力":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={"やったー！<br>何を教えてくれるの？"}
+            />
+          ),
+          USER: (
+            <InputWord
+              key="answer"
+              nextStateKnown="単語入力後知っている単語分岐"
+              nextStateUnknown="単語入力後知らない単語分岐"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "単語入力後知っている単語分岐":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={
+                answerText.targetWord +
+                "は知ってるの！<br>「" +
+                answerText.targetMean +
+                "」<br>のことだよ！<br>むーちゃん偉い？？"
+              }
+            />
+          ),
+          USER: (
+            <SelectAnswer
+              key="answer"
+              answerList={["褒める", "間違いを指摘する"]}
+              nextState={["褒める", "間違いを指摘"]}
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "単語入力後知らない単語分岐":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={
+                answerText.targetWord + "は知らないの。どういう意味なの？？"
+              }
+            />
+          ),
+          USER: (
+            <InputMean
+              key="answer"
+              word={answerText.targetWord}
+              nextState="意味入力後"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "褒める":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak key={state} pause="nomal" strings={"へへへー"} />
+          ),
+          USER: <WaitTimer key="answer" setTime={1500} nextState="お話する" />
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "間違いを指摘":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={"えええ！そうなの！？<br>正しい意味は何なの？？"}
+            />
+          ),
+          USER: (
+            <InputMean
+              key="answer"
+              word={answerText.targetWord}
+              nextState="意味入力後"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "意味入力後":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={
+                answerText.targetWord +
+                "は" +
+                answerText.targetMean +
+                "の事なんだね！"
+              }
+            />
+          ),
+          USER: (
+            <WaitTimer
+              key="answer"
+              setTime={1500}
+              nextState={(function () {
+                switch (answerText.select) {
+                  case 0:
+                    return "お話する";
+                  case 1:
+                    return "意味を知っている単語がある";
+                  case 2:
+                    return "意味を知らない単語がある";
+                  default:
+                    console.error("意味入力後 answerText.select err");
+                    return "お話する";
+                }
+              })()}
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "意味を知っている単語がある":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={
+                "むーちゃん、" + answerText.response.known.word + "知ってる！"
+              }
+            />
+          ),
+          USER: (
+            <SelectAnswer
+              key="answer"
+              answerList={["褒める", "間違いを指摘する"]}
+              nextState={["褒める", "間違いを指摘"]}
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "意味を知らない単語がある":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              pause="nomal"
+              strings={
+                "ところで、" +
+                answerText.response.unknown.word +
+                "ってどういう意味なの？"
+              }
+            />
+          ),
+          USER: (
+            <InputMean
+              key="answer"
+              word={answerText.response.unknown.word}
+              nextState="意味入力後"
+            />
+          )
+        });
+        break;
+      default:
+        console.error("state err:" + state);
+        break;
     }
 
     return items;

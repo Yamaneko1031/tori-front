@@ -4,7 +4,7 @@ import { selector } from "recoil";
 // 会話全体の状態
 const talkStateAtom = atom({
   key: "talkStateAtom",
-  default: "start"
+  default: "開始"
 });
 
 // 会話全体の状態管理用インターフェース

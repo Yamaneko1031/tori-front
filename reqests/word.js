@@ -1,4 +1,5 @@
-const API_ROOT = "https://muchan-api-6gun3ieocq-an.a.run.app";
+// const API_ROOT = "https://muchan-api-6gun3ieocq-an.a.run.app";
+const API_ROOT = "http://127.0.0.1:8000";
 
 export async function getWord(word) {
   let response = await fetch(API_ROOT + "/words/" + word);
