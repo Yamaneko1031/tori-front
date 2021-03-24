@@ -7,7 +7,7 @@ export default function Home() {
   let description = "人の言葉に興味津々なオウムのむーちゃん。言葉を教えてあげると喜びます。"
   let keyword = "keyword"
   let url = "url"
-  let image = "images/top_page.png"
+  let image = "torichan.app/images/top_page.png"
 
   return (
     <div>

@@ -95,7 +95,7 @@ export default function Summary() {
   let description = "人の言葉に興味津々なオウムのむーちゃん。summary"
   let keyword = "keyword2"
   let url = "url2"
-  let image = "images/twitter_card.png"
+  let image = "torichan.app/images/twitter_card.png"
 
   return (
     <>
