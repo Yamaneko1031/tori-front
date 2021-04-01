@@ -3,11 +3,16 @@ import { useSetRecoilState } from "recoil";
 import { talkState, answerTextAtom } from "state/talkState";
 import { postWord } from "reqests/word";
 import { random } from "util/random";
+import styles from "styles/content.module.css";
+import { talkStateChangePreparation } from "state/talkState";
 
 function InputMean(props) {
   let workText = "";
   const setState = useSetRecoilState(talkState);
   const setanswerText = useSetRecoilState(answerTextAtom);
+  const setStateChangePreparation = useSetRecoilState(
+    talkStateChangePreparation
+  );
 
   // 初期状態セット
   useEffect(() => {
@@ -20,23 +25,18 @@ function InputMean(props) {
   async function onformSubmit(e) {
     let response = await postWord(props.word, workText);
 
-    let selectList = [0];
-    if (response.known) {
-      selectList.push(1);
-    }
-    if (response.unknown) {
-      selectList.push(2);
-    }
-
     setanswerText({
       word: props.word,
       text: workText,
       response: response,
-      select: selectList[random(0, selectList.length - 1)],
       targetWord: response.create.word,
-      targetMean: response.create.mean,
+      targetMean: response.create.mean
     });
-    setState(props.nextState);
+    if (props.nextState) {
+      setState(props.nextState);
+    } else {
+      setStateChangePreparation(true);
+    }
   }
 
   function onTextAreaChange(e) {
@@ -46,17 +46,18 @@ function InputMean(props) {
   console.log("Call:InputMean");
 
   return (
-    <>
+    <div className={styles.inputWord}>
       <textarea
+        className={styles.inputWordText}
         placeholder="Your Message"
         name="message"
         onChange={onTextAreaChange}
         required
       />
-      <div>
-        <button onClick={onformSubmit}>OK</button>
+      <div className={styles.btnInputOk} onClick={onformSubmit}>
+        OK
       </div>
-    </>
+    </div>
   );
 }
 

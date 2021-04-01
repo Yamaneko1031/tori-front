@@ -1,5 +1,6 @@
 import Typewriter from "typewriter-effect";
-import styles from "./muchanSpeak.module.css";
+import styles from "styles/content.module.css";
+// import styles from "./muchanSpeak.module.css";
 
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
@@ -16,11 +17,11 @@ function MuchanSpeak(props) {
   }, []);
 
   return (
-    <>
+    <div>
       <div className={styles.hukidasi}>
-        <div className={styles.hukidasitext}>
+        <div className={styles.hukidasiText}>
           <Typewriter
-            options={{ cursor: "", delay: 40 }}
+            options={{ cursor: "", delay: 50 }}
             onInit={(typewriter) => {
               typewriter
                 .typeString(props.strings)
@@ -33,7 +34,7 @@ function MuchanSpeak(props) {
         </div>
       </div>
       <MuchanBody pause={props.pause} />
-    </>
+    </div>
   );
 }
 

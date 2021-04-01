@@ -1,0 +1,146 @@
+.contentArea {
+  border: solid 8px #0000ff;
+  position: relative;
+  z-index: 100;
+  width: 480px;
+  height: 800px;
+  margin: 10px auto 0;
+  background: url("../public/images/scene2.png") no-repeat;
+  background-size: 100% auto;
+}
+
+.sceneImage {
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.hukidasi {
+  position: absolute;
+  background: url("../public/images/hukidasi.svg") no-repeat;
+  background-size: cover;
+  width: 390px;
+  height: 250px;
+  top: 0px;
+  left: 0px;
+}
+
+.hukidasiText {
+  font-size: 1.5rem;
+  position: absolute;
+  padding-top: 10%;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.charaBack {
+  position: absolute;
+  z-index: 10;
+  top: 200px;
+  left: 150px;
+}
+
+.charaFront1 {
+  position: absolute;
+  z-index: 11;
+  opacity: 0;
+  top: 0px;
+}
+
+.charaFront2 {
+  position: absolute;
+  z-index: 11;
+  opacity: 1;
+  top: 0px;
+}
+
+.charaSize {
+  width: 350px;
+}
+
+.selectAnswer {
+  position: absolute;
+  /* top: 650px; */
+  bottom: 20px;
+  left: 10px;
+  z-index: 20;
+}
+
+.btnFflatSimple {
+  position: relative;
+  font-weight: bold;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #ececec;
+  background: #259e4f;
+  transition: 0.2s;
+  margin-top: 5px;
+  padding: 0.8em 1em;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  border: 3px solid #ffffff;
+}
+
+.btnFflatSimple:hover {
+  background: #3fb669;
+  color: white;
+  cursor: pointer;
+}
+
+.inputWord {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  width: 100%;
+}
+
+.inputWordText {
+    width: calc(100% - 104px);
+    padding: 0.5em;
+    border: 3px solid #259e4f;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+.btnInputOk {
+    position: relative;
+    font-weight: bold;
+    /* padding: 0.25em 0.5em; */
+    text-decoration: none;
+    color: #ececec;
+    background: #259e4f;
+    transition: 0.2s;
+    /* margin-top: 5px; */
+    padding: 0.8em 1em;
+    border-radius: 5px;
+    width: 80px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+  }
+  
+  .btnInputOk:hover {
+    background: #3fb669;
+    color: white;
+    cursor: pointer;
+  }
+
+/* 
+.hukidasi {
+    position: relative;
+    background: url("../public/images/hukidasi.svg") no-repeat;
+    background-size: cover;
+    width: 320px;
+    height: 200px;
+}
+
+.hukidasitext {
+    position: absolute;
+    padding-top: 10%;
+    padding-left: 15%;
+    padding-right: 20%;
+} */

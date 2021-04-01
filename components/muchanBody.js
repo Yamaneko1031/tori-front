@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { typewriteStateStart } from "state/talkState";
 import { random } from "util/random";
-import styles from "./muchanBody.module.css";
+import styles from "styles/content.module.css";
+// import styles from "./muchanBody.module.css";
 
 function MuchanBody(props) {
   const [state, setState] = useState(false);
@@ -25,7 +26,10 @@ function MuchanBody(props) {
 
   let MUCHAN_IMAGE = {
     nomal: ["images/muchan_nomal_close.png", "images/muchan_nomal_open.png"],
-    happy: ["images/muchab_happy.png", "images/muchab_happy.png"]
+    happy: ["images/muchab_happy.png", "images/muchab_happy.png"],
+    nml: ["images/muchan_nml1.png", "images/muchan_nml2.png"],
+    deko: ["images/muchan_deko1.png", "images/muchan_deko2.png"],
+    gaku: ["images/muchan_gaku1.png", "images/muchan_gaku2.png"],
   };
 
   let value = props.pause;
@@ -36,10 +40,10 @@ function MuchanBody(props) {
 
   return (
     <>
-      <div className={styles.back}>
-        <img className={styles.imageSize} src={MUCHAN_IMAGE[value][0]} />
-        <div className={state ? styles.front2 : styles.front1}>
-          <img className={styles.imageSize} src={MUCHAN_IMAGE[value][1]} />
+      <div className={styles.charaBack}>
+        <img className={styles.charaSize} src={MUCHAN_IMAGE[value][0]} />
+        <div className={state ? styles.charaFront2 : styles.charaFront1}>
+          <img className={styles.charaSize} src={MUCHAN_IMAGE[value][1]} />
         </div>
       </div>
     </>

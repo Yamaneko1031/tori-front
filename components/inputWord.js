@@ -3,6 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { talkState, answerTextAtom } from "state/talkState";
 import { getWord } from "reqests/word";
+import styles from "styles/content.module.css";
 
 function InputWord(props) {
   let items = [];
@@ -49,17 +50,17 @@ function InputWord(props) {
   console.log("Call:InputAnswer");
 
   return (
-    <>
-      <textarea
-        placeholder="Your Message"
+    <div className={styles.inputWord}>
+      <textarea className={styles.inputWordText}
+        placeholder="単語を入力してください"
         name="message"
         onChange={onTextAreaChange}
         required
       />
-      <div>
-        <button onClick={onformSubmit}>OK</button>
+      <div className={styles.btnInputOk} onClick={onformSubmit}>
+        OK
       </div>
-    </>
+    </div>
   );
 }
 

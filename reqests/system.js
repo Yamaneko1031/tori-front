@@ -1,35 +1,16 @@
+import useSWR from 'swr'
+
 // const API_ROOT = "https://muchan-api-6gun3ieocq-an.a.run.app";
 const API_ROOT = "http://127.0.0.1:8000";
 
-export async function getSessionId(session_id) {
-  let response = await fetch(API_ROOT + "/session", {
-    headers: {
-      session_id: session_id
-      // 'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    }
-  });
-  let retData;
-  if (response.ok) {
-    retData = await response.json();
-    console.log("1:" + retData["session_id"]);
-  } else {
-    console.error("HTTP-Error: " + response.status);
-    retData = false;
-  }
-  console.log("2:" + retData["session_id"]);
-  return retData;
-}
+const fetcher = url => fetch(url).then(r => r.json())
 
-export async function testRequest() {
-  let response = await fetch(API_ROOT + "/test");
-  let retData;
-  if (response.ok) {
-    retData = await response.json();
-    console.log(retData);
-  } else {
-    console.error("HTTP-Error: " + response.status);
-    retData = false;
+//ユーザー情報の取得
+export function useSystemInfo () {
+  const { data, error } = useSWR(API_ROOT + "/info", fetcher)
+  return {
+    info: data,
+    isLoading: !error && !data,
+    isError: error
   }
-  // return retData;
 }

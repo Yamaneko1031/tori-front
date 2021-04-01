@@ -1,34 +1,26 @@
-import Head from "next/head";
 import Link from "next/link";
+import Head from "components/head";
 import styles from "../styles/Home.module.css";
+import { useEffect } from "react";
+
+import { parseCookies, setCookie, destroyCookie } from "nookies";
+
+import { getSessionId } from "reqests/word";
+
+const isBrowser = () => typeof window !== "undefined"; // 今の環境がSSRかクライアントサイドレンダリングか調べてるらしいです
 
 export default function Home() {
-  let title = "学習オウム むーちゃん"
-  let description = "人の言葉に興味津々なオウムのむーちゃん。言葉を教えてあげると喜びます。"
-  let keyword = "keyword"
-  let url = "url"
-  let image = "https://torichan.app/images/top_page.png"
+  // 初期状態セット
+  useEffect(() => {
+    // destroyCookie(null, 'session_id')
+    getSessionId();
+    // console.log(document.cookie);
+    return () => {};
+  }, []);
 
   return (
     <div>
-      <Head>
-        <title>{title}</title>
-        <link rel="icon" href="/favicon.ico" />
-        
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta name="keywords" content={keyword} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={url} />
-        <meta property="og:image" content={image} />
-        <meta property="og:site_name" content={title} />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@tcr_jp" />
-        <meta name="twitter:url" content={image} />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={image} />
-      </Head>
+      <Head />
 
       <main className={styles.main}>
         <Link href="/talk">

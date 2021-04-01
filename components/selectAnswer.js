@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { talkState, answerTextAtom } from "state/talkState";
+import { talkState, answerSelectAtom } from "state/talkState";
+import { talkStateChangePreparation } from "state/talkState";
+
+import styles from "styles/content.module.css";
 
 function SelectAnswer(props) {
   let items = [];
   const setState = useSetRecoilState(talkState);
-  const setAnswerText = useSetRecoilState(answerTextAtom);
+  const setAnswerSelect = useSetRecoilState(answerSelectAtom);
+  const setStateChangePreparation = useSetRecoilState(
+    talkStateChangePreparation
+  );
 
   // 初期状態セット
   useEffect(() => {
@@ -21,20 +27,22 @@ function SelectAnswer(props) {
   for (let cnt = 0; cnt < props.answerList.length; cnt++) {
     items.push(
       <div
+        className={styles.btnFflatSimple}
         key={cnt}
         onClick={function () {
-          setState(props.nextState[cnt]);
-          setAnswerText({
-            res: false,
-            select: cnt
-          });
+          if (props.nextState) {
+            setState(props.nextState[cnt]);
+          } else {
+            setStateChangePreparation(true);
+          }
+          setAnswerSelect(cnt);
         }}
       >
         {props.answerList[cnt]}
       </div>
     );
   }
-  return <>{items}</>;
+  return <div className={styles.selectAnswer}>{items}</div>;
 }
 
 export default SelectAnswer;
