@@ -21,14 +21,14 @@ function InputWord(props) {
 
   async function onformSubmit(e) {
     let response = await getWord(workText);
-    console.log(response)
+    console.log(response);
     if (response) {
       setanswerText({
         text: "",
         response: response,
         select: 0,
         targetWord: response.word,
-        targetMean: response.mean,
+        targetMean: response.mean
       });
       setState(props.nextStateKnown);
     } else {
@@ -37,10 +37,13 @@ function InputWord(props) {
         response: response,
         select: 0,
         targetWord: workText,
-        targetMean: "",
+        targetMean: ""
       });
       setState(props.nextStateUnknown);
     }
+  }
+  function onformNg(e) {
+    setState(props.nextStateNg);
   }
 
   function onTextAreaChange(e) {
@@ -51,7 +54,8 @@ function InputWord(props) {
 
   return (
     <div className={styles.inputWord}>
-      <textarea className={styles.inputWordText}
+      <textarea
+        className={styles.inputWordText}
         placeholder="単語を入力してください"
         name="message"
         onChange={onTextAreaChange}
@@ -59,6 +63,9 @@ function InputWord(props) {
       />
       <div className={styles.btnInputOk} onClick={onformSubmit}>
         OK
+      </div>
+      <div className={styles.btnInputOk} onClick={onformNg}>
+        NG
       </div>
     </div>
   );

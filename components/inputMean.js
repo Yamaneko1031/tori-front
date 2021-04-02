@@ -38,6 +38,9 @@ function InputMean(props) {
       setStateChangePreparation(true);
     }
   }
+  function onformNg(e) {
+    setState(props.nextStateNg);
+  }
 
   function onTextAreaChange(e) {
     workText = e.target.value;
@@ -49,13 +52,16 @@ function InputMean(props) {
     <div className={styles.inputWord}>
       <textarea
         className={styles.inputWordText}
-        placeholder="Your Message"
+        placeholder="説明を入力してください"
         name="message"
         onChange={onTextAreaChange}
         required
       />
       <div className={styles.btnInputOk} onClick={onformSubmit}>
         OK
+      </div>
+      <div className={styles.btnInputOk} onClick={onformNg}>
+        NG
       </div>
     </div>
   );

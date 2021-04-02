@@ -1,4 +1,5 @@
-import Head from "next/head";
+// import Head from "next/head";
+import Head from "components/head";
 import Link from "next/link";
 import MuchanSpeak from "components/muchanSpeak";
 import SelectAnswer from "components/selectAnswer";
@@ -337,6 +338,7 @@ export default function Talk() {
               key="answer"
               word={answerText.targetWord}
               nextState="意味入力後"
+              nextStateNg="何する選択肢"
             />
           )
         });
@@ -579,6 +581,7 @@ export default function Talk() {
               key="answer"
               nextStateKnown="単語入力後知っている単語分岐"
               nextStateUnknown="単語入力後知らない単語分岐"
+              nextStateNg="何する選択肢"
             />
           )
         });
@@ -746,15 +749,18 @@ export default function Talk() {
     <>
       <Head>
         <title>会話</title>
+        <meta name="viewport" property="og:content" content="width=device-width initial-scale=1.0 user-scalable=no" />
       </Head>
 
-      <div className={styles.contentArea}>{content()}</div>
+      <div className={styles.TalkBg}>
+        <div className={styles.contentArea}>{content()}</div>
 
-      <br />
+          
+        <Link href="/">
+          <a>Back to home</a>
+        </Link>
+      </div>
 
-      <Link href="/">
-        <a>Back to home</a>
-      </Link>
     </>
   );
 }

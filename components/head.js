@@ -15,12 +15,18 @@ export default function ({
   description = "人の言葉に興味津々なオウムのむーちゃん。みんなで言葉を教えてあげましょう。",
   keyword = "オウム,むーちゃん,学習,言葉,覚える",
   url = "https://torichan.app",
-  image = "https://torichan.app/images/top_page.png"
+  image = "https://torichan.app/images/top_page.png",
+  viewport = "width=device-width initial-scale=1.0 "
 }) {
   return (
     <Head>
       <title>{title}</title>
-      {/* <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" /> */}
+      <meta name="viewport" property="og:content" content={viewport} />
+      {/* <meta name="viewport" property="og:content" content="width=device-width initial-scale=1.0 user-scalable=no" /> */}
+      {/* <meta name="viewport" property="og:content" content="height=device-height weight=device-width minimum-scale=0.5"  /> */}
+      {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
+      {/* <meta name="viewport" content="width=1000" /> */}
+      {/* <meta name="viewport" content="width=device-width initial-scale=1.0 minimum-scale=1.0" /> */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta name="keywords" content={keyword} />
