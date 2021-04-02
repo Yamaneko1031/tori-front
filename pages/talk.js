@@ -54,7 +54,7 @@ export default function Talk() {
   function setInteraction(interaction) {
     let items = [];
     items.push(interaction.MUCHAN);
-    items.push(<MuchanBody pause={interaction.PAUSE} />);
+    items.push(<MuchanBody key={interaction.PAUSE} pause={interaction.PAUSE} />);
     if (getTypewriteStateEnd) {
       items.push(interaction.USER);
     }
