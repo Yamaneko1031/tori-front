@@ -6,6 +6,7 @@ import InputWord from "components/inputWord";
 import InputMean from "components/inputMean";
 import WaitTimer from "components/waitTimer";
 import TalkStateChange from "components/talkStateChange";
+import MuchanBody from "components/muchanBody";
 
 import { useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -53,6 +54,7 @@ export default function Talk() {
   function setInteraction(interaction) {
     let items = [];
     items.push(interaction.MUCHAN);
+    items.push(<MuchanBody pause={interaction.PAUSE} />);
     if (getTypewriteStateEnd) {
       items.push(interaction.USER);
     }
@@ -72,10 +74,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings="こんにちは！<br>むーちゃんだよ！<br>たくさんお話しようね！"
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
@@ -87,10 +89,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings="なにしてあそぶ？？"
             />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -109,8 +111,9 @@ export default function Talk() {
         }
         items = setInteraction({
           MUCHAN: (
-            <MuchanSpeak key={state} pause={"nml"} strings={jankenText} />
+            <MuchanSpeak key={state} strings={jankenText} />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -151,10 +154,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={answerJanken.janken + "！！<br>・・・"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer
               key="answer"
@@ -170,10 +173,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"まけちゃった！！<BR>もういっかいやろー！"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -189,12 +192,12 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "えへへー！！<BR>むーちゃんのかち！！<BR>もういっかいやろー！"
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -210,10 +213,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"あのね。<br>ちょっと話をきいてほしいの。"}
             />
           ),
+          PAUSE: "nml",
           USER: <WaitTimer key="answer" setTime={1500} />
         });
         if (stateChangePreparation) {
@@ -270,12 +273,12 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "むーちゃんは話すのが好きなの。<BR>新しい言葉を教えてほしいな。"
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
@@ -287,12 +290,12 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "さいきん聞いたことばなんだけど<BR>意味を教えてほしい言葉があるの。"
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="気になる単語2" />
           )
@@ -304,12 +307,12 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "「" + answerText.targetWord + "」ってどういう意味かわかる？"
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -325,10 +328,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"「" + answerText.targetWord + "」ってなに？"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <InputMean
               key="answer"
@@ -344,10 +347,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"そっかー。<BR>むずかしい言葉なんだね。"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
@@ -359,7 +362,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "「" +
                 answerText.targetWord +
@@ -369,6 +371,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -397,7 +400,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "「" +
                 answerText.targetWord +
@@ -407,6 +409,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
@@ -418,7 +421,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "ふ～ん。<BR>「" +
                 answerText.targetWord +
@@ -428,6 +430,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
@@ -439,7 +442,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "最近「" +
                 answerText.targetWord +
@@ -447,6 +449,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer
               key="answer"
@@ -462,10 +465,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"「" + answerText.targetMean + "」のことだよ！！"}
             />
           ),
+          PAUSE: "nml",
           USER: <WaitTimer key="answer" setTime={1500} />
         });
         if (stateChangePreparation) {
@@ -494,7 +497,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "「" +
                 answerText.targetWord +
@@ -504,6 +506,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer
               key="answer"
@@ -523,7 +526,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "「" +
                 answerText.targetWord +
@@ -533,6 +535,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer
               key="answer"
@@ -548,10 +551,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"むーちゃんえらい？"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -567,10 +570,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"やったー！<br>何を教えてくれるの？"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <InputWord
               key="answer"
@@ -586,10 +589,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"「" + answerText.targetWord + "」は知ってるの！"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer
               key="answer"
@@ -605,10 +608,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"「" + answerText.targetWord + "」は知らないの。"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="気になる単語3" />
           )
@@ -618,8 +621,9 @@ export default function Talk() {
       case "褒める":
         items = setInteraction({
           MUCHAN: (
-            <MuchanSpeak key={state} pause={"nml"} strings={"えへへー"} />
+            <MuchanSpeak key={state} strings={"えへへー"} />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
@@ -631,10 +635,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"ええっ！そうなの！？"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="気になる単語3" />
           )
@@ -646,7 +650,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 answerText.targetWord +
                 "は" +
@@ -655,6 +658,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: <WaitTimer key="answer" setTime={1500} />
         });
         if (stateChangePreparation) {
@@ -668,6 +672,7 @@ export default function Talk() {
           }
 
           setState = next_state[random(0, next_state.length - 1)];
+          console.log(setState)
 
           switch (setState) {
             case "もっと教えてほしい":
@@ -697,10 +702,10 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={"もっといろいろな言葉を教えてほしいな！"}
             />
           ),
+          PAUSE: "nml",
           USER: (
             <SelectAnswer
               key="answer"
@@ -716,7 +721,6 @@ export default function Talk() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              pause={"nml"}
               strings={
                 "でもむーちゃんはね。<BR>「" +
                 answerText.targetWord +
@@ -724,6 +728,7 @@ export default function Talk() {
               }
             />
           ),
+          PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="気になる単語2" />
           )

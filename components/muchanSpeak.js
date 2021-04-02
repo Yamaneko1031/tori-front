@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { useRecoilState } from "recoil";
 
-import MuchanBody from "components/muchanBody";
 import { typewriteStateAtom } from "state/talkState";
 
 function MuchanSpeak(props) {
@@ -33,7 +32,6 @@ function MuchanSpeak(props) {
           />
         </div>
       </div>
-      <MuchanBody pause={props.pause} />
     </div>
   );
 }
