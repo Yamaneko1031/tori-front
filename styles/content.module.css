@@ -3,7 +3,7 @@
   position: relative;
   z-index: 100;
   max-width: 400px;
-  max-height: 800px;
+  max-height: 700px;
   width: 100vh;
   height: 100vh;
   margin: 10px auto 0;
@@ -41,8 +41,8 @@
 .charaBack {
   position: absolute;
   z-index: 10;
-  top: 24%;
-  left: 30%;
+  top: 27%;
+  left: 29%;
 }
 
 .charaFront1 {
