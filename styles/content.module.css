@@ -33,6 +33,7 @@
   padding-top: 10%;
   padding-left: 15%;
   padding-right: 15%;
+  width: 300px;
 }
 
 .charaBack {
@@ -97,37 +98,37 @@
 }
 
 .inputWordText {
-    width: calc(100% - 104px);
-    padding: 0.5em;
-    border: 3px solid #259e4f;
-    border-radius: 5px;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 5px;
+  width: calc(100% - 104px);
+  padding: 0.5em;
+  border: 3px solid #259e4f;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 5px;
 }
 
 .btnInputOk {
-    position: relative;
-    font-weight: bold;
-    /* padding: 0.25em 0.5em; */
-    text-decoration: none;
-    color: #ececec;
-    background: #259e4f;
-    transition: 0.2s;
-    /* margin-top: 5px; */
-    padding: 0.8em 1em;
-    border-radius: 5px;
-    width: 80px;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-  }
-  
-  .btnInputOk:hover {
-    background: #3fb669;
-    color: white;
-    cursor: pointer;
-  }
+  position: relative;
+  font-weight: bold;
+  /* padding: 0.25em 0.5em; */
+  text-decoration: none;
+  color: #ececec;
+  background: #259e4f;
+  transition: 0.2s;
+  /* margin-top: 5px; */
+  padding: 0.8em 1em;
+  border-radius: 5px;
+  width: 80px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.btnInputOk:hover {
+  background: #3fb669;
+  color: white;
+  cursor: pointer;
+}
 
 /* 
 .hukidasi {
