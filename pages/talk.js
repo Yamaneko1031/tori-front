@@ -238,9 +238,6 @@ export default function Talk() {
                   setAnswer["targetMean"] = setAnswer["response"].mean;
                   setState = "最近覚えた単語1";
                 } else {
-                  console.log(JSON.stringify(tags))
-                  console.log(tags.length)
-                  console.log(tags[0].length)
                   setAnswer["targetWord"] = setAnswer["response"].word;
                   setAnswer["targetMean"] = setAnswer["response"].mean;
                   setAnswer["picupKeiyousi"] =
