@@ -1,5 +1,6 @@
 .contentArea {
-  border: solid 8px #0000ff;
+  border: solid 2px #ffffff;
+  border-radius: 10px;
   position: relative;
   z-index: 100;
   max-width: 400px;
@@ -9,7 +10,7 @@
   /* height: calc(100vw*(660/400)); */
   height: 100vh;
   margin: auto;
-  top: 5px;
+  /* top: 5px; */
   background: url("../public/images/scene2.png") no-repeat;
   background-size: 100% auto;
 }

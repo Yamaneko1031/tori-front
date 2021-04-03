@@ -25,3 +25,57 @@ textarea {
   outline: none;
   background: transparent;
 }
+
+/* #global-navi {
+  background: rgb(223, 223, 223);
+  position: fixed;
+  top: 0;
+  right: 0px;
+  width: 100%;
+} */
+/* #wrapper nav ul li {
+  display: inline-block;
+  font-size: 16px;
+  padding: 0px 5px 0px 5px;
+}
+#wrapper nav ul li a {
+  color: #ddd;
+} */
+
+#wrapper {
+  min-width: 400px;
+}
+
+#wrapper nav ul {
+  background-color: rgba(0, 120, 0, 0.7);
+  display: block;
+  padding: 0px;
+  margin: 0;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+#wrapper nav li {
+  display: inline-block;
+  border-right: 1px solid #ccc;
+}
+
+#wrapper nav li:first-child {
+  border-left: 1px solid #ccc;
+}
+
+#wrapper nav li .click-area {
+  display: block;
+  padding: 0px 17px 0px 17px;
+  text-align: center;
+  letter-spacing: normal;
+  line-height: 36px;
+  color: #ececec;
+}
+
+#wrapper nav li .click-area:hover {
+  background: #3fb669;
+  color: white;
+  cursor: pointer;
+}

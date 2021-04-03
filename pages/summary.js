@@ -90,7 +90,7 @@ export default function Summary() {
     //     });
     //await getWord(answerText);
 
-    console.log("changeState");
+    // console.log("changeState");
   }
 
   async function changeState1() {
@@ -126,6 +126,8 @@ export default function Summary() {
       <div onClick={changeState1}>{"ボタン1"}</div>
       <div onClick={changeState2}>{"ボタン2"}</div>
 
+      {/* <a href="https://twitter.com/MuchanApp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @MuchanApp</a> */}
+        {/* <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
       {/* <InputAnswer /> */}
 
       {/* <MuchanSpeak

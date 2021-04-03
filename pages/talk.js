@@ -8,6 +8,8 @@ import InputMean from "components/inputMean";
 import WaitTimer from "components/waitTimer";
 import TalkStateChange from "components/talkStateChange";
 import MuchanBody from "components/muchanBody";
+import ModalExplan from "components/modalExplan";
+import ModalMuchan from "components/modalMuchan";
 
 import { useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -26,7 +28,8 @@ import {
   getTopicUnknown,
   getTopicTaught,
   addWordTag1,
-  addWordTag2
+  addWordTag2,
+  rememberedTweet
 } from "reqests/word";
 // import { useTag1, useTag2 } from "reqests/word";
 
@@ -55,7 +58,9 @@ export default function Talk() {
   function setInteraction(interaction) {
     let items = [];
     items.push(interaction.MUCHAN);
-    items.push(<MuchanBody key={interaction.PAUSE} pause={interaction.PAUSE} />);
+    items.push(
+      <MuchanBody key={interaction.PAUSE} pause={interaction.PAUSE} />
+    );
     if (getTypewriteStateEnd) {
       items.push(interaction.USER);
     }
@@ -67,7 +72,7 @@ export default function Talk() {
     let setAnswer = {};
     let setState = "";
     let keyPrep = "prep" + state;
-    
+
     switch (state) {
       // 状態 ------------------------------------------------------------------------
       case "開始":
@@ -87,12 +92,7 @@ export default function Talk() {
       // 状態 ------------------------------------------------------------------------
       case "何する選択肢":
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak
-              key={state}
-              strings="なにしてあそぶ？？"
-            />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings="なにしてあそぶ？？" />,
           PAUSE: "nml",
           USER: (
             <SelectAnswer
@@ -111,9 +111,7 @@ export default function Talk() {
           jankenText = "あいこで・・・";
         }
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak key={state} strings={jankenText} />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings={jankenText} />,
           PAUSE: "nml",
           USER: (
             <SelectAnswer
@@ -388,12 +386,7 @@ export default function Talk() {
           } else {
             setState = "単語の詳細3";
           }
-          items.push(
-            <TalkStateChange
-              key={keyPrep}
-              nextState={setState}
-            />
-          );
+          items.push(<TalkStateChange key={keyPrep} nextState={setState} />);
         }
         break;
       // 状態 ------------------------------------------------------------------------
@@ -550,12 +543,7 @@ export default function Talk() {
       // 状態 ------------------------------------------------------------------------
       case "最近覚えた単語4":
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak
-              key={state}
-              strings={"むーちゃんえらい？"}
-            />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings={"むーちゃんえらい？"} />,
           PAUSE: "nml",
           USER: (
             <SelectAnswer
@@ -623,9 +611,7 @@ export default function Talk() {
       // 状態 ------------------------------------------------------------------------
       case "褒める":
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak key={state} strings={"えへへー"} />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings={"えへへー"} />,
           PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
@@ -635,12 +621,7 @@ export default function Talk() {
       // 状態 ------------------------------------------------------------------------
       case "間違いを指摘":
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak
-              key={state}
-              strings={"ええっ！そうなの！？"}
-            />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings={"ええっ！そうなの！？"} />,
           PAUSE: "nml",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="気になる単語3" />
@@ -675,7 +656,9 @@ export default function Talk() {
           }
 
           setState = next_state[random(0, next_state.length - 1)];
-          console.log(setState)
+          console.log(setState);
+
+          rememberedTweet()
 
           switch (setState) {
             case "もっと教えてほしい":
@@ -749,18 +732,46 @@ export default function Talk() {
     <>
       <Head>
         <title>会話</title>
-        <meta name="viewport" property="og:content" content="width=device-width initial-scale=1.0 user-scalable=no" />
+        <meta
+          name="viewport"
+          property="og:content"
+          content="width=device-width initial-scale=1.0 user-scalable=no"
+        />
       </Head>
 
       <div className={styles.TalkBg}>
+        <div id="wrapper">
+          <nav id="global-navi">
+            <ul className="menu">
+              <li>
+                <Link href="/">
+                  <div className="click-area">TOP</div>
+                </Link>
+              </li>
+              <li>
+                <div className="click-area">
+                  <ModalExplan />
+                </div>
+              </li>
+              <li>
+                <div className="click-area">
+                  <ModalMuchan />
+                </div>
+              </li>
+              <li>
+                <a
+                  className="click-area"
+                  href="https://twitter.com/MuchanApp"
+                  target="_blank"
+                >
+                  Twitter
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
         <div className={styles.contentArea}>{content()}</div>
-
-          
-        <Link href="/">
-          <a>Back to home</a>
-        </Link>
       </div>
-
     </>
   );
 }

@@ -26,15 +26,14 @@ export default function Home() {
         <Link href="/talk">
           <a>
             <img src="images/top_page.png" />
-            <div>click to here</div>
+            <div>クリックしてね。</div>
           </a>
-          {/* <a>click to here</a> */}
         </Link>
-        <Link href="/summary">
+        {/* <Link href="/summary">
           <a>概要</a>
-        </Link>
+        </Link> */}
       </main>
-
+{/* 
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -44,7 +43,7 @@ export default function Home() {
           Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 }
