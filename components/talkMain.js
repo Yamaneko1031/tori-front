@@ -24,6 +24,7 @@ import {
   getTopicTaught,
   addWordTag1,
   addWordTag2,
+  deleteUnknown,
   rememberedTweet
 } from "reqests/word";
 // import { useTag1, useTag2 } from "reqests/word";
@@ -314,11 +315,20 @@ export default function TalkMain() {
           USER: (
             <SelectAnswer
               key="answer"
-              answerList={["わかる", "わからない", "そんな言葉は無い"]}
-              nextState={["気になる単語3", "気になる単語4", "そんな言葉は無い"]}
+              answerList={["わかる", "わからない", "そんな言葉は無いよ"]}
+              nextState={["気になる単語3", "気になる単語4", ""]}
             />
           )
         });
+        if (stateChangePreparation) {
+          deleteUnknown(answerText.targetWord)
+          items.push(
+            <TalkStateChange
+              key={keyPrep}
+              nextState="そんな言葉は無い"
+            />
+          );
+        }
         break;
       // 状態 ------------------------------------------------------------------------
       case "そんな言葉は無い":

@@ -31,7 +31,11 @@ function SelectAnswer(props) {
         key={cnt}
         onClick={function () {
           if (props.nextState) {
-            setState(props.nextState[cnt]);
+            if (props.nextState[cnt] == "") {
+              setStateChangePreparation(true);
+            } else {
+              setState(props.nextState[cnt]);
+            }
           } else {
             setStateChangePreparation(true);
           }

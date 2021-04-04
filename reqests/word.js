@@ -142,6 +142,21 @@ export async function addWordTag2(word, tag) {
   }
 }
 
+export async function deleteUnknown(word) {
+  let session_id = getCookieSessionId();
+  let response = await fetch(API_ROOT + "/unknown/" + word, {
+    method: "DELETE",
+    cache: "no-cache",
+    headers: {
+      "session-id": session_id
+    }
+  });
+  if (response.ok) {
+  } else {
+    console.error("HTTP-Error: " + response.status);
+  }
+}
+
 export async function rememberedTweet() {
   let session_id = getCookieSessionId();
   let response = await fetch(API_ROOT + "/remembered_tweet", {
