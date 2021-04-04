@@ -12,15 +12,13 @@ const isBrowser = () => typeof window !== "undefined"; // 今の環境がSSRか�
 export default function Home() {
   // 初期状態セット
   useEffect(() => {
-    // destroyCookie(null, 'session_id')
     getSessionId();
-    // console.log(document.cookie);
     return () => {};
   }, []);
 
   return (
     <div>
-      <Head />
+      <Head viewport = "width=device-width initial-scale=1.0" />
 
       <main className={styles.main}>
         <Link href="/talk">
@@ -29,9 +27,9 @@ export default function Home() {
             <div>クリックしてね。</div>
           </a>
         </Link>
-        {/* <Link href="/summary">
+        <Link href="/summary">
           <a>概要</a>
-        </Link> */}
+        </Link>
       </main>
 {/* 
       <footer className={styles.footer}>

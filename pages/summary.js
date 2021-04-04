@@ -16,7 +16,7 @@ import MuchanSpeak from "components/muchanSpeak";
 
 import { answerTextAtom } from "state/talkState";
 
-import { getWord } from "reqests/word";
+import { getWord, rememberedTweet } from "reqests/word";
 
 import { getTags, getTagRandom } from "reqests/tag";
 import { useTags } from "reqests/tag";
@@ -66,6 +66,7 @@ export default function Summary() {
   }
 
   async function changeState() {
+    rememberedTweet()
     // console.log("Call:Summary changeState");
     // setState(state+"1")
     // https://muchan-api-6gun3ieocq-an.a.run.app
@@ -123,6 +124,7 @@ export default function Summary() {
 
       {list_draw()}
 
+      <div onClick={changeState}>{"changeState"}</div>
       <div onClick={changeState1}>{"ボタン1"}</div>
       <div onClick={changeState2}>{"ボタン2"}</div>
 

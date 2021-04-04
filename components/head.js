@@ -16,7 +16,7 @@ export default function ({
   keyword = "オウム,むーちゃん,学習,言葉,覚える",
   url = "https://torichan.app",
   image = "https://torichan.app/images/top_page.png",
-  viewport = "width=device-width initial-scale=1.0 "
+  viewport = "width=device-width initial-scale=1.0"
 }) {
   return (
     <Head>

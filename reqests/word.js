@@ -149,7 +149,9 @@ export async function rememberedTweet() {
     cache: "no-cache",
     headers: {
       "session-id": session_id
-    }
+    },
+    body: JSON.stringify({
+    })
   });
   if (response.ok) {
   } else {

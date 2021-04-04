@@ -4,9 +4,10 @@
   position: relative;
   z-index: 100;
   max-width: 400px;
-  max-height: 660px;
+  max-height: 640px;
   /* width: 100vw; */
   width: 400px;
+  /* height: 660px; */
   /* height: calc(100vw*(660/400)); */
   height: 100vh;
   margin: auto;
