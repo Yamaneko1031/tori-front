@@ -1,0 +1,37 @@
+.globalNavi {
+  min-width: 400px;
+}
+
+.globalNavi ul {
+  background-color: rgba(0, 120, 0, 0.7);
+  display: block;
+  padding: 0px;
+  margin: 0;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.globalNavi li {
+  display: inline-block;
+  border-right: 1px solid #ccc;
+}
+
+.globalNavi li:first-child {
+  border-left: 1px solid #ccc;
+}
+
+.clickArea {
+  display: block;
+  padding: 0px 17px 0px 17px;
+  text-align: center;
+  letter-spacing: normal;
+  line-height: 36px;
+  color: #ececec;
+}
+
+.clickArea:hover {
+  background: #3fb669;
+  color: white;
+  cursor: pointer;
+}
