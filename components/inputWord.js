@@ -5,7 +5,10 @@ import { talkState, answerTextAtom } from "state/talkState";
 import { getWord } from "reqests/word";
 import styles from "styles/content.module.css";
 
+import { useTags } from "reqests/tag";
+
 function InputWord(props) {
+  // const { tags, isTagsLoading } = useTags();
   let items = [];
   let workText = "";
   const setState = useSetRecoilState(talkState);
@@ -19,7 +22,22 @@ function InputWord(props) {
     };
   });
 
+  // function tagCheck(word) {
+  //   for (let i = 0; i < tags.length; ++i) {
+  //     tags[i].find(function (data) {
+  //       if (word == data.word) {
+  //         return true;
+  //       }
+  //     });
+  //   }
+  //   return false;
+  // }
+
   async function onformSubmit(e) {
+    if( workText.length == 0 ) {
+      return
+    }
+    
     let response = await getWord(workText);
     console.log(response);
     if (response) {

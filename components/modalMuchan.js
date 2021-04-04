@@ -48,6 +48,12 @@ const ModalExplan = () => {
           クルマサカオウムのむーちゃん。
         </div>
         <div>
+          トサカに赤いハートマークがあるのが特徴。
+        </div>
+        <div>
+          蝶ネクタイがお気に入り。
+        </div>
+        <div>
           ５歳
         </div>
         <div>
@@ -56,6 +62,7 @@ const ModalExplan = () => {
         <div>
           じゃんけんが好き。
         </div>
+        <br />
         <div onClick={closeModal}>
           閉じる
         </div>

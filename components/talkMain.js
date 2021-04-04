@@ -326,7 +326,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"あれれ？<BR>そっかー。むーちゃんのかんちがいだったみたい！"}
+              strings={"あれれ？<BR>そっかー。<BR>むーちゃんのかんちがいだったみたい！"}
             />
           ),
           PAUSE: "nml",
@@ -687,7 +687,7 @@ export default function TalkMain() {
                 answerText.targetWord +
                 "は" +
                 answerText.targetMean +
-                "の事なんだね！"
+                "のことなんだね！"
               }
             />
           ),
