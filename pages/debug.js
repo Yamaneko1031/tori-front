@@ -18,8 +18,8 @@ import { answerTextAtom } from "state/talkState";
 
 import { getWord, rememberedTweet } from "reqests/word";
 
-import { getTags, getTagRandom } from "reqests/tag";
-import { useTags } from "reqests/tag";
+import { getTag, getTagChoices } from "reqests/tag";
+// import { useTags } from "reqests/tag";
 import { addWordTag1 } from "reqests/word";
 
 import useSWR from 'swr'
@@ -97,8 +97,18 @@ export default function Summary() {
   async function changeState1() {
     // testRequest();
     // let data = await getTags()
-    let data = await getTagRandom()
-    console.log("c"+data.word)
+    // let data = await getTagRandom()
+    // console.log("c"+data.word)
+
+    // let tags = await getTagChoices();
+    // let data = []
+    // for (let i = 0; i < tags.length; ++i) {
+    //   data.push(tags[i].text)
+    // }
+    // console.log(data);
+
+    let data = await getTag("かわいい")
+    console.log(data)
   }
 
   async function changeState2() {
@@ -153,58 +163,59 @@ export default function Summary() {
 }
 
 
-import { useCallback } from "react";
-import { atom, useRecoilCallback } from "recoil";
+// import { useCallback } from "react";
+// import { atom, useRecoilCallback } from "recoil";
+// import { tryGetPreviewData } from "next/dist/next-server/server/api-utils";
 
-const text = atom({
-  key: "inputMessage",
-  default: ""
-});
-function TextInput() {
-  const [value, setValue] = useRecoilState(text);
-  const handleChange = useCallback(
-    (event) => setValue(event.currentTarget.value),
-    []
-  );
-  return <input value={value} onChange={handleChange} />;
-}
+// const text = atom({
+//   key: "inputMessage",
+//   default: ""
+// });
+// function TextInput() {
+//   const [value, setValue] = useRecoilState(text);
+//   const handleChange = useCallback(
+//     (event) => setValue(event.currentTarget.value),
+//     []
+//   );
+//   return <input value={value} onChange={handleChange} />;
+// }
 
-const nextState = atom({
-  key: "nextState",
-  default: ""
-});
+// const nextState = atom({
+//   key: "nextState",
+//   default: ""
+// });
 
 
-let items = [];
-function TextSubmit() {
-  const [value, setValue] = useRecoilState(nextState);
-  items.push(<div>{"aaaa"}</div>)
-  function test() {
-    items.push(<div>{"aaaa"}</div>)
-    setValue(value+1)
-  }
-  const handleSubmit = useRecoilCallback(
-    ({ snapshot }) => async () => {
-      const value = await snapshot.getPromise(text); // text は非同期ではないため、実際には待たない
-      if (!value) return; // 入力のバリデーション（テキストが空だった）
-      let data = await getWord(value)
-      console.log(data)
-      items.push(<div>{data.mean}</div>)
-      // return <div>aaaa</div>
-      // await fetch(`/submit?value=${value}`); // なんらかの非同期処理を行うことができる
-    },
-    []
-  );
-  return (
-    <div>
-      <div>{value}</div>
-      {items}
-      <button onClick={handleSubmit}>Submit</button>
-      <button onClick={test}>add</button>
-    </div>
-  )
-  return <button onClick={handleSubmit}>Submit</button>;
-}
+// let items = [];
+// function TextSubmit() {
+//   const [value, setValue] = useRecoilState(nextState);
+//   items.push(<div>{"aaaa"}</div>)
+//   function test() {
+//     items.push(<div>{"aaaa"}</div>)
+//     setValue(value+1)
+//   }
+//   const handleSubmit = useRecoilCallback(
+//     ({ snapshot }) => async () => {
+//       const value = await snapshot.getPromise(text); // text は非同期ではないため、実際には待たない
+//       if (!value) return; // 入力のバリデーション（テキストが空だった）
+//       let data = await getWord(value)
+//       console.log(data)
+//       items.push(<div>{data.mean}</div>)
+//       // return <div>aaaa</div>
+//       // await fetch(`/submit?value=${value}`); // なんらかの非同期処理を行うことができる
+//     },
+//     []
+//   );
+//   return (
+//     <div>
+//       <div>{value}</div>
+//       {items}
+//       <button onClick={handleSubmit}>Submit</button>
+//       <button onClick={test}>add</button>
+//     </div>
+//   )
+//   return <button onClick={handleSubmit}>Submit</button>;
+// }
 
 
 // import { atom, selectorFamily, selector } from "recoil";

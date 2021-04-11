@@ -5,20 +5,45 @@ import { random } from "util/random";
 const API_ROOT = "https://muchan-api-6gun3ieocq-an.a.run.app";
 // const API_ROOT = "http://localhost:8000";
 
-const fetcher = url => fetch(url).then(r => r.json())
+// const fetcher = url => fetch(url).then(r => r.json())
 
-//ユーザー情報の取得
-export function useTags () {
-  const { data, error } = useSWR(API_ROOT + "/tags", fetcher)
-  return {
-    tags: data,
-    isLoading: !error && !data,
-    isError: error
+// //ユーザー情報の取得
+// export function useTags () {
+//   const { data, error } = useSWR(API_ROOT + "/tags", fetcher)
+//   return {
+//     tags: data,
+//     isLoading: !error && !data,
+//     isError: error
+//   }
+// }
+
+// export async function getTags() {
+//   let response = await fetch(API_ROOT + "/tags");
+//   let retData;
+//   if (response.ok) {
+//     retData = await response.json();
+//   } else {
+//     console.error("HTTP-Error: " + response.status);
+//     retData = false;
+//   }
+//   return retData;
+// }
+
+export async function getTag(tag) {
+  const query_params = new URLSearchParams({tag:tag}); 
+  let response = await fetch(API_ROOT + "/tag?" + query_params);
+  let retData;
+  if (response.ok) {
+    retData = await response.json();
+  } else {
+    console.error("HTTP-Error: " + response.status);
+    retData = false;
   }
+  return retData;
 }
 
-export async function getTags() {
-  let response = await fetch(API_ROOT + "/tags");
+export async function getTagChoices() {
+  let response = await fetch(API_ROOT + "/tag/choices");
   let retData;
   if (response.ok) {
     retData = await response.json();

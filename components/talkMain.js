@@ -22,14 +22,14 @@ import {
   getTopicWord,
   getTopicUnknown,
   getTopicTaught,
-  addWordTag1,
-  addWordTag2,
+  addWordTag,
   deleteUnknown,
   rememberedTweet
 } from "reqests/word";
 // import { useTag1, useTag2 } from "reqests/word";
 
-import { useTags } from "reqests/tag";
+// import { useTags } from "reqests/tag";
+import { getTag, getTagChoices } from "reqests/tag";
 // import { useSystemInfo } from "reqests/system";
 
 import styles from "styles/content.module.css";
@@ -41,7 +41,7 @@ export default function TalkMain() {
   const answerJanken = useRecoilValue(answerJankenAtom);
   const answerSelect = useRecoilValue(answerSelectAtom);
   const stateChangePreparation = useRecoilValue(talkStateChangePreparation);
-  const { tags, isTagsLoading } = useTags();
+  // const { tags, isTagsLoading } = useTags();
   // const { systemInfo, isSystemInfoLoading } = useSystemInfo();
 
   useEffect(() => {
@@ -49,6 +49,29 @@ export default function TalkMain() {
       setTalkState("開始");
     };
   }, []);
+
+  // 好み判定用
+  function getLikeText(pnt) {
+    const LIKE_TEXT = [
+      "嫌い！", // -5
+      "嫌い。", // -4
+      "苦手！", // -3
+      "苦手。", // -2
+      "あんまりなの。", // -1
+      "きらいじゃないの。", // 0
+      "ちょっと好き。", // 1
+      "好き。", // 2
+      "好き！", // 3
+      "大好き。", // 4
+      "大好き！" // 5
+    ];
+    if (-5 <= pnt && pnt <= 5) {
+      return LIKE_TEXT[pnt + 5];
+    } else {
+      console.error("pntが範囲外");
+      return "";
+    }
+  }
 
   // 基本設定登録用
   function setInteraction(interaction) {
@@ -149,7 +172,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={answerJanken.janken + "！！<br>・・・"}
+              strings={answerJanken.janken + "！<br>・・・"}
             />
           ),
           PAUSE: "nml",
@@ -168,7 +191,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"まけちゃった！！<BR>もういっかいやろー！"}
+              strings={"まけちゃった！<BR>もういっかいやろー！"}
             />
           ),
           PAUSE: "nml",
@@ -188,7 +211,7 @@ export default function TalkMain() {
             <MuchanSpeak
               key={state}
               strings={
-                "えへへー！！<BR>むーちゃんのかち！！<BR>もういっかいやろー！"
+                "えへへー！<BR>むーちゃんのかち！<BR>もういっかいやろー！"
               }
             />
           ),
@@ -205,14 +228,9 @@ export default function TalkMain() {
       // 状態 ------------------------------------------------------------------------
       case "お話する":
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak
-              key={state}
-              strings={"あのね。<br>ちょっと話をきいてほしいの。"}
-            />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings={"ねえねえ。"} />,
           PAUSE: "nml",
-          USER: <WaitTimer key="answer" setTime={1500} />
+          USER: <WaitTimer key="answer" setTime={1000} />
         });
         if (stateChangePreparation) {
           (async function () {
@@ -238,12 +256,12 @@ export default function TalkMain() {
                 } else {
                   setAnswer["targetWord"] = setAnswer["response"].word;
                   setAnswer["targetMean"] = setAnswer["response"].mean;
-                  setAnswer["picupKeiyousiTag"] = random(0, tags.length - 1);
-                  setAnswer["picupKeiyousi"] =
-                    tags[setAnswer["picupKeiyousiTag"]][
-                      random(0, tags[setAnswer["picupKeiyousiTag"]].length - 1)
-                    ].word;
-
+                  setAnswer["picupTag"] = await getTagChoices();
+                  setAnswer["picupTagChoices"] = [];
+                  setAnswer["picupTag"].forEach(function (elem, index) {
+                    setAnswer["picupTagChoices"].push(elem.text);
+                  });
+                  setAnswer["picupTagChoices"].push("そういうのではない");
                   setState = "単語の詳細1";
                 }
                 break;
@@ -290,7 +308,7 @@ export default function TalkMain() {
             <MuchanSpeak
               key={state}
               strings={
-                "さいきん聞いたことばなんだけど<BR>意味を教えてほしい言葉があるの。"
+                "さいきん聞いたことばなんだけど<BR>意味を教えてほしいの。"
               }
             />
           ),
@@ -321,12 +339,9 @@ export default function TalkMain() {
           )
         });
         if (stateChangePreparation) {
-          deleteUnknown(answerText.targetWord)
+          deleteUnknown(answerText.targetWord);
           items.push(
-            <TalkStateChange
-              key={keyPrep}
-              nextState="そんな言葉は無い"
-            />
+            <TalkStateChange key={keyPrep} nextState="そんな言葉は無い" />
           );
         }
         break;
@@ -336,7 +351,9 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"あれれ？<BR>そっかー。<BR>むーちゃんのかんちがいだったみたい！"}
+              strings={
+                "あれれ？<BR>そっかー。<BR>むーちゃんのかんちがいだったみたい！"
+              }
             />
           ),
           PAUSE: "nml",
@@ -390,7 +407,7 @@ export default function TalkMain() {
                 "「" +
                 answerText.targetWord +
                 "」って" +
-                answerText.picupKeiyousi +
+                answerText.picupTagChoices[0] +
                 "？"
               }
             />
@@ -399,32 +416,40 @@ export default function TalkMain() {
           USER: (
             <SelectAnswer
               key="answer"
-              answerList={[answerText.picupKeiyousi, "そういうのではない"]}
+              answerList={answerText.picupTagChoices}
             />
           )
         });
         if (stateChangePreparation) {
-          if (answerSelect == 0) {
-            switch (answerText.picupKeiyousiTag) {
-              case 0:
-                addWordTag1(answerText.targetWord, answerText.picupKeiyousi);
+          setAnswer = { ...answerText };
+          if (answerSelect === answerText.picupTagChoices.length - 1) {
+            setState = "単語の詳細3";
+          } else {
+            setAnswer["picupKeiyousi"] = answerText.picupTag[answerSelect].text;
+            setAnswer["picupKeiyousiPnt"] = answerText.picupTag[answerSelect].pnt;
+            switch (answerText.picupTag[answerSelect].part) {
+              case "形容詞":
                 setState = "単語の詳細2A";
                 break;
-              case 1:
-                addWordTag2(answerText.targetWord, answerText.picupKeiyousi);
+              case "形容動詞":
                 setState = "単語の詳細2B";
                 break;
               default:
                 console.error(
-                  "picupKeiyousiTag err:" + answerText.picupKeiyousiTag
+                  "picupKeiyousiTag err:" + setAnswer["picupKeiyousi"]
                 );
                 setState = "何する選択肢";
                 break;
             }
-          } else {
-            setState = "単語の詳細3";
+            addWordTag(answerText.targetWord, setAnswer["picupKeiyousi"]);
           }
-          items.push(<TalkStateChange key={keyPrep} nextState={setState} />);
+          items.push(
+            <TalkStateChange
+              key={keyPrep}
+              nextState={setState}
+              answer={setAnswer}
+            />
+          );
         }
         break;
       // 状態 ------------------------------------------------------------------------
@@ -438,13 +463,14 @@ export default function TalkMain() {
                 answerText.targetWord +
                 "」は" +
                 answerText.picupKeiyousi +
-                "んだね！！"
+                "んだね！"
               }
             />
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            // <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={1500} nextState="最近覚えた単語4_形容詞" />
           )
         });
         break;
@@ -459,13 +485,14 @@ export default function TalkMain() {
                 answerText.targetWord +
                 "」は" +
                 answerText.picupKeiyousi +
-                "なんだね！！"
+                "なんだね！"
               }
             />
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            // <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={1500} nextState="最近覚えた単語4_形容動詞" />
           )
         });
         break;
@@ -479,7 +506,7 @@ export default function TalkMain() {
                 "ふ～ん。<BR>「" +
                 answerText.targetWord +
                 "」は" +
-                answerText.picupKeiyousi +
+                answerText.picupTagChoices[0] +
                 "とかじゃないのかー。"
               }
             />
@@ -519,34 +546,43 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"「" + answerText.targetMean + "」のことだよ！！"}
+              strings={"「" + answerText.targetMean + "」のことだよ。"}
             />
           ),
           PAUSE: "nml",
           USER: <WaitTimer key="answer" setTime={1500} />
         });
         if (stateChangePreparation) {
-          let next_state1 = ["最近覚えた単語4"];
-          if (answerText.response.tag1.length) {
-            next_state1.push("最近覚えた単語3_形容詞");
-          }
-          if (answerText.response.tag2.length) {
-            next_state1.push("最近覚えた単語3_形容動詞");
-          }
-          items.push(
-            <TalkStateChange
-              key={keyPrep}
-              nextState={next_state1[random(0, next_state1.length - 1)]}
-            />
-          );
+          (async function () {
+            let next_state1 = ["最近覚えた単語4"];
+            if (answerText.response.tags.length) {
+              setAnswer = { ...answerText };
+              let part =
+                answerText.response.tags[
+                  random(0, answerText.response.tags.length - 1)
+                ];
+              let tag = await getTag(part);
+              setAnswer["picupKeiyousi"] = tag.text;
+              setAnswer["picupKeiyousiPnt"] = tag.pnt;
+              switch (tag.part) {
+                case "形容詞":
+                  next_state1.push("最近覚えた単語3_形容詞");
+                  break;
+                case "形容動詞":
+                  next_state1.push("最近覚えた単語3_形容動詞");
+                  break;
+                default:
+                  console.error("tag.part err");
+                  break;
+              }
+              setAnswerText(setAnswer);
+            }
+            setTalkState(next_state1[random(0, next_state1.length - 1)]);
+          })();
         }
         break;
       // 状態 ------------------------------------------------------------------------
       case "最近覚えた単語3_形容詞":
-        let keiyousi =
-          answerText.response.tag1[
-            random(0, answerText.response.tag1.length - 1)
-          ];
         items = setInteraction({
           MUCHAN: (
             <MuchanSpeak
@@ -555,7 +591,7 @@ export default function TalkMain() {
                 "「" +
                 answerText.targetWord +
                 "」って、" +
-                keiyousi +
+                answerText.picupKeiyousi +
                 "んだよ。"
               }
             />
@@ -565,17 +601,37 @@ export default function TalkMain() {
             <WaitTimer
               key="answer"
               setTime={1500}
-              nextState="最近覚えた単語4"
+              nextState="最近覚えた単語4_形容詞"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "最近覚えた単語4_形容詞":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "むーちゃん、" +
+                answerText.picupKeiyousi +
+                "のは" +
+                getLikeText(answerText.picupKeiyousiPnt)
+              }
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <WaitTimer
+              key="answer"
+              setTime={1500}
+              nextState="何する選択肢"
             />
           )
         });
         break;
       // 状態 ------------------------------------------------------------------------
       case "最近覚えた単語3_形容動詞":
-        let keiyoudousi =
-          answerText.response.tag2[
-            random(0, answerText.response.tag2.length - 1)
-          ];
         items = setInteraction({
           MUCHAN: (
             <MuchanSpeak
@@ -584,7 +640,7 @@ export default function TalkMain() {
                 "「" +
                 answerText.targetWord +
                 "」って、" +
-                keiyoudousi +
+                answerText.picupKeiyousi +
                 "なんだよ。"
               }
             />
@@ -594,11 +650,35 @@ export default function TalkMain() {
             <WaitTimer
               key="answer"
               setTime={1500}
-              nextState="最近覚えた単語4"
+              nextState="最近覚えた単語4_形容動詞"
             />
           )
         });
         break;
+        // 状態 ------------------------------------------------------------------------
+        case "最近覚えた単語4_形容動詞":
+          items = setInteraction({
+            MUCHAN: (
+              <MuchanSpeak
+                key={state}
+                strings={
+                  "むーちゃん、" +
+                  answerText.picupKeiyousi +
+                  "なのは" +
+                  getLikeText(answerText.picupKeiyousiPnt)
+                }
+              />
+            ),
+            PAUSE: "nml",
+            USER: (
+              <WaitTimer
+                key="answer"
+                setTime={1500}
+                nextState="何する選択肢"
+              />
+            )
+          });
+          break;
       // 状態 ------------------------------------------------------------------------
       case "最近覚えた単語4":
         items = setInteraction({
@@ -705,43 +785,47 @@ export default function TalkMain() {
           USER: <WaitTimer key="answer" setTime={1500} />
         });
         if (stateChangePreparation) {
-          let next_state = ["もっと教えてほしい", "単語の詳細1"];
+          (async function () {
+            let next_state = ["もっと教えてほしい", "単語の詳細1"];
 
-          // if (answerText.response.known) {
-          //   next_state.push("意味を知っている単語がある");
-          // }
-          if (answerText.response.unknown) {
-            next_state.push("意味を知らない単語がある");
-          }
+            // if (answerText.response.known) {
+            //   next_state.push("意味を知っている単語がある");
+            // }
+            if (answerText.response.unknown) {
+              next_state.push("意味を知らない単語がある");
+            }
 
-          setState = next_state[random(0, next_state.length - 1)];
-          console.log(setState);
+            setState = next_state[random(0, next_state.length - 1)];
+            console.log(setState);
 
-          rememberedTweet();
+            rememberedTweet();
 
-          switch (setState) {
-            case "もっと教えてほしい":
-              break;
-            case "単語の詳細1":
-              setAnswer["targetWord"] = answerText.targetWord;
-              setAnswer["picupKeiyousiTag"] = random(0, tags.length - 1);
-              setAnswer["picupKeiyousi"] =
-                tags[setAnswer["picupKeiyousiTag"]][
-                  random(0, tags[setAnswer["picupKeiyousiTag"]].length - 1)
-                ].word;
-              break;
-            case "意味を知らない単語がある":
-              setAnswer["targetWord"] = answerText.response.unknown.word;
-              break;
-          }
+            switch (setState) {
+              case "もっと教えてほしい":
+                break;
+              case "単語の詳細1":
+                setAnswer["targetWord"] = answerText.targetWord;
+                setAnswer["picupTag"] = await getTagChoices();
+                setAnswer["picupTagChoices"] = [];
+                setAnswer["picupTag"].forEach(function (elem, index) {
+                  setAnswer["picupTagChoices"].push(elem.text);
+                });
+                setAnswer["picupTagChoices"].push("そういうのではない");
 
-          items.push(
-            <TalkStateChange
-              key={keyPrep}
-              nextState={setState}
-              answer={setAnswer}
-            />
-          );
+                // setAnswer["picupKeiyousiTag"] = random(0, tags.length - 1);
+                // setAnswer["picupKeiyousi"] =
+                //   tags[setAnswer["picupKeiyousiTag"]][
+                //     random(0, tags[setAnswer["picupKeiyousiTag"]].length - 1)
+                //   ].word;
+                break;
+              case "意味を知らない単語がある":
+                setAnswer["targetWord"] = answerText.response.unknown.word;
+                break;
+            }
+
+            setAnswerText(setAnswer);
+            setTalkState(setState);
+          })();
         }
         break;
       // 状態 ------------------------------------------------------------------------

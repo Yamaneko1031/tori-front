@@ -104,6 +104,25 @@ export async function postWord(word, mean) {
   return retData;
 }
 
+export async function addWordTag(word, tag) {
+  let session_id = getCookieSessionId();
+  let response = await fetch(API_ROOT + "/word_tag_add", {
+    method: "PUT",
+    cache: "no-cache",
+    headers: {
+      "session-id": session_id
+    },
+    body: JSON.stringify({
+      word: word,
+      tag: tag
+    })
+  });
+  if (response.ok) {
+  } else {
+    console.error("HTTP-Error: " + response.status);
+  }
+}
+
 export async function addWordTag1(word, tag) {
   let session_id = getCookieSessionId();
   let response = await fetch(API_ROOT + "/word_tag_add1", {
