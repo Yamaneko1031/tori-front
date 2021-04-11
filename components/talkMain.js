@@ -2,6 +2,7 @@ import MuchanSpeak from "components/muchanSpeak";
 import SelectAnswer from "components/selectAnswer";
 import InputWord from "components/inputWord";
 import InputMean from "components/inputMean";
+import InputFeature from "components/inputFeature";
 import WaitTimer from "components/waitTimer";
 import TalkStateChange from "components/talkStateChange";
 import MuchanBody from "components/muchanBody";
@@ -22,6 +23,8 @@ import {
   getTopicWord,
   getTopicUnknown,
   getTopicTaught,
+  addWordGood,
+  addWordBad,
   addWordTag,
   deleteUnknown,
   rememberedTweet
@@ -230,11 +233,11 @@ export default function TalkMain() {
         items = setInteraction({
           MUCHAN: <MuchanSpeak key={state} strings={"ねえねえ。"} />,
           PAUSE: "nml",
-          USER: <WaitTimer key="answer" setTime={1000} />
+          USER: <WaitTimer key="answer" setTime={500} />
         });
         if (stateChangePreparation) {
           (async function () {
-            switch (random(0, 2)) {
+            switch (random(0, 3)) {
               case 0:
                 setAnswer["targetWord"] = (await getTopicUnknown()).word;
                 if (setAnswer["targetWord"]) {
@@ -275,6 +278,16 @@ export default function TalkMain() {
                   setState = "言葉を知らない";
                 }
                 break;
+              case 3:
+                setAnswer["response"] = await getTopicWord();
+                if (setAnswer["response"]) {
+                  setAnswer["targetWord"] = setAnswer["response"].word;
+                  setAnswer["targetMean"] = setAnswer["response"].mean;
+                  setState = "好きかどうか";
+                } else {
+                  setState = "言葉を知らない";
+                }
+                break;
               default:
                 console.error("想定外の値");
                 break;
@@ -283,6 +296,168 @@ export default function TalkMain() {
             setTalkState(setState);
           })();
         }
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "好きかどうか":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={"「" + answerText.targetWord + "」は好き？"}
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <SelectAnswer
+              key="answer"
+              answerList={["好き", "嫌い", "どちらでもない"]}
+            />
+          )
+        });
+        if (stateChangePreparation) {
+          switch (answerSelect) {
+            case 0: // 好き
+              addWordGood(answerText.targetWord);
+              setState = "好き選択";
+              break;
+            case 1: // 嫌い
+              addWordBad(answerText.targetWord);
+              setState = "嫌い選択";
+              break;
+            case 2: // どちらでもない
+              setState = "どちらでもない選択";
+              break;
+            default:
+              console.error(state + ":error");
+              break;
+          }
+          items.push(<TalkStateChange key={keyPrep} nextState={setState} />);
+        }
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "好き選択":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={"そうなんだ！<BR>どういうところが好きなの？"}
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <InputFeature
+              key="answer"
+              word={answerText.targetWord}
+              nextStateNg="何する選択肢"
+            />
+          )
+        });
+        if (stateChangePreparation) {
+          if (answerText.good_tag) {
+            switch (answerText.good_tag.part) {
+              case "形容詞":
+                setState = "特徴入力後_形容詞";
+                break;
+              case "形容動詞":
+                setState = "特徴入力後_形容動詞";
+                break;
+              default:
+                console.error(answerText.good_tag);
+                setState = "何する選択肢";
+                break;
+            }
+          } else {
+            setState = "特徴入力後_なし";
+          }
+          items.push(<TalkStateChange key={keyPrep} nextState={setState} />);
+        }
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "特徴入力後_形容詞":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "ふむふむ。<BR>むーちゃん" +
+                answerText.good_tag.text +
+                "の" +
+                getLikeText(answerText.good_tag.pnt)
+              }
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "特徴入力後_形容動詞":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "ふむふむ。<BR>むーちゃん" +
+                answerText.good_tag.text +
+                "なの" +
+                getLikeText(answerText.good_tag.pnt)
+              }
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "特徴入力後_なし":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={"ふむふむ。<BR>そーなんだ。<BR>ありがとー！"}
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "嫌い選択":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "そっかー。<BR>じゃあむーちゃんもあんまり好きじゃないかも！"
+              }
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "どちらでもない選択":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={"そっかー。<BR>むーちゃんも嫌いじゃないよ！"}
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+          )
+        });
         break;
       // 状態 ------------------------------------------------------------------------
       case "言葉を知らない":
@@ -426,13 +601,14 @@ export default function TalkMain() {
             setState = "単語の詳細3";
           } else {
             setAnswer["picupKeiyousi"] = answerText.picupTag[answerSelect].text;
-            setAnswer["picupKeiyousiPnt"] = answerText.picupTag[answerSelect].pnt;
+            setAnswer["picupKeiyousiPnt"] =
+              answerText.picupTag[answerSelect].pnt;
             switch (answerText.picupTag[answerSelect].part) {
               case "形容詞":
-                setState = "単語の詳細2A";
+                setState = "単語の詳細2_形容詞";
                 break;
               case "形容動詞":
-                setState = "単語の詳細2B";
+                setState = "単語の詳細2_形容動詞";
                 break;
               default:
                 console.error(
@@ -453,7 +629,7 @@ export default function TalkMain() {
         }
         break;
       // 状態 ------------------------------------------------------------------------
-      case "単語の詳細2A":
+      case "単語の詳細2_形容詞":
         items = setInteraction({
           MUCHAN: (
             <MuchanSpeak
@@ -470,12 +646,16 @@ export default function TalkMain() {
           PAUSE: "nml",
           USER: (
             // <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
-            <WaitTimer key="answer" setTime={1500} nextState="最近覚えた単語4_形容詞" />
+            <WaitTimer
+              key="answer"
+              setTime={1500}
+              nextState="最近覚えた単語4_形容詞"
+            />
           )
         });
         break;
       // 状態 ------------------------------------------------------------------------
-      case "単語の詳細2B":
+      case "単語の詳細2_形容動詞":
         items = setInteraction({
           MUCHAN: (
             <MuchanSpeak
@@ -492,7 +672,11 @@ export default function TalkMain() {
           PAUSE: "nml",
           USER: (
             // <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
-            <WaitTimer key="answer" setTime={1500} nextState="最近覚えた単語4_形容動詞" />
+            <WaitTimer
+              key="answer"
+              setTime={1500}
+              nextState="最近覚えた単語4_形容動詞"
+            />
           )
         });
         break;
@@ -622,11 +806,7 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer
-              key="answer"
-              setTime={1500}
-              nextState="何する選択肢"
-            />
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
         });
         break;
@@ -655,30 +835,26 @@ export default function TalkMain() {
           )
         });
         break;
-        // 状態 ------------------------------------------------------------------------
-        case "最近覚えた単語4_形容動詞":
-          items = setInteraction({
-            MUCHAN: (
-              <MuchanSpeak
-                key={state}
-                strings={
-                  "むーちゃん、" +
-                  answerText.picupKeiyousi +
-                  "なのは" +
-                  getLikeText(answerText.picupKeiyousiPnt)
-                }
-              />
-            ),
-            PAUSE: "nml",
-            USER: (
-              <WaitTimer
-                key="answer"
-                setTime={1500}
-                nextState="何する選択肢"
-              />
-            )
-          });
-          break;
+      // 状態 ------------------------------------------------------------------------
+      case "最近覚えた単語4_形容動詞":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "むーちゃん、" +
+                answerText.picupKeiyousi +
+                "なのは" +
+                getLikeText(answerText.picupKeiyousiPnt)
+              }
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+          )
+        });
+        break;
       // 状態 ------------------------------------------------------------------------
       case "最近覚えた単語4":
         items = setInteraction({
@@ -811,18 +987,11 @@ export default function TalkMain() {
                   setAnswer["picupTagChoices"].push(elem.text);
                 });
                 setAnswer["picupTagChoices"].push("そういうのではない");
-
-                // setAnswer["picupKeiyousiTag"] = random(0, tags.length - 1);
-                // setAnswer["picupKeiyousi"] =
-                //   tags[setAnswer["picupKeiyousiTag"]][
-                //     random(0, tags[setAnswer["picupKeiyousiTag"]].length - 1)
-                //   ].word;
                 break;
               case "意味を知らない単語がある":
                 setAnswer["targetWord"] = answerText.response.unknown.word;
                 break;
             }
-
             setAnswerText(setAnswer);
             setTalkState(setState);
           })();

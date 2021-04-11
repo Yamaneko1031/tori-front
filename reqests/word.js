@@ -104,6 +104,36 @@ export async function postWord(word, mean) {
   return retData;
 }
 
+export async function addWordGood(word) {
+  let session_id = getCookieSessionId();
+  let response = await fetch(API_ROOT + "/word_good/" + word, {
+    method: "PUT",
+    cache: "no-cache",
+    headers: {
+      "session-id": session_id
+    }
+  });
+  if (response.ok) {
+  } else {
+    console.error("HTTP-Error: " + response.status);
+  }
+}
+
+export async function addWordBad(word) {
+  let session_id = getCookieSessionId();
+  let response = await fetch(API_ROOT + "/word_bad/" + word, {
+    method: "PUT",
+    cache: "no-cache",
+    headers: {
+      "session-id": session_id
+    }
+  });
+  if (response.ok) {
+  } else {
+    console.error("HTTP-Error: " + response.status);
+  }
+}
+
 export async function addWordTag(word, tag) {
   let session_id = getCookieSessionId();
   let response = await fetch(API_ROOT + "/word_tag_add", {
@@ -118,14 +148,26 @@ export async function addWordTag(word, tag) {
     })
   });
   if (response.ok) {
+    // 合わせてツイートも呼んでおく
+    fetch(API_ROOT + "/tag_add_tweet", {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "session-id": session_id
+      },
+      body: JSON.stringify({
+        word: word,
+        tag: tag
+      })
+    });
   } else {
     console.error("HTTP-Error: " + response.status);
   }
 }
 
-export async function addWordTag1(word, tag) {
+export async function addWordTagText(word, text) {
   let session_id = getCookieSessionId();
-  let response = await fetch(API_ROOT + "/word_tag_add1", {
+  let response = await fetch(API_ROOT + "/word_tag_add_text", {
     method: "PUT",
     cache: "no-cache",
     headers: {
@@ -133,29 +175,17 @@ export async function addWordTag1(word, tag) {
     },
     body: JSON.stringify({
       word: word,
-      tag: tag
+      text: text
     })
   });
   if (response.ok) {
-  } else {
-    console.error("HTTP-Error: " + response.status);
-  }
-}
-
-export async function addWordTag2(word, tag) {
-  let session_id = getCookieSessionId();
-  let response = await fetch(API_ROOT + "/word_tag_add2", {
-    method: "PUT",
-    cache: "no-cache",
-    headers: {
-      "session-id": session_id
-    },
-    body: JSON.stringify({
-      word: word,
-      tag: tag
-    })
-  });
-  if (response.ok) {
+    let retData = await response.json();
+    console.log(retData);
+    if (retData["detail"] == "Tag not found.") {
+      retData = false;
+    } else {
+      return retData;
+    }
   } else {
     console.error("HTTP-Error: " + response.status);
   }
@@ -184,8 +214,7 @@ export async function rememberedTweet() {
     headers: {
       "session-id": session_id
     },
-    body: JSON.stringify({
-    })
+    body: JSON.stringify({})
   });
   if (response.ok) {
   } else {

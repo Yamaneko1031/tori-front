@@ -54,18 +54,6 @@ export async function getTagChoices() {
   return retData;
 }
 
-// export function useTag1(word) {
-//   fetch(API_ROOT + "/tag1/" + word, {
-//     method: "PUT"
-//   });
-// }
-
-// export function useTag2(word) {
-//   fetch(API_ROOT + "/tag2/" + word, {
-//     method: "PUT"
-//   });
-// }
-
 export async function getTagRandom() {
     const cookies = parseCookies();
     let index = 0
