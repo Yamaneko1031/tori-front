@@ -194,15 +194,15 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"まけちゃった！<BR>もういっかいやろー！"}
+              strings={"まけちゃった！"}
             />
           ),
-          PAUSE: "nml",
+          PAUSE: "shobon",
           USER: (
-            <SelectAnswer
+            <WaitTimer
               key="answer"
-              answerList={["もう一回", "お話する", "言葉を教える"]}
-              nextState={["じゃんけん", "お話する", "単語入力"]}
+              setTime={1500}
+              nextState="じゃんけん結果_もう一回"
             />
           )
         });
@@ -214,7 +214,28 @@ export default function TalkMain() {
             <MuchanSpeak
               key={state}
               strings={
-                "えへへー！<BR>むーちゃんのかち！<BR>もういっかいやろー！"
+                "えへへー！<BR>むーちゃんのかち！"
+              }
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <WaitTimer
+              key="answer"
+              setTime={1500}
+              nextState="じゃんけん結果_もう一回"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "じゃんけん結果_もう一回":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "もういっかいやろー！"
               }
             />
           ),
@@ -231,7 +252,7 @@ export default function TalkMain() {
       // 状態 ------------------------------------------------------------------------
       case "お話する":
         items = setInteraction({
-          MUCHAN: <MuchanSpeak key={state} strings={"ねえねえ。"} />,
+          MUCHAN: <MuchanSpeak key={state} strings={"ねえねえ。<BR>ちょっと話を聞いてほしいの。"} />,
           PAUSE: "nml",
           USER: <WaitTimer key="answer" setTime={500} />
         });

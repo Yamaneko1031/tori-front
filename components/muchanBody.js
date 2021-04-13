@@ -25,11 +25,13 @@ function MuchanBody(props) {
   }, [state, start]);
 
   let MUCHAN_IMAGE = {
-    nomal: ["images/muchan_nomal_close.png", "images/muchan_nomal_open.png"],
-    happy: ["images/muchab_happy.png", "images/muchab_happy.png"],
     nml: ["images/muchan_nml1.png", "images/muchan_nml2.png"],
-    deko: ["images/muchan_deko1.png", "images/muchan_deko2.png"],
-    gaku: ["images/muchan_gaku1.png", "images/muchan_gaku2.png"],
+    happy: ["images/muchan_happy1.png", "images/muchan_happy2.png"],
+    kasige: ["images/muchan_kasige1.png", "images/muchan_kasige2.png"],
+    shobon: ["images/muchan_shobon1.png", "images/muchan_shobon2.png"],
+    suprise: ["images/muchan_suprise1.png", "images/muchan_suprise2.png"],
+    think: ["images/muchan_think1.png", "images/muchan_think2.png"],
+    doya: ["images/muchan_doya1.png", "images/muchan_doya2.png"],
   };
 
   let value = props.pause;
@@ -37,6 +39,11 @@ function MuchanBody(props) {
     value = "nomal";
     console.error("MuchanBody:pause undefined");
   }
+
+  let items = [];
+  MUCHAN_IMAGE.forEach(function (elem, index) {
+    setAnswer["picupTagChoices"].push(elem.text);
+  });
 
   return (
     <>
