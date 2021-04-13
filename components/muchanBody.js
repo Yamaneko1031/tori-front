@@ -29,29 +29,40 @@ function MuchanBody(props) {
     happy: ["images/muchan_happy1.png", "images/muchan_happy2.png"],
     kasige: ["images/muchan_kasige1.png", "images/muchan_kasige2.png"],
     shobon: ["images/muchan_shobon1.png", "images/muchan_shobon2.png"],
-    suprise: ["images/muchan_suprise1.png", "images/muchan_suprise2.png"],
+    suprise: ["images/muchan_surprise1.png", "images/muchan_surprise2.png"],
     think: ["images/muchan_think1.png", "images/muchan_think2.png"],
-    doya: ["images/muchan_doya1.png", "images/muchan_doya2.png"],
+    doya: ["images/muchan_doya1.png", "images/muchan_doya2.png"]
   };
 
   let value = props.pause;
   if (MUCHAN_IMAGE[value] === undefined) {
-    value = "nomal";
+    value = "nml";
     console.error("MuchanBody:pause undefined");
   }
 
   let items = [];
-  MUCHAN_IMAGE.forEach(function (elem, index) {
-    setAnswer["picupTagChoices"].push(elem.text);
+  //オブジェクトの全要素を処理する
+  Object.keys(MUCHAN_IMAGE).forEach(function (key) {
+    if (key == value) {
+      items.push(
+        <img key={key+"1"} className={styles.charaSize} src={MUCHAN_IMAGE[key][0]} />
+      );
+      items.push(
+        <div key={key+"2"} className={state ? styles.charaFront2 : styles.charaFront1}>
+          <img className={styles.charaSize} src={MUCHAN_IMAGE[key][1]} />
+        </div>
+      );
+    } else {
+      items.push(
+        <img key={key} className={styles.charaSizeClr} src={MUCHAN_IMAGE[key][0]} />
+      );
+    }
   });
 
   return (
     <>
       <div className={styles.charaBack}>
-        <img className={styles.charaSize} src={MUCHAN_IMAGE[value][0]} />
-        <div className={state ? styles.charaFront2 : styles.charaFront1}>
-          <img className={styles.charaSize} src={MUCHAN_IMAGE[value][1]} />
-        </div>
+        {items}
       </div>
     </>
   );

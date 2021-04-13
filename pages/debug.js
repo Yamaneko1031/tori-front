@@ -20,7 +20,7 @@ import { getWord, rememberedTweet } from "reqests/word";
 
 import { getTag, getTagChoices } from "reqests/tag";
 // import { useTags } from "reqests/tag";
-import { addWordTag1 } from "reqests/word";
+// import { addWordTag1 } from "reqests/word";
 
 import useSWR from 'swr'
 
@@ -113,7 +113,7 @@ export default function Summary() {
 
   async function changeState2() {
     // useTag1("すごい")
-    addWordTag1("リモコン", "硬い")
+    // addWordTag1("リモコン", "硬い")
     // console.log("0:" + session_id);
     // session_id = data["session_id"];
     // // settest(data["session_id"]);
