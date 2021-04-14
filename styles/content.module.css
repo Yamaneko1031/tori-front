@@ -4,12 +4,14 @@
   position: relative;
   z-index: 100;
   max-width: 400px;
-  max-height: 640px;
+  min-height: 640px;
+  max-height: 790px;
   /* width: 100vw; */
   width: 400px;
   /* height: 660px; */
   /* height: calc(100vw*(660/400)); */
-  height: 100vh;
+  /* height: 640px; */
+  height: 90vh;
   margin: auto;
   /* top: 5px; */
   background: url("../public/images/scene2.png") no-repeat;
@@ -47,8 +49,8 @@
 .charaBack {
   position: absolute;
   z-index: 10;
-  top: 29%;
-  left: 13%;
+  top: 174px;
+  left: 7%;
 }
 
 .charaFront1 {
