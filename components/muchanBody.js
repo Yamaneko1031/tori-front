@@ -33,6 +33,7 @@ function MuchanBody(props) {
     think: ["images/muchan_think1.png", "images/muchan_think2.png"],
     doya: ["images/muchan_doya1.png", "images/muchan_doya2.png"]
   };
+  let branchImage = "images/branch.png"
 
   let value = props.pause;
   if (MUCHAN_IMAGE[value] === undefined) {
@@ -61,6 +62,7 @@ function MuchanBody(props) {
 
   return (
     <>
+      <img className={styles.branch} src={branchImage} />
       <div className={styles.charaBack}>
         {items}
       </div>

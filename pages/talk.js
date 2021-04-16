@@ -15,7 +15,7 @@ export default function Talk() {
 
   return (
     <>
-      <Head title = "会話" viewport = "width=device-width initial-scale=1.0" />
+      <Head title = "会話" viewport = "width=420 initial-scale=1 maximum-scale=1" />
 
       <div className={styles.TalkBg}>
         <Menu />

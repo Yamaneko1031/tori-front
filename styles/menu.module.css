@@ -1,5 +1,5 @@
 .globalNavi {
-  min-width: 400px;
+  min-width: 420px;
 }
 
 .globalNavi ul {
@@ -23,7 +23,7 @@
 
 .clickArea {
   display: block;
-  padding: 0px 17px 0px 17px;
+  padding: 0px 20px 0px 20px;
   text-align: center;
   letter-spacing: normal;
   line-height: 36px;

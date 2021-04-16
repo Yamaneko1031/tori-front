@@ -243,7 +243,7 @@ export default function TalkMain() {
             />
           ),
           PAUSE: "nml",
-          USER: <WaitTimer key="answer" setTime={500} />
+          USER: <WaitTimer key="answer" setTime={1500} />
         });
         if (stateChangePreparation) {
           (async function () {
@@ -1066,8 +1066,8 @@ export default function TalkMain() {
   }
 
   return (
-    <>
+    <div  className={styles.contentAreaParent}>
       <div className={styles.contentArea}>{content()}</div>
-    </>
+    </div>
   );
 }

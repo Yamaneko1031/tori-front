@@ -21,6 +21,7 @@ import { getWord, rememberedTweet } from "reqests/word";
 import { getTag, getTagChoices } from "reqests/tag";
 // import { useTags } from "reqests/tag";
 // import { addWordTag1 } from "reqests/word";
+import styles from "styles/debug.module.css";
 
 import useSWR from 'swr'
 
@@ -107,8 +108,9 @@ export default function Summary() {
     // }
     // console.log(data);
 
-    let data = await getTag("かわいい")
-    console.log(data)
+    // let data = await getTag("かわいい")
+    // console.log(data)
+
   }
 
   async function changeState2() {
@@ -118,6 +120,10 @@ export default function Summary() {
     // session_id = data["session_id"];
     // // settest(data["session_id"]);
     // console.log("3:" + session_id);
+    console.log(window.innerHeight)
+    console.log(window.clientHeight)
+    console.log(window.scrollHeight)
+    console.log(window.offsetHeight　)
   }
 
   let title = "学習オウム むーちゃん summary";
@@ -130,34 +136,44 @@ export default function Summary() {
   return (
     <>
       <Head title={title} description={description} />
-      <h1>使い方</h1>
+      <div className={styles.contentArea}>
+        {/* <h1>使い方</h1> */}
 
-      {list_draw()}
+        <div className={styles.hukidasi}>
+          あああああああああああああああああああああああああああああああああああああああああああああああ
+        </div>
+        <div className={styles.charaBack}>
+          <img className={styles.branch} src={"images/branch.png"} />
+          <img className={styles.chara} src={"images/muchan_nml1.png"} />
+        </div>
 
-      <div onClick={changeState}>{"changeState"}</div>
-      <div onClick={changeState1}>{"ボタン1"}</div>
-      <div onClick={changeState2}>{"ボタン2"}</div>
+        {list_draw()}
 
-      {/* <a href="https://twitter.com/MuchanApp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @MuchanApp</a> */}
-        {/* <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
-      {/* <InputAnswer /> */}
+        {/* <div onClick={changeState}>{"changeState"}</div>
+        <div onClick={changeState1}>{"ボタン1"}</div>
+        <div onClick={changeState2}>{"ボタン2"}</div> */}
 
-      {/* <MuchanSpeak
-        pause="nomal"
-        strings="こんにちわ！あそｄふぁおｄふぁｊｄふぃあじぇいあじｄｊふぃあｊｄ"
-      /> */}
+        {/* <a href="https://twitter.com/MuchanApp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @MuchanApp</a> */}
+          {/* <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
+        {/* <InputAnswer /> */}
 
-      <div>{answerText}</div>
+        {/* <MuchanSpeak
+          pause="nomal"
+          strings="こんにちわ！あそｄふぁおｄふぁｊｄふぃあじぇいあじｄｊふぃあｊｄ"
+        /> */}
 
-      {/* <MyComponent /> */}
-      {/* <TextInput />
-      <TextSubmit /> */}
+        {/* <div>{answerText}</div> */}
 
-      <h2>
-        <Link href="/">
-          <a>Back to home</a>
-        </Link>
-      </h2>
+        {/* <MyComponent /> */}
+        {/* <TextInput />
+        <TextSubmit /> */}
+
+        {/* <h2>
+          <Link href="/">
+            <a>Back to home</a>
+          </Link>
+        </h2> */}
+      </div>
     </>
   );
 }
