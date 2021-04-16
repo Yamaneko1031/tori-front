@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 38px);
+  height: calc(100vh - 38px - 40px);
 }
 
 .contentArea {
@@ -14,7 +14,7 @@
   min-height: 640px;
   max-height: 830px;
   width: 420px;
-  height: calc(100vh - 38px);
+  height: calc(100vh - 38px - 40px);
   /* width: 100vw; */
   /* height: 660px; */
   /* height: calc(100vw*(660/400)); */
@@ -23,6 +23,7 @@
   margin: auto;
   background: url("../public/images/content_back.png") no-repeat;
   /* background-size: 100% auto; */
+  overflow:hidden;
 }
 
 .sceneImage {

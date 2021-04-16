@@ -995,7 +995,9 @@ export default function TalkMain() {
             setState = next_state[random(0, next_state.length - 1)];
             console.log(setState);
 
-            rememberedTweet();
+            if (answerText.response.create.cnt == 1) {
+              rememberedTweet();
+            }
 
             await sleep(100);
             switch (setState) {
@@ -1066,7 +1068,7 @@ export default function TalkMain() {
   }
 
   return (
-    <div  className={styles.contentAreaParent}>
+    <div className={styles.contentAreaParent}>
       <div className={styles.contentArea}>{content()}</div>
     </div>
   );

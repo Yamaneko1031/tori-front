@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Head from "components/head";
 import { useEffect } from "react";
-import styles from "../styles/toppage.module.css";
+// import styles from "../styles/toppage.module.css";
+import Menu from "components/menu";
+import TalkMain from "components/talkMain";
+import styles from "styles/content.module.css";
 
 import { getSessionId } from "reqests/word";
 
@@ -14,7 +17,13 @@ export default function Home() {
 
   return (
     <div>
-      <Head viewport="width=device-width initial-scale=1.0" />
+      <Head title = "会話" viewport = "width=420" />
+
+      <div className={styles.TalkBg}>
+        <Menu />
+        <TalkMain />
+      </div>
+      {/* <Head viewport="width=device-width initial-scale=1.0" />
 
       <div className={styles.clickArea}>
         <Link href="/talk">
@@ -23,7 +32,7 @@ export default function Home() {
             <div>クリックしてね。</div>
           </a>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }
