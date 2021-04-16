@@ -67,7 +67,7 @@
 .charaTouch {
   position: absolute;
   z-index: 20;
-  border: 1px solid #000000;
+  /* border: 1px solid #000000; */
   width: 50%;
   height: 70%;
   top: 70px;
