@@ -11,6 +11,7 @@
     "next": "10.0.9",
     "nookies": "^2.5.2",
     "react": "17.0.1",
+    "react-div-100vh": "^0.6.0",
     "react-dom": "17.0.1",
     "react-modal": "^3.12.1",
     "recoil": "^0.1.3",

@@ -1,8 +1,16 @@
+.TalkBg {
+  background-image: url("../public/images/BG24a_80.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  /* min-height: 100vh; */
+  min-width: 420px;
+}
+
 .contentAreaParent {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 38px - 40px);
+  height: calc(100vh - 38px);
 }
 
 .contentArea {
@@ -14,15 +22,9 @@
   min-height: 640px;
   max-height: 830px;
   width: 420px;
-  height: calc(100vh - 38px - 40px);
-  /* width: 100vw; */
-  /* height: 660px; */
-  /* height: calc(100vw*(660/400)); */
-  /* height: 640px; */
-  /* top: 5px; */
+  height: calc(100vh - 38px);
   margin: auto;
   background: url("../public/images/content_back.png") no-repeat;
-  /* background-size: 100% auto; */
   overflow:hidden;
 }
 
@@ -44,7 +46,6 @@
 }
 
 .hukidasiText {
-  /* font-size: 1.2rem; */
   font-size: 18px;
   position: absolute;
   padding-top: 8%;
@@ -140,12 +141,10 @@
 .btnInputOk {
   position: relative;
   font-weight: bold;
-  /* padding: 0.25em 0.5em; */
   text-decoration: none;
   color: #ececec;
   background: #259e4f;
   transition: 0.2s;
-  /* margin-top: 5px; */
   margin-right: 5px;
   padding: 1.0em 0em;
   border-radius: 5px;
@@ -159,13 +158,4 @@
   background: #3fb669;
   color: white;
   cursor: pointer;
-}
-
-
-.TalkBg {
-  background-image: url("../public/images/BG24a_80.jpg");
-  background-size: cover;
-  background-position: 50% 50%;
-  min-height: 100vh;
-  min-width: 420px;
 }
