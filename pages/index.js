@@ -20,13 +20,10 @@ export default function Home() {
     <div>
       <Head title = "会話" viewport = "width=420" />
 
-      <Div100vh>
-        <div className={styles.TalkBg}>
-          <Menu />
-          <TalkMain />
-        </div>
-      </Div100vh>
-      
+      <div className={styles.TalkBg}>
+        <TalkMain />
+      </div>
+
       {/* <Head viewport="width=device-width initial-scale=1.0" />
 
       <div className={styles.clickArea}>

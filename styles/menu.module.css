@@ -1,9 +1,13 @@
 .globalNavi {
-  min-width: 420px;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  /* min-width: 420px; */
 }
 
 .globalNavi ul {
-  background-color: rgba(0, 120, 0, 0.7);
+  background-color: rgba(0, 120, 0, 0.8);
+  /* background-color: #259e4f; */
   display: block;
   padding: 0px;
   margin: 0;
@@ -23,7 +27,7 @@
 
 .clickArea {
   display: block;
-  padding: 0px 30px 0px 30px;
+  padding: 0px 20px 0px 20px;
   text-align: center;
   letter-spacing: normal;
   line-height: 36px;

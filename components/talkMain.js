@@ -16,6 +16,8 @@ import { answerTextAtom } from "state/talkState";
 import { answerSelectAtom } from "state/talkState";
 import { answerJankenAtom } from "state/talkState";
 import { talkStateChangePreparation } from "state/talkState";
+import Menu from "components/menu";
+import Div100vh from 'react-div-100vh'
 
 import { random } from "util/random";
 import {
@@ -1068,8 +1070,11 @@ export default function TalkMain() {
   }
 
   return (
-    <div className={styles.contentAreaParent}>
-      <div className={styles.contentArea}>{content()}</div>
-    </div>
+    <Div100vh>
+      <div className={styles.contentArea}>
+        <Menu />
+        <div>{content()}</div>
+      </div>
+    </Div100vh>
   );
 }

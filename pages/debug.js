@@ -24,6 +24,7 @@ import { getTag, getTagChoices } from "reqests/tag";
 import styles from "styles/debug.module.css";
 
 import useSWR from 'swr'
+import Div100vh from 'react-div-100vh'
 
 let session_id = "";
 
@@ -136,10 +137,16 @@ export default function Summary() {
   return (
     <>
       <Head title={title} description={description} />
-      <div className={styles.contentArea}>
+      
+      <Div100vh>
+        <div className={styles.contentArea}>
+          あああ
+        </div>
+      </Div100vh>
+      {/* <div className={styles.contentArea}> */}
         {/* <h1>使い方</h1> */}
 
-        <div className={styles.hukidasi}>
+        {/* <div className={styles.hukidasi}>
           あああああああああああああああああああああああああああああああああああああああああああああああ
         </div>
         <div className={styles.charaBack}>
@@ -147,7 +154,7 @@ export default function Summary() {
           <img className={styles.chara} src={"images/muchan_nml1.png"} />
         </div>
 
-        {list_draw()}
+        {list_draw()} */}
 
         {/* <div onClick={changeState}>{"changeState"}</div>
         <div onClick={changeState1}>{"ボタン1"}</div>
@@ -173,7 +180,7 @@ export default function Summary() {
             <a>Back to home</a>
           </Link>
         </h2> */}
-      </div>
+      {/* </div> */}
     </>
   );
 }
