@@ -64,6 +64,16 @@
   top: 185px
 }
 
+.charaTouch {
+  position: absolute;
+  z-index: 20;
+  border: 1px solid #000000;
+  width: 50%;
+  height: 70%;
+  top: 70px;
+  left: 130px;
+}
+
 .charaBack {
   position: absolute;
   z-index: 10;
