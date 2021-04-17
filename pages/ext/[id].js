@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import TalkStateChange from "components/talkStateChange";
 import { talkState } from "state/talkState";
 import { getTemp } from "reqests/word";
+import Head from "components/head";
 
 export default function TempId() {
   const router = useRouter();
