@@ -244,6 +244,21 @@ export async function getSessionId() {
   }
 }
 
+export async function getTemp(id) {
+  let response = await fetch(API_ROOT + "/word_temp/" + id);
+  if (response.ok) {
+    let jsonData = await response.json();
+    if (jsonData.detail == "Temp not found.") {
+      return false;
+    } else {
+      return jsonData;
+    }
+  } else {
+    console.error("HTTP-Error: " + response.status);
+    return false;
+  }
+}
+
 // export async function getSessionId() {
 //   if (typeof window !== "undefined") {
 //     let session_id = getCookieSessionId()
