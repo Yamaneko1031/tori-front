@@ -21,7 +21,7 @@ export default function TempId() {
           case "意味":
             setAnswer["targetWord"] = data.word
             setAnswerText(setAnswer);
-            setTalkState("気になる単語3");
+            setTalkState("意味を教えに来た");
             break;
           case "食べ物":
             setTalkState("じゃんけん");

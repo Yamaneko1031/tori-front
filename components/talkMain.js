@@ -1068,7 +1068,7 @@ export default function TalkMain() {
             <MuchanSpeak
               key={state}
               strings={
-                "わーい！<BR>ことばを教えに来てくれた！"
+                "わーい！<BR>ことばを教えに来てくれたー！"
               }
             />
           ),
