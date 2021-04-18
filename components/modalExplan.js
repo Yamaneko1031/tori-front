@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
+import styles from "styles/modal.module.css";
 
 const customStyles = {
   overlay: {
@@ -39,34 +40,30 @@ const ModalExplan = () => {
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        style={customStyles}
+        className={styles.modal}
+        overlayClassName={styles.modalOverlay}
         contentLabel="Example Modal"
         ariaHideApp={false}
       >
-        <h2>説明</h2>
-        <div>
+        <div className={styles.drawArea}>
+          <h2>説明</h2>
+          <p>
             むーちゃんは人の言葉に興味津々です。
-        </div>
-        <div>
+            <br />
             是非むーちゃんに言葉を教えてあげてください。
-        </div>
-        <br />
-        <div>
-            分からない言葉が多くて、たくさん質問されるかもしれませんが、
-        </div>
-        <div>
-            怒らないで優しく対応してあげてください。
-        </div>
-        <br />
-        <div>
+            <br />
+            <br />
+            分からない言葉が多くて、たくさん質問されるかもしれませんが、怒らないで優しく対応してあげてください。
+            <br />
+            <br />
             むーちゃんは新しい言葉を覚えると嬉しくてtwitterで呟いたりします。
-        </div>
-        <div>
+            <br />
+            <br />
             人を傷つけるような言葉は教えないようお願いします。
-        </div>
-        <br />
-        <div onClick={closeModal}>
-          閉じる
+          </p>
+          <div className={styles.btnClose} onClick={closeModal}>
+            ×
+          </div>
         </div>
       </Modal>
     </div>

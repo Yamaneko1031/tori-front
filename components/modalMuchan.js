@@ -1,20 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-
-const customStyles = {
-  overlay: {
-    zIndex: 200,
-    backgroundColor: "rgba(0,0,0,0.70)"
-  },
-  content: {
-    top: "20%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
-  }
-};
+import styles from "styles/modal.module.css";
 
 const ModalExplan = () => {
   var subtitle;
@@ -39,32 +25,36 @@ const ModalExplan = () => {
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        style={customStyles}
+        // style={customStyles}
+        className={styles.modal}
+        overlayClassName={styles.modalOverlay}
         contentLabel="Example Modal"
         ariaHideApp={false}
       >
-        <h2>むーちゃんについて</h2>
-        <div>
-          クルマサカオウムのむーちゃん。
-        </div>
-        <div>
-          トサカに赤いハートマークがあるのが特徴。
-        </div>
-        <div>
-          蝶ネクタイがお気に入り。
-        </div>
-        <div>
-          ５歳
-        </div>
-        <div>
-          オーストラリア生まれ。
-        </div>
-        <div>
-          じゃんけんが好き。
-        </div>
-        <br />
-        <div onClick={closeModal}>
-          閉じる
+        <div className={styles.drawArea}>
+          <p className={styles.name}>名前：むーちゃん</p>
+          <img className={styles.image} src="images/muchan_prof.png"></img>
+          <p className={styles.profile1}>
+            種別：クルマサカオウム
+            <br />
+            出身：オーストラリア
+            <br />
+            年齢：５才
+          </p>
+          <p className={styles.intro}>紹介</p>
+          <p className={styles.profile2}>
+            蝶ネクタイがお気に入り。
+            <br />
+            じゃんけんが好き。
+            <br />
+            頭を撫でられるとうれしい。
+            <br />
+            顔をさわられるのは苦手。
+          </p>
+          <br />
+          <div className={styles.btnClose} onClick={closeModal}>
+            ×
+          </div>
         </div>
       </Modal>
     </div>

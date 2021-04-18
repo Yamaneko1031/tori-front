@@ -55,15 +55,15 @@ export default function TalkMain() {
   function getLikeText(pnt) {
     const LIKE_TEXT = [
       "嫌い！", // -5
-      "嫌い。", // -4
-      "苦手！", // -3
+      "苦手！", // -4
+      "苦手。", // -3
       "苦手。", // -2
       "あんまりなの。", // -1
       "きらいじゃないの。", // 0
       "ちょっと好き。", // 1
       "好き。", // 2
-      "好き！", // 3
-      "大好き。", // 4
+      "好き。", // 3
+      "好き！", // 4
       "大好き！" // 5
     ];
     if (-5 <= pnt && pnt <= 5) {
@@ -360,7 +360,7 @@ export default function TalkMain() {
             <InputFeature
               key="answer"
               word={answerText.targetWord}
-              nextStateNg="何する選択肢"
+              nextStateNg="キャンセル"
             />
           )
         });
@@ -564,7 +564,7 @@ export default function TalkMain() {
               key="answer"
               word={answerText.targetWord}
               nextState="意味入力後"
-              nextStateNg="何する選択肢"
+              nextStateNg="キャンセル"
             />
           )
         });
@@ -907,7 +907,7 @@ export default function TalkMain() {
               key="answer"
               nextStateKnown="単語入力後知っている単語分岐"
               nextStateUnknown="単語入力後知らない単語分岐"
-              nextStateNg="何する選択肢"
+              nextStateNg="キャンセル"
             />
           )
         });
@@ -1075,6 +1075,23 @@ export default function TalkMain() {
           PAUSE: "happy",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="気になる単語3" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "キャンセル":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "あれ？？"
+              }
+            />
+          ),
+          PAUSE: "kasige",
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
           )
         });
         break;

@@ -7,32 +7,32 @@ import styles from "styles/content.module.css";
 
 function MuchanBody(props) {
   const [state, setState] = useState(false);
-  const [stateTouch, setStateTouch] = useState(false);
+  const [stateTouch, setStateTouch] = useState(0);
   const start = useRecoilValue(typewriteStateStart);
 
   useEffect(() => {
     if (start) {
       console.log("useEffect:typewriteState=" + start);
-      let setTime = random(20, 100);
+      let setTime = random(40, 120);
       const timer = setInterval(() => {
         setState(!state);
       }, setTime);
-      setStateTouch(false);
+      setStateTouch(0);
       return () => {
         clearInterval(timer);
       };
     } else {
       if (stateTouch) {
-        let setTimeTouch = random(1000, 3000);
+        let setTimeTouch = random(1000, 1000);
         const timerTouch = setInterval(() => {
-          setStateTouch(false);
+          setStateTouch(0);
         }, setTimeTouch);
         return () => {
           clearInterval(timerTouch);
         };
       }
 
-      setState(false);
+      setState(0);
     }
   }, [state, start, stateTouch]);
 
@@ -53,14 +53,36 @@ function MuchanBody(props) {
     console.error("MuchanBody:pause undefined");
   }
 
-  if (stateTouch) {
-    value = "kasige";
+  let kuchi = state
+
+  switch (stateTouch) {
+    case 1:
+      value = "happy";
+      kuchi = true
+      break;
+    case 2:
+      value = "suprise";
+      kuchi = true
+      break;
+    case 3:
+      value = "kasige";
+      kuchi = false
+      break;
   }
 
-  function touch() {
+  function touchPos1() {
     if (!stateTouch && !start) {
-      console.log("touch");
-      setStateTouch(true);
+      setStateTouch(1);
+    }
+  }
+  function touchPos2() {
+    if (!stateTouch && !start) {
+      setStateTouch(2);
+    }
+  }
+  function touchPos3() {
+    if (!stateTouch && !start) {
+      setStateTouch(3);
     }
   }
 
@@ -78,7 +100,7 @@ function MuchanBody(props) {
       items.push(
         <div
           key={key + "2"}
-          className={state ? styles.charaFront2 : styles.charaFront1}
+          className={kuchi ? styles.charaFront2 : styles.charaFront1}
         >
           <img className={styles.charaSize} src={MUCHAN_IMAGE[key][1]} />
         </div>
@@ -99,7 +121,9 @@ function MuchanBody(props) {
       <img className={styles.branch} src={branchImage} />
       <div className={styles.charaBack}>
         {items}
-        <div className={styles.charaTouch} onClick={touch}></div>
+        <div className={styles.charaTouch1} onClick={touchPos1}></div>
+        <div className={styles.charaTouch2} onClick={touchPos2}></div>
+        <div className={styles.charaTouch3} onClick={touchPos3}></div>
       </div>
     </>
   );
