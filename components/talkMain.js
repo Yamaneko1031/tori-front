@@ -17,7 +17,7 @@ import { answerSelectAtom } from "state/talkState";
 import { answerJankenAtom } from "state/talkState";
 import { talkStateChangePreparation } from "state/talkState";
 import Menu from "components/menu";
-import Div100vh from 'react-div-100vh'
+import Div100vh from "react-div-100vh";
 
 import { random } from "util/random";
 import {
@@ -151,18 +151,18 @@ export default function TalkMain() {
           if (answerSelect == jankenIdx) {
             // あいこ
             setJanken["jankenResult"] = "じゃんけん結果_あいこ";
-            addJankenResult(2)
+            addJankenResult(2);
           } else if (
             answerSelect + 1 == jankenIdx ||
             answerSelect == jankenIdx + 2
           ) {
             // 勝ち
             setJanken["jankenResult"] = "じゃんけん結果_勝ち";
-            addJankenResult(0)
+            addJankenResult(0);
           } else {
             // 負け
             setJanken["jankenResult"] = "じゃんけん結果_負け";
-            addJankenResult(1)
+            addJankenResult(1);
           }
           items.push(
             <TalkStateChange
@@ -1071,9 +1071,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={
-                "わーい！<BR>ことばを教えに来てくれたー！"
-              }
+              strings={"わーい！<BR>ことばを教えに来てくれたー！"}
             />
           ),
           PAUSE: "happy",
@@ -1085,14 +1083,7 @@ export default function TalkMain() {
       // 状態 ------------------------------------------------------------------------
       case "キャンセル":
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak
-              key={state}
-              strings={
-                "あれ？？"
-              }
-            />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings={"あれ？？"} />,
           PAUSE: "kasige",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
@@ -1105,15 +1096,11 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={
-                "わーい！<BR>じゃんけんしに来てくれたー！"
-              }
+              strings={"わーい！<BR>じゃんけんしに来てくれたー！<BR>いくよー。"}
             />
           ),
           PAUSE: "happy",
-          USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="じゃんけん" />
-          )
+          USER: <WaitTimer key="answer" setTime={1500} nextState="じゃんけん" />
         });
         break;
       default:
