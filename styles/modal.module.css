@@ -1,0 +1,91 @@
+.drawArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 65px 50px 100px 50px;
+  font-weight: bold;
+}
+
+.name {
+  position: absolute;
+  font-size: 32px;
+  top: 55px;
+  left: 65px;
+  background: linear-gradient(transparent 60%, rgb(255, 127, 127) 80%);
+}
+
+.image {
+  position: absolute;
+  border-radius: 10px;
+  border: 3px solid #000000;
+  top: 155px;
+  left: 40px;
+  width: 100px;
+  height: 100px;
+}
+
+.profile1 {
+  position: absolute;
+  top: 145px;
+  left: 155px;
+  font-size: 18px;
+}
+
+.intro {
+  position: absolute;
+  top: 260px;
+  left: 55px;
+  font-size: 18px;
+}
+
+.profile2 {
+  position: absolute;
+  top: 290px;
+  left: 90px;
+  font-size: 18px;
+}
+
+.modal {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  display: block;
+  transform: translate(-50%, 0%);
+  background-color: rgba(0, 0, 0, 0);
+  width: 400px;
+  height: 640px;
+  background-image: url("../public/images/board.png");
+  border: solid 0px;
+  outline: none;
+}
+
+.modalOverlay {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.btnClose {
+  position: absolute;
+  z-index: 12;
+  color: #ececec;
+  background: rgba(0, 0, 0, 0.7);
+  transition: 0.2s;
+  border-radius: 40px;
+  font-size: 40px;
+  padding: 3px 15px 10px;
+  line-height: 40px;
+  display: inline-block;
+  right: 5px;
+  top: 15px;
+}
+
+.btnClose:hover {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  cursor: pointer;
+}
