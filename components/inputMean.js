@@ -26,6 +26,7 @@ function InputMean(props) {
     if( workText.length == 0 ) {
       return
     }
+    workText = workText.replace(/\r?\n/g, '');
 
     // 文章の末尾が特定の場合は除外する
     const EXCLU_TEST = ["のこと", "の事", "ということ", "という事"];

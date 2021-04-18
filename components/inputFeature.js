@@ -27,6 +27,7 @@ function InputFeature(props) {
     if( workText.length == 0 ) {
       return
     }
+    workText = workText.replace(/\r?\n/g, '');
 
     let response = await addWordTagText(props.word, workText);
     let max = 0

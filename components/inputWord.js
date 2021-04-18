@@ -37,6 +37,7 @@ function InputWord(props) {
     if( workText.length == 0 ) {
       return
     }
+    workText = workText.replace(/\r?\n/g, '');
     
     let response = await getWord(workText);
     console.log(response);

@@ -1071,7 +1071,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"わーい！<BR>ことばを教えに来てくれたー！"}
+              strings={"わーい！<BR>「" + answerText.targetWord + "」のこと教えに来てくれたのー！？"}
             />
           ),
           PAUSE: "happy",
