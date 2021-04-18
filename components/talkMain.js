@@ -1099,6 +1099,23 @@ export default function TalkMain() {
           )
         });
         break;
+      // 状態 ------------------------------------------------------------------------
+      case "じゃんけんしに来た":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "わーい！<BR>じゃんけんしに来てくれたー！"
+              }
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="じゃんけん" />
+          )
+        });
+        break;
       default:
         console.error("state err:" + state);
         break;

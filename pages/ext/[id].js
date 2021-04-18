@@ -16,7 +16,7 @@ export default function TempId() {
     if (router.query.id) {
       (async function () {
         if(router.query.id == "janken") {
-          setTalkState("じゃんけん");
+          setTalkState("じゃんけんしに来た");
         }
         else {
           let setAnswer = {};
