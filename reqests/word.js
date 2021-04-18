@@ -259,6 +259,22 @@ export async function getTemp(id) {
   }
 }
 
+export async function addJankenResult(result) {
+  const query_params = new URLSearchParams({result:result}); 
+  let session_id = getCookieSessionId();
+  let response = await fetch(API_ROOT + "/janken?" + query_params, {
+    method: "PUT",
+    cache: "no-cache",
+    headers: {
+      "session-id": session_id
+    }
+  });
+  if (response.ok) {
+  } else {
+    console.error("HTTP-Error: " + response.status);
+  }
+}
+
 // export async function getSessionId() {
 //   if (typeof window !== "undefined") {
 //     let session_id = getCookieSessionId()

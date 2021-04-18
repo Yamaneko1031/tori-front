@@ -25,7 +25,7 @@ const ModalExplan = () => {
   }
 
   function afterOpenModal() {
-    // subtitle.style.color = "#3ab60b";
+    // console.log("aaaa");
   }
 
   function closeModal() {

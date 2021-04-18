@@ -15,17 +15,22 @@ export default function TempId() {
   useEffect(() => {
     if (router.query.id) {
       (async function () {
-        let setAnswer = {};
-        let data = await getTemp(router.query.id);
-        switch (data.kind) {
-          case "意味":
-            setAnswer["targetWord"] = data.word
-            setAnswerText(setAnswer);
-            setTalkState("意味を教えに来た");
-            break;
-          case "食べ物":
-            setTalkState("じゃんけん");
-            break;
+        if(router.query.id == "janken") {
+          setTalkState("じゃんけん");
+        }
+        else {
+          let setAnswer = {};
+          let data = await getTemp(router.query.id);
+          switch (data.kind) {
+            case "意味":
+              setAnswer["targetWord"] = data.word
+              setAnswerText(setAnswer);
+              setTalkState("意味を教えに来た");
+              break;
+            case "食べ物":
+              setTalkState("じゃんけん");
+              break;
+          }
         }
         router.push("/");
       })();

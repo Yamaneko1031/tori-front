@@ -47,10 +47,10 @@
 
 .modal {
   position: absolute;
-  top: 0px;
+  top: 50%;
   left: 50%;
   display: block;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0);
   width: 400px;
   height: 640px;

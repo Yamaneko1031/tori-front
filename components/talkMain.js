@@ -29,7 +29,8 @@ import {
   addWordBad,
   addWordTag,
   deleteUnknown,
-  rememberedTweet
+  rememberedTweet,
+  addJankenResult
 } from "reqests/word";
 import { getTag, getTagChoices } from "reqests/tag";
 // import { useSystemInfo } from "reqests/system";
@@ -150,15 +151,18 @@ export default function TalkMain() {
           if (answerSelect == jankenIdx) {
             // あいこ
             setJanken["jankenResult"] = "じゃんけん結果_あいこ";
+            addJankenResult(2)
           } else if (
             answerSelect + 1 == jankenIdx ||
             answerSelect == jankenIdx + 2
           ) {
             // 勝ち
             setJanken["jankenResult"] = "じゃんけん結果_勝ち";
+            addJankenResult(0)
           } else {
             // 負け
             setJanken["jankenResult"] = "じゃんけん結果_負け";
+            addJankenResult(1)
           }
           items.push(
             <TalkStateChange
