@@ -27,7 +27,7 @@ function SelectAnswer(props) {
   for (let cnt = 0; cnt < props.answerList.length; cnt++) {
     items.push(
       <div
-        className={styles.btnFflatSimple}
+        className={styles.btnflatSimple}
         key={cnt}
         onClick={function () {
           if (props.nextState) {

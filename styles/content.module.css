@@ -97,8 +97,8 @@
 .charaBack {
   position: absolute;
   z-index: 10;
-  top: 194px;
-  left: 7%;
+  top: 212px;
+  left: 13%;
 }
 
 .charaFront1 {
@@ -135,7 +135,7 @@
   min-width: 40%;
 }
 
-.btnFflatSimple {
+.btnflatSimple {
   z-index: 12;
   position: relative;
   font-weight: bold;
@@ -151,7 +151,7 @@
   border: 3px solid #ffffff;
 }
 
-.btnFflatSimple:hover {
+.btnflatSimple:hover {
   background: #3fb669;
   color: white;
   cursor: pointer;

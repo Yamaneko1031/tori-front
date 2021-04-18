@@ -589,7 +589,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"きっと、むずかしい言葉なんだとおもう。"}
+              strings={"きっと、むずかしい言葉なんだね。"}
             />
           ),
           PAUSE: "think",
