@@ -6,6 +6,8 @@ import { answerTextAtom } from "state/talkState";
 import { getTemp } from "reqests/word";
 import Head from "components/head";
 
+import styles from "styles/loader.module.css";
+
 export default function TempId() {
   const router = useRouter();
   const setTalkState = useSetRecoilState(talkState);
@@ -15,15 +17,14 @@ export default function TempId() {
   useEffect(() => {
     if (router.query.id) {
       (async function () {
-        if(router.query.id == "janken") {
+        if (router.query.id == "janken") {
           setTalkState("じゃんけんしに来た");
-        }
-        else {
+        } else {
           let setAnswer = {};
           let data = await getTemp(router.query.id);
           switch (data.kind) {
             case "意味":
-              setAnswer["targetWord"] = data.word
+              setAnswer["targetWord"] = data.word;
               setAnswerText(setAnswer);
               setTalkState("意味を教えに来た");
               break;
@@ -40,6 +41,7 @@ export default function TempId() {
   return (
     <>
       <Head />
+      <div className={styles.loader}></div>
     </>
   );
 }

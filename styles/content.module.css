@@ -28,7 +28,7 @@
   height: 100%;
   margin: auto;
   background: url("../public/images/content_back.png") no-repeat;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .sceneImage {
@@ -60,8 +60,8 @@
 
 .branch {
   position: absolute;
-  width:100%;
-  top: 185px
+  width: 100%;
+  top: 185px;
 }
 
 .charaTouch1 {
@@ -116,12 +116,12 @@
 }
 
 .charaSize {
-  width:100%;
+  width: 100%;
 }
 
 .charaSizeClr {
   position: absolute;
-  width:100%;
+  width: 100%;
   opacity: 0;
   top: 0;
   left: 0;
@@ -186,7 +186,7 @@
   background: #259e4f;
   transition: 0.2s;
   margin-right: 5px;
-  padding: 1.0em 0em;
+  padding: 1em 0em;
   border-radius: 5px;
   width: 50px;
   height: 60px;
