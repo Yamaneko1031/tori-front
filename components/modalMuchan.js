@@ -53,9 +53,9 @@ const ModalExplan = () => {
             顔をさわられるのは苦手。
           </p>
           <br />
-          <div className={styles.btnClose} onClick={closeModal}>
-            ×
-          </div>
+        </div>
+        <div className={styles.btnClose} onClick={closeModal}>
+          ×
         </div>
       </Modal>
     </div>

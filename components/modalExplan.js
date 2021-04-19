@@ -62,9 +62,9 @@ const ModalExplan = () => {
             <br />
             人を傷つけるような言葉は教えないようお願いします。
           </p>
-          <div className={styles.btnClose} onClick={closeModal}>
-            ×
-          </div>
+        </div>
+        <div className={styles.btnClose} onClick={closeModal}>
+          ×
         </div>
       </Modal>
     </div>
