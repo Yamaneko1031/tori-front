@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import styles from "styles/modal.module.css";
+import menuStyles from "styles/menu.module.css";
 
 const ModalExplan = () => {
   var subtitle;
@@ -18,7 +19,7 @@ const ModalExplan = () => {
   }
   return (
     <div>
-      <div className="testclass" onClick={openModal}>
+      <div className={menuStyles.clickArea} onClick={openModal}>
         むーちゃんについて
       </div>
       <Modal
@@ -41,7 +42,7 @@ const ModalExplan = () => {
             <br />
             年齢：５才
           </p>
-          <p className={styles.intro}>紹介</p>
+          <p className={styles.intro}>＜紹介＞</p>
           <p className={styles.profile2}>
             蝶ネクタイがお気に入り。
             <br />

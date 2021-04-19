@@ -4,6 +4,7 @@
   height: 100%;
   padding: 65px 50px 100px 50px;
   font-weight: bold;
+  text-shadow: 2px 2px 5px #ffffff;
 }
 
 .name {
@@ -33,7 +34,7 @@
 
 .intro {
   position: absolute;
-  top: 260px;
+  top: 255px;
   left: 55px;
   font-size: 18px;
 }

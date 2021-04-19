@@ -9,20 +9,11 @@ export default function Menu() {
     <>
       <nav className={styles.globalNavi}>
         <ul>
-          {/* <li>
-            <Link href="/">
-              <div className={styles.clickArea}>TOP</div>
-            </Link>
-          </li> */}
           <li>
-            <div className={styles.clickArea}>
-              <ModalExplan />
-            </div>
+            <ModalExplan />
           </li>
           <li>
-            <div className={styles.clickArea}>
-              <ModalMuchan />
-            </div>
+            <ModalMuchan />
           </li>
           <li>
             <a

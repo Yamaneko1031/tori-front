@@ -68,10 +68,10 @@
   position: absolute;
   z-index: 20;
   /* border: 1px solid #000000; */
-  width: 50%;
-  height: 12%;
-  top: 70px;
-  left: 130px;
+  width: 47%;
+  height: 13%;
+  top: 47px;
+  left: 95px;
 }
 
 .charaTouch2 {
@@ -79,19 +79,19 @@
   z-index: 20;
   /* border: 1px solid #000000; */
   width: 50%;
-  height: 18%;
-  top: 116px;
-  left: 130px;
+  height: 22%;
+  top: 94px;
+  left: 81px;
 }
 
 .charaTouch3 {
   position: absolute;
   z-index: 20;
   /* border: 1px solid #000000; */
-  width: 54%;
-  height: 47%;
-  top: 186px;
-  left: 130px;
+  width: 57%;
+  height: 48%;
+  top: 174px;
+  left: 86px;
 }
 
 .charaBack {

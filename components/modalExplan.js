@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import styles from "styles/modal.module.css";
+import menuStyles from "styles/menu.module.css";
 
 const customStyles = {
   overlay: {
@@ -33,7 +34,7 @@ const ModalExplan = () => {
   }
   return (
     <div>
-      <div className="testclass" onClick={openModal}>
+      <div className={menuStyles.clickArea} onClick={openModal}>
         説明
       </div>
       <Modal
