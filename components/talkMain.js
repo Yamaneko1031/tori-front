@@ -256,6 +256,8 @@ export default function TalkMain() {
             switch (random(0, 3)) {
               case 0:
                 setAnswer["targetWord"] = (await getTopicUnknown()).word;
+                setAnswer["targetKind"] = "";
+                setAnswer["secretTag"] = "";
                 if (setAnswer["targetWord"]) {
                   setState = "気になる単語1";
                 } else {
@@ -271,10 +273,14 @@ export default function TalkMain() {
                   setAnswer["response"] = await getTopicWord();
                   setAnswer["targetWord"] = setAnswer["response"].word;
                   setAnswer["targetMean"] = setAnswer["response"].mean;
+                  setAnswer["targetKind"] = "";
+                  setAnswer["secretTag"] = "";
                   setState = "最近覚えた単語1";
                 } else {
                   setAnswer["targetWord"] = setAnswer["response"].word;
                   setAnswer["targetMean"] = setAnswer["response"].mean;
+                  setAnswer["targetKind"] = "";
+                  setAnswer["secretTag"] = "";
                   setAnswer["picupTag"] = await getTagChoices();
                   setAnswer["picupTagChoices"] = [];
                   setAnswer["picupTag"].forEach(function (elem, index) {
@@ -289,6 +295,8 @@ export default function TalkMain() {
                 if (setAnswer["response"]) {
                   setAnswer["targetWord"] = setAnswer["response"].word;
                   setAnswer["targetMean"] = setAnswer["response"].mean;
+                  setAnswer["targetKind"] = "";
+                  setAnswer["secretTag"] = "";
                   setState = "最近覚えた単語1";
                 } else {
                   setState = "言葉を知らない";
@@ -299,6 +307,8 @@ export default function TalkMain() {
                 if (setAnswer["response"]) {
                   setAnswer["targetWord"] = setAnswer["response"].word;
                   setAnswer["targetMean"] = setAnswer["response"].mean;
+                  setAnswer["targetKind"] = "";
+                  setAnswer["secretTag"] = "";
                   setState = "好きかどうか";
                 } else {
                   setState = "言葉を知らない";
@@ -567,6 +577,8 @@ export default function TalkMain() {
             <InputMean
               key="answer"
               word={answerText.targetWord}
+              kind={answerText.targetKind}
+              tag={answerText.secretTag}
               nextState="意味入力後"
               nextStateNg="キャンセル"
             />
@@ -953,7 +965,7 @@ export default function TalkMain() {
       // 状態 ------------------------------------------------------------------------
       case "褒める":
         items = setInteraction({
-          MUCHAN: <MuchanSpeak key={state} strings={"えへへー"} />,
+          MUCHAN: <MuchanSpeak key={state} strings={"えへへー。"} />,
           PAUSE: "happy",
           USER: (
             <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
@@ -997,10 +1009,7 @@ export default function TalkMain() {
             if (answerText.response.unknown) {
               next_state.push("意味を知らない単語がある");
             }
-
             setState = next_state[random(0, next_state.length - 1)];
-            console.log(setState);
-
             if (answerText.response.create.cnt == 1) {
               rememberedTweet();
             }
@@ -1071,7 +1080,11 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={"わーい！<BR>「" + answerText.targetWord + "」のこと教えに来てくれたのー！？"}
+              strings={
+                "わーい！<BR>「" +
+                answerText.targetWord +
+                "」のこと教えに来てくれたのー！？"
+              }
             />
           ),
           PAUSE: "happy",
@@ -1102,6 +1115,145 @@ export default function TalkMain() {
           PAUSE: "happy",
           USER: <WaitTimer key="answer" setTime={1500} nextState="じゃんけん" />
         });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "遊びに来た":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={"わーい！<BR>遊びに来てくれたー！"}
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "形容詞を教えに来た":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "わーい！<BR>" +
+                answerText.picupKeiyousi +
+                "ものを教えに来てくれたのー！？"
+              }
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <SelectAnswer
+              key="answer"
+              answerList={["はい", "いいえ"]}
+              nextState={["単語入力_形容詞追加", "キャンセル"]}
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "単語入力_形容詞追加":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "やったー！<br>" + answerText.picupKeiyousi + "ものをおしえて！"
+              }
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <InputWord
+              key="answer"
+              nextStateKnown="単語入力後知っている単語分岐_形容詞追加"
+              nextStateUnknown="単語入力後知らない単語分岐_形容詞追加"
+              nextStateNg="キャンセル"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "単語入力後知っている単語分岐_形容詞追加":
+      case "単語入力後知らない単語分岐_形容詞追加":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "ふむふむ。<BR>「" +
+                answerText.targetWord +
+                "」は" +
+                answerText.picupKeiyousi +
+                "んだね！"
+              }
+            />
+          ),
+          PAUSE: "think",
+          USER: <WaitTimer key="answer" setTime={1500} />
+        });
+        if (stateChangePreparation) {
+          if (state == "単語入力後知っている単語分岐_形容詞追加") {
+            setState = "";
+            addWordTag(answerText.targetWord, answerText.picupKeiyousi);
+          } else {
+            setState = "意味入力_形容詞追加";
+          }
+          items.push(<TalkStateChange key={keyPrep} nextState={setState} />);
+        }
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "意味入力_形容詞追加":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "ところで「" +
+                answerText.targetWord +
+                "」って何？"
+              }
+            />
+          ),
+          PAUSE: "kasige",
+          USER: (
+            <InputMean
+              key="answer"
+              word={answerText.targetWord}
+              kind={answerText.targetKind}
+              tag={answerText.secretTag}
+              nextState="意味入力後_形容詞追加"
+              nextStateNg="キャンセル"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "意味入力後_形容詞追加":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                answerText.targetWord +
+                "は" +
+                answerText.targetMean +
+                "のことなんだね！"
+              }
+            />
+          ),
+          PAUSE: "nml",
+          USER: <WaitTimer key="answer" setTime={1500} />
+        });
+        if (stateChangePreparation) {
+          if (answerText.response.create.cnt == 1) {
+            rememberedTweet();
+          }
+          items.push(<TalkStateChange key={keyPrep} nextState="もっと教えてほしい" />);
+        }
         break;
       default:
         console.error("state err:" + state);

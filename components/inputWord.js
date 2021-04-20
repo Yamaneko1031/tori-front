@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 
 import { talkState, answerTextAtom } from "state/talkState";
 import { getWord } from "reqests/word";
@@ -12,7 +12,7 @@ function InputWord(props) {
   let items = [];
   let workText = "";
   const setState = useSetRecoilState(talkState);
-  const setanswerText = useSetRecoilState(answerTextAtom);
+  const [answerText, setAnswerText] = useRecoilState(answerTextAtom);
 
   // 初期状態セット
   useEffect(() => {
@@ -22,17 +22,6 @@ function InputWord(props) {
     };
   });
 
-  // function tagCheck(word) {
-  //   for (let i = 0; i < tags.length; ++i) {
-  //     tags[i].find(function (data) {
-  //       if (word == data.word) {
-  //         return true;
-  //       }
-  //     });
-  //   }
-  //   return false;
-  // }
-
   async function onformSubmit(e) {
     if( workText.length == 0 ) {
       return
@@ -40,24 +29,23 @@ function InputWord(props) {
     workText = workText.replace(/\r?\n/g, '');
     
     let response = await getWord(workText);
-    console.log(response);
+    let setData = { ...answerText }
+    console.log(answerText)
     if (response) {
-      setanswerText({
-        text: "",
-        response: response,
-        select: 0,
-        targetWord: response.word,
-        targetMean: response.mean
-      });
+      setData.text = ""
+      setData.response = response
+      setData.select = 0
+      setData.targetWord = response.word
+      setData.targetMean = response.mean
+      setAnswerText(setData)
       setState(props.nextStateKnown);
     } else {
-      setanswerText({
-        text: "",
-        response: response,
-        select: 0,
-        targetWord: workText,
-        targetMean: ""
-      });
+      setData.text = ""
+      setData.response = response
+      setData.select = 0
+      setData.targetWord = workText
+      setData.targetMean = ""
+      setAnswerText(setData)
       setState(props.nextStateUnknown);
     }
   }

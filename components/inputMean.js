@@ -23,10 +23,10 @@ function InputMean(props) {
   });
 
   async function onformSubmit(e) {
-    if( workText.length == 0 ) {
-      return
+    if (workText.length == 0) {
+      return;
     }
-    workText = workText.replace(/\r?\n/g, '');
+    workText = workText.replace(/\r?\n/g, "");
 
     // 文章の末尾が特定の場合は除外する
     const EXCLU_TEST = ["のこと", "の事", "ということ", "という事"];
@@ -40,13 +40,24 @@ function InputMean(props) {
       }
     }
 
-    let response = await postWord(props.word, workText);
+    let tag = "";
+    if (props.tag) {
+      tag = props.tag;
+    }
+    let kind = "";
+    if (props.kind) {
+      kind = props.kind;
+    }
+
+    let response = await postWord(props.word, workText, tag, kind);
     setanswerText({
       word: props.word,
       text: workText,
       response: response,
       targetWord: response.create.word,
-      targetMean: response.create.mean
+      targetMean: response.create.mean,
+      targetKind: "",
+      secretTag: ""
     });
     if (props.nextState) {
       setState(props.nextState);

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ModalExplan from "components/modalExplan";
 import ModalMuchan from "components/modalMuchan";
+import ModalOther from "components/modalOther";
 
 import styles from "styles/menu.module.css";
 
@@ -23,6 +24,9 @@ export default function Menu() {
             >
               Twitter
             </a>
+          </li>
+          <li>
+            <ModalOther />
           </li>
         </ul>
       </nav>
