@@ -78,7 +78,7 @@ export async function getTopicTaught() {
   }
 }
 
-export async function postWord(word, mean, kind, tag) {
+export async function postWord(word, mean, tag, kind) {
   let session_id = getCookieSessionId();
   let response = await fetch(API_ROOT + "/words", {
     method: "POST",
