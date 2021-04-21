@@ -33,7 +33,7 @@ import {
   addJankenResult
 } from "reqests/word";
 import { getTag, getTagChoices } from "reqests/tag";
-// import { useSystemInfo } from "reqests/system";
+import { useSystemInfo, getJankenResult } from "reqests/system";
 
 import styles from "styles/content.module.css";
 
@@ -95,6 +95,8 @@ export default function TalkMain() {
     let setAnswer = {};
     let setState = "";
     let keyPrep = "prep" + state;
+    let workText = "";
+    let workPause = "";
 
     switch (state) {
       // 状態 ------------------------------------------------------------------------
@@ -108,7 +110,7 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -186,7 +188,7 @@ export default function TalkMain() {
           USER: (
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState={answerJanken.jankenResult}
             />
           )
@@ -200,7 +202,7 @@ export default function TalkMain() {
           USER: (
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="じゃんけん結果_もう一回"
             />
           )
@@ -219,7 +221,7 @@ export default function TalkMain() {
           USER: (
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="じゃんけん結果_もう一回"
             />
           )
@@ -233,9 +235,72 @@ export default function TalkMain() {
           USER: (
             <SelectAnswer
               key="answer"
-              answerList={["もう一回", "お話する", "言葉を教える"]}
-              nextState={["じゃんけん", "お話する", "単語入力"]}
+              answerList={[
+                "もう一回",
+                "勝敗数を聞く",
+                "お話する",
+                "言葉を教える"
+              ]}
+              nextState={[
+                "じゃんけん",
+                "勝敗数を聞く1",
+                "お話する",
+                "単語入力"
+              ]}
             />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "勝敗数を聞く1":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={"今までのじゃんけんの結果はねー。"}
+            />
+          ),
+          PAUSE: "nml",
+          USER: <WaitTimer key="answer" setTime={2000} />
+        });
+        if (stateChangePreparation) {
+          (async function () {
+            setAnswer["jankenTotal"] = await getJankenResult();
+            setAnswerText(setAnswer);
+            setTalkState("勝敗数を聞く2");
+          })();
+        }
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "勝敗数を聞く2":
+        if (answerText.jankenTotal.lose_cnt > answerText.jankenTotal.win_cnt) {
+          workText = "むーちゃんが勝ってるの！";
+          workPause = "doya";
+        } else if (
+          answerText.jankenTotal.lose_cnt < answerText.jankenTotal.win_cnt
+        ) {
+          workText = "むーちゃんが負けてるの・・・";
+          workPause = "shobon";
+        } else {
+          workText = "いい勝負なの。";
+          workPause = "nml";
+        }
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                answerText.jankenTotal.lose_cnt +
+                "勝" +
+                answerText.jankenTotal.win_cnt +
+                "敗で<BR>" +
+                workText
+              }
+            />
+          ),
+          PAUSE: workPause,
+          USER: (
+            <WaitTimer key="answer" setTime={3500} nextState="何する選択肢" />
           )
         });
         break;
@@ -249,7 +314,7 @@ export default function TalkMain() {
             />
           ),
           PAUSE: "nml",
-          USER: <WaitTimer key="answer" setTime={1500} />
+          USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
           (async function () {
@@ -287,6 +352,7 @@ export default function TalkMain() {
                     setAnswer["picupTagChoices"].push(elem.text);
                   });
                   setAnswer["picupTagChoices"].push("そういうのではない");
+                  setAnswer["picupTagChoices"].push("なにそれ？");
                   setState = "単語の詳細1";
                 }
                 break;
@@ -498,7 +564,7 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -515,7 +581,7 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="気になる単語2" />
+            <WaitTimer key="answer" setTime={2000} nextState="気になる単語2" />
           )
         });
         break;
@@ -559,7 +625,7 @@ export default function TalkMain() {
           ),
           PAUSE: "kasige",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -591,7 +657,7 @@ export default function TalkMain() {
           MUCHAN: <MuchanSpeak key={state} strings={"そっかー。"} />,
           PAUSE: "shobon",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="気になる単語5" />
+            <WaitTimer key="answer" setTime={2000} nextState="気になる単語5" />
           )
         });
         break;
@@ -606,7 +672,7 @@ export default function TalkMain() {
           ),
           PAUSE: "think",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -635,8 +701,12 @@ export default function TalkMain() {
         });
         if (stateChangePreparation) {
           setAnswer = { ...answerText };
-          if (answerSelect === answerText.picupTagChoices.length - 1) {
+          if (
+            answerText.picupTagChoices[answerSelect] == "そういうのではない"
+          ) {
             setState = "単語の詳細3";
+          } else if (answerText.picupTagChoices[answerSelect] == "なにそれ？") {
+            setState = "最近覚えた単語2";
           } else {
             setAnswer["picupKeiyousi"] = answerText.picupTag[answerSelect].text;
             setAnswer["picupKeiyousiPnt"] =
@@ -683,10 +753,10 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            // <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            // <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="最近覚えた単語4_形容詞"
             />
           )
@@ -709,10 +779,10 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            // <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            // <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="最近覚えた単語4_形容動詞"
             />
           )
@@ -735,7 +805,7 @@ export default function TalkMain() {
           ),
           PAUSE: "think",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -756,7 +826,7 @@ export default function TalkMain() {
           USER: (
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="最近覚えた単語2"
             />
           )
@@ -772,7 +842,7 @@ export default function TalkMain() {
             />
           ),
           PAUSE: "doya",
-          USER: <WaitTimer key="answer" setTime={1500} />
+          USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
           (async function () {
@@ -823,7 +893,7 @@ export default function TalkMain() {
           USER: (
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="最近覚えた単語4_形容詞"
             />
           )
@@ -845,7 +915,7 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -868,7 +938,7 @@ export default function TalkMain() {
           USER: (
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="最近覚えた単語4_形容動詞"
             />
           )
@@ -890,7 +960,7 @@ export default function TalkMain() {
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -941,7 +1011,7 @@ export default function TalkMain() {
           USER: (
             <WaitTimer
               key="answer"
-              setTime={1500}
+              setTime={2000}
               nextState="最近覚えた単語2"
             />
           )
@@ -958,7 +1028,7 @@ export default function TalkMain() {
           ),
           PAUSE: "kasige",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="気になる単語3" />
+            <WaitTimer key="answer" setTime={2000} nextState="気になる単語3" />
           )
         });
         break;
@@ -968,7 +1038,7 @@ export default function TalkMain() {
           MUCHAN: <MuchanSpeak key={state} strings={"えへへー。"} />,
           PAUSE: "happy",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -978,7 +1048,7 @@ export default function TalkMain() {
           MUCHAN: <MuchanSpeak key={state} strings={"ええっ！そうなの！？"} />,
           PAUSE: "suprise",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="気になる単語3" />
+            <WaitTimer key="answer" setTime={2000} nextState="気になる単語3" />
           )
         });
         break;
@@ -997,7 +1067,7 @@ export default function TalkMain() {
             />
           ),
           PAUSE: "nml",
-          USER: <WaitTimer key="answer" setTime={1500} />
+          USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
           (async function () {
@@ -1070,7 +1140,7 @@ export default function TalkMain() {
           ),
           PAUSE: "think",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="気になる単語2" />
+            <WaitTimer key="answer" setTime={2000} nextState="気になる単語2" />
           )
         });
         break;
@@ -1089,7 +1159,7 @@ export default function TalkMain() {
           ),
           PAUSE: "happy",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="気になる単語3" />
+            <WaitTimer key="answer" setTime={2000} nextState="気になる単語3" />
           )
         });
         break;
@@ -1099,7 +1169,7 @@ export default function TalkMain() {
           MUCHAN: <MuchanSpeak key={state} strings={"あれ？？"} />,
           PAUSE: "kasige",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -1113,7 +1183,7 @@ export default function TalkMain() {
             />
           ),
           PAUSE: "happy",
-          USER: <WaitTimer key="answer" setTime={1500} nextState="じゃんけん" />
+          USER: <WaitTimer key="answer" setTime={2000} nextState="じゃんけん" />
         });
         break;
       // 状態 ------------------------------------------------------------------------
@@ -1127,7 +1197,7 @@ export default function TalkMain() {
           ),
           PAUSE: "happy",
           USER: (
-            <WaitTimer key="answer" setTime={1500} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
         break;
@@ -1140,6 +1210,7 @@ export default function TalkMain() {
               strings={
                 "わーい！<BR>" +
                 answerText.picupKeiyousi +
+                answerText.picupKeiyousiSupple +
                 "ものを教えに来てくれたのー！？"
               }
             />
@@ -1161,7 +1232,10 @@ export default function TalkMain() {
             <MuchanSpeak
               key={state}
               strings={
-                "やったー！<br>" + answerText.picupKeiyousi + "ものをおしえて！"
+                "やったー！<br>" +
+                answerText.picupKeiyousi +
+                answerText.picupKeiyousiSupple +
+                "ものをおしえて！"
               }
             />
           ),
@@ -1188,12 +1262,13 @@ export default function TalkMain() {
                 answerText.targetWord +
                 "」は" +
                 answerText.picupKeiyousi +
+                answerText.picupKeiyousiSupple +
                 "んだね！"
               }
             />
           ),
           PAUSE: "think",
-          USER: <WaitTimer key="answer" setTime={1500} />
+          USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
           if (state == "単語入力後知っている単語分岐_形容詞追加") {
@@ -1211,11 +1286,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={
-                "ところで「" +
-                answerText.targetWord +
-                "」って何？"
-              }
+              strings={"ところで「" + answerText.targetWord + "」って何？"}
             />
           ),
           PAUSE: "kasige",
@@ -1246,13 +1317,15 @@ export default function TalkMain() {
             />
           ),
           PAUSE: "nml",
-          USER: <WaitTimer key="answer" setTime={1500} />
+          USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
           if (answerText.response.create.cnt == 1) {
             rememberedTweet();
           }
-          items.push(<TalkStateChange key={keyPrep} nextState="もっと教えてほしい" />);
+          items.push(
+            <TalkStateChange key={keyPrep} nextState="もっと教えてほしい" />
+          );
         }
         break;
       default:

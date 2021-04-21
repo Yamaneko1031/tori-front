@@ -36,6 +36,7 @@ export default function TempId() {
                 tag = await getTag(data.word);
                 setAnswer["picupKeiyousi"] = tag.text;
                 setAnswer["picupKeiyousiPnt"] = tag.pnt;
+                setAnswer["picupKeiyousiSupple"] = "";
                 setAnswer["secretTag"] = data.word;
                 setAnswer["targetKind"] = "";
                 setAnswerText(setAnswer);
@@ -44,11 +45,12 @@ export default function TempId() {
               case "形容動詞関連":
                 tag = await getTag(data.word);
                 setAnswer["picupKeiyousi"] = tag.text;
-                setAnswer["picupKeiyousiPnt"] = data.pnt;
+                setAnswer["picupKeiyousiPnt"] = tag.pnt;
+                setAnswer["picupKeiyousiSupple"] = "な";
                 setAnswer["secretTag"] = data.word;
                 setAnswer["targetKind"] = "";
                 setAnswerText(setAnswer);
-                setTalkState("意味を教えに来た");
+                setTalkState("形容詞を教えに来た");
                 break;
               case "食べ物":
                 setTalkState("じゃんけん");
