@@ -1197,7 +1197,7 @@ export default function TalkMain() {
         });
         if (stateChangePreparation) {
           if (state == "単語入力後知っている単語分岐_形容詞追加") {
-            setState = "";
+            setState = "もっと教えてほしい";
             addWordTag(answerText.targetWord, answerText.picupKeiyousi);
           } else {
             setState = "意味入力_形容詞追加";
