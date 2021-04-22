@@ -29,8 +29,8 @@ export default class MyDocument extends Document {
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_AD_ID}`}
             crossorigin="anonymous"
           ></script> */}
-          <script data-ad-client="ca-pub-6473717830087020" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          {/* <script
+          {/* <script data-ad-client="ca-pub-6473717830087020" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> */}
+          <script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />
@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
               });
                 `
             }}
-          /> */}
+          />
           {/* <script
             data-ad-client={process.env.NEXT_PUBLIC_AD_ID}
             async
