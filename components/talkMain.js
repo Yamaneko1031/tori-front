@@ -402,7 +402,7 @@ export default function TalkMain() {
           USER: (
             <SelectAnswer
               key="answer"
-              answerList={["好き", "嫌い", "どちらでもない"]}
+              answerList={["好き", "嫌い", "どちらでもない","なにそれ？"]}
             />
           )
         });
@@ -418,6 +418,9 @@ export default function TalkMain() {
               break;
             case 2: // どちらでもない
               setState = "どちらでもない選択";
+              break;
+            case 3: // なにそれ？
+              setState = "最近覚えた単語2";
               break;
             default:
               console.error(state + ":error");
