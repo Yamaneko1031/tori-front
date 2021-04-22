@@ -24,6 +24,13 @@ export default class MyDocument extends Document {
           `
             }}
           />
+          {/* <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_AD_ID}`}
+            crossorigin="anonymous"
+          ></script> */}
+          <script data-ad-client={process.env.NEXT_PUBLIC_AD_ID} async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         </Head>
         <body>
           <Main />
