@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <div>
-      <Head title="会話" viewport="width=420" />
+      <Head viewport="width=420" />
 
       <div className={styles.TalkBg}>
         <TalkMain />

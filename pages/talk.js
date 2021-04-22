@@ -1,4 +1,4 @@
-// import Head from "next/head";
+import Head from "next/head";
 import Head from "components/head";
 import Menu from "components/menu";
 import TalkMain from "components/talkMain";
@@ -15,7 +15,7 @@ export default function Talk() {
 
   return (
     <>
-      <Head title = "会話" viewport = "width=420" />
+      <Head viewport = "width=420" />
 
       <div className={styles.TalkBg}>
         <Menu />
