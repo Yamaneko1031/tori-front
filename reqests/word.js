@@ -5,7 +5,6 @@ const API_ROOT = process.env.NEXT_PUBLIC_API_URL;
 function getCookieSessionId() {
   const cookies = parseCookies();
   let session_id = "";
-  console.log(cookies.session_id);
   if (cookies.session_id) {
     session_id = cookies.session_id;
   }
@@ -181,7 +180,6 @@ export async function addWordTagText(word, text) {
   });
   if (response.ok) {
     let retData = await response.json();
-    console.log(retData);
     if (retData["detail"] == "Tag not found.") {
       retData = false;
     } else {

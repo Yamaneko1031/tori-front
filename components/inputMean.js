@@ -16,9 +16,7 @@ function InputMean(props) {
 
   // 初期状態セット
   useEffect(() => {
-    console.log("useEffect:InputAnswer Render:");
     return () => {
-      console.log("useEffect:InputAnswer Unmount");
     };
   });
 
@@ -72,8 +70,6 @@ function InputMean(props) {
   function onTextAreaChange(e) {
     workText = e.target.value;
   }
-
-  console.log("Call:InputMean");
 
   return (
     <div className={styles.inputWord}>

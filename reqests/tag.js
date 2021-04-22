@@ -56,20 +56,15 @@ export async function getTagChoices() {
 export async function getTagRandom() {
     const cookies = parseCookies();
     let index = 0
-    console.log("a"+cookies)
     if (!cookies.allTagData) {
       // let tagData = await getTags()
       let tagData = Object.create(await getTags());
-      console.log("b"+tagData)
       setCookie(null, "allTagData", tagData);
       index = random(0, tagData[0].length - 1)
       return tagData[0][index];
     }
     else {
       index = random(0, cookies.allTagData[0].length - 1)
-      console.log("d"+index)
-      console.log(cookies.allTagData)
-      console.log(cookies.allTagData[0])
       return cookies.allTagData[0][index];
     }
 }

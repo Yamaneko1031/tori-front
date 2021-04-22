@@ -3,7 +3,6 @@ import { useRecoilValue } from "recoil";
 import { typewriteStateStart } from "state/talkState";
 import { random } from "util/random";
 import styles from "styles/content.module.css";
-// import styles from "./muchanBody.module.css";
 
 function MuchanBody(props) {
   const [state, setState] = useState(false);
@@ -12,7 +11,6 @@ function MuchanBody(props) {
 
   useEffect(() => {
     if (start) {
-      console.log("useEffect:typewriteState=" + start);
       let setTime = random(40, 120);
       const timer = setInterval(() => {
         setState(!state);

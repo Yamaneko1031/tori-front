@@ -17,13 +17,9 @@ function SelectAnswer(props) {
 
   // 初期状態セット
   useEffect(() => {
-    console.log("useEffect:SelectAnswer Render:");
     return () => {
-      console.log("useEffect:SelectAnswer Unmount");
     };
   });
-
-  console.log("Call:SelectAnswer");
 
   for (let cnt = 0; cnt < props.answerList.length; cnt++) {
     items.push(

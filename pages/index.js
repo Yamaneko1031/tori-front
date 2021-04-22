@@ -1,8 +1,5 @@
-import Link from "next/link";
 import Head from "components/head";
 import { useEffect } from "react";
-// import styles from "../styles/toppage.module.css";
-import Menu from "components/menu";
 import TalkMain from "components/talkMain";
 import styles from "styles/content.module.css";
 
@@ -22,17 +19,6 @@ export default function Home() {
       <div className={styles.TalkBg}>
         <TalkMain />
       </div>
-
-      {/* <Head viewport="width=device-width initial-scale=1.0" />
-
-      <div className={styles.clickArea}>
-        <Link href="/talk">
-          <a>
-            <img src="images/top_page.png" />
-            <div>クリックしてね。</div>
-          </a>
-        </Link>
-      </div> */}
     </div>
   );
 }

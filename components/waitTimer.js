@@ -3,7 +3,6 @@ import { useSetRecoilState } from "recoil";
 import { talkState } from "state/talkState";
 import { random } from "util/random";
 
-import { useTalkStateChange } from "state/talkStatePreProc";
 import { talkStateChangePreparation } from "state/talkState";
 
 // タイマー終了後にステータスを書き換える
