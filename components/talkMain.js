@@ -34,6 +34,7 @@ import {
 } from "reqests/word";
 import { getTag, getTagChoices } from "reqests/tag";
 import { useSystemInfo, getJankenResult } from "reqests/system";
+import * as gtag from "util/gtag";
 
 import styles from "styles/content.module.css";
 
@@ -51,6 +52,14 @@ export default function TalkMain() {
       setTalkState("開始");
     };
   }, []);
+
+  useEffect(() => {
+    gtag.event({
+      action: 'StateChange',
+      category: 'Talk',
+      label: state,
+    })
+  }, [state]);
 
   // 好み判定用
   function getLikeText(pnt) {
