@@ -4,7 +4,7 @@ import Head from "components/head";
 export default function Talk() {
   return (
     <>
-      <Head viewport="width=420" />
+      <Head title="プライバシーポリシー" viewport="width=420" />
       <div>
         <h1>プライバシーポリシー</h1>
         <h2>個人情報の利用目的</h2>
