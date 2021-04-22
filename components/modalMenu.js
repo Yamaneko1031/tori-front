@@ -15,7 +15,7 @@ function ModalMenu(props) {
       category: 'Open',
       label: props.title,
     })
-  }, [state]);
+  }, []);
 
   function openModal() {
     setIsOpen(true);
