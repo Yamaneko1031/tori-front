@@ -5,7 +5,7 @@ import { talkState } from "state/talkState";
 import { answerTextAtom } from "state/talkState";
 import { getTemp } from "reqests/word";
 import { getTag } from "reqests/tag";
-import * as gtag from "../util/gtag";
+import * as gtag from "util/gtag";
 
 import Head from "components/head";
 
