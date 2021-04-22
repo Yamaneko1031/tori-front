@@ -25,6 +25,11 @@ export default function TempId() {
           let setAnswer = {};
           let tag;
           let data = await getTemp(router.query.id);
+          gtag.event({
+            action: 'ExtIn',
+            category: data.kind,
+            label: data.word,
+          })
           if( data ) {
             switch (data.kind) {
               case "意味":
