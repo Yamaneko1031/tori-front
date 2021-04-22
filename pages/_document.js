@@ -7,7 +7,16 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <script data-ad-client="ca-pub-6473717830087020" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          {/* <script
+            data-ad-client="ca-pub-6473717830087020"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script> */}
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6473717830087020"
+            crossorigin="anonymous"
+          ></script>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
