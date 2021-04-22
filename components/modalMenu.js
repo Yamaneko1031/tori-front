@@ -1,10 +1,22 @@
 import React from "react";
 import Modal from "react-modal";
+import { useEffect } from "react";
+import * as gtag from "util/gtag";
+
 import styles from "styles/modal.module.css";
 import menuStyles from "styles/menu.module.css";
 
 function ModalMenu(props) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  
+  useEffect(() => {
+    gtag.event({
+      action: 'ModalOpen',
+      category: 'Open',
+      label: props.title,
+    })
+  }, [state]);
+
   function openModal() {
     setIsOpen(true);
   }
