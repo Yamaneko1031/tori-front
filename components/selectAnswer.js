@@ -32,10 +32,10 @@ function SelectAnswer(props) {
         key={cnt}
         onClick={function () {
           gtag.event({
-            action: 'SelectAnswer',
-            category: 'Click',
-            label: props.answerList[cnt],
-          })
+            action: "SelectAnswer",
+            category: "Click",
+            label: props.answerList[cnt]
+          });
           if (props.nextState) {
             if (props.nextState[cnt] == "") {
               setStateChangePreparation(true);
