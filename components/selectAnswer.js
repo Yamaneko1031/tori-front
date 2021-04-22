@@ -3,6 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { talkState, answerSelectAtom } from "state/talkState";
 import { talkStateChangePreparation } from "state/talkState";
+import * as gtag from "util/gtag";
 
 import styles from "styles/content.module.css";
 
@@ -30,6 +31,11 @@ function SelectAnswer(props) {
         className={styles.btnflatSimple}
         key={cnt}
         onClick={function () {
+          gtag.event({
+            action: 'SelectAnswer',
+            category: 'Click',
+            label: props.answerList[cnt],
+          })
           if (props.nextState) {
             if (props.nextState[cnt] == "") {
               setStateChangePreparation(true);
