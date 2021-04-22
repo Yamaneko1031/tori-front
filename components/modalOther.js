@@ -17,18 +17,16 @@ const ModalOther = () => {
         <p>
           ＜お問い合わせ先＞
           <br />
-          candoanything1031@gmail.com
+          muchan.app@gmail.com
         </p>
         <p>
-          ＜Twitter＞
-          <br />
           <a href="https://twitter.com/Nekoyama1031" target="_blank">
             <img className={styles.twitterIcon} src="images/twitter.png"></img>
           </a>
           <br />
           Twitterもやっております。
           <br />
-          宜しければフォローしてみてください。
+          興味を持っていただけた方はTwitterの方で絡んで頂けますと幸いです。
         </p>
       </div>
     </ModalMenu>

@@ -2,8 +2,7 @@ import { parseCookies, setCookie, destroyCookie } from "nookies";
 import useSWR from 'swr'
 import { random } from "util/random";
   
-const API_ROOT = "https://muchan-api-6gun3ieocq-an.a.run.app";
-// const API_ROOT = "http://localhost:8000";
+const API_ROOT = process.env.NEXT_PUBLIC_API_URL;
 
 // const fetcher = url => fetch(url).then(r => r.json())
 
