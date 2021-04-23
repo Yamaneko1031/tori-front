@@ -100,6 +100,11 @@ export const answerData = selector({
   }
 });
 
+// ランダム会話管理
+export const randomKaiwaAtom = atom({
+  key: "randomKaiwaAtom",
+  default: []
+});
 
 // const currentUserNameQuery = selector({
 //   key: 'CurrentUserName',

@@ -16,6 +16,8 @@ import MuchanSpeak from "components/muchanSpeak";
 
 import { answerTextAtom } from "state/talkState";
 
+import { random, randomArray } from "util/random";
+
 import { getWord, rememberedTweet } from "reqests/word";
 
 import { getTag, getTagChoices } from "reqests/tag";
@@ -23,8 +25,8 @@ import { getTag, getTagChoices } from "reqests/tag";
 // import { addWordTag1 } from "reqests/word";
 import styles from "styles/debug.module.css";
 
-import useSWR from 'swr'
-import Div100vh from 'react-div-100vh'
+import useSWR from "swr";
+import Div100vh from "react-div-100vh";
 
 let session_id = "";
 
@@ -32,6 +34,7 @@ export default function Summary() {
   const [state, setState] = useRecoilState(talkState);
   const [test, settest] = useState(false);
   const answerText = useRecoilValue(answerTextAtom);
+  let work = [];
   // const { data, error } = useSWR('/api/user', getTags)
   // const state = useSetRecoilState(testState);
 
@@ -39,9 +42,9 @@ export default function Summary() {
   // if (isLoading) {
   //   console.log("LD")
   //   return <p>Loading ...</p>  //ロード中
-  // } 
+  // }
   // console.log("OK")
-  // return <h1>ようこそ {user.name}さん</h1>   
+  // return <h1>ようこそ {user.name}さん</h1>
 
   // 初期状態セット
   useEffect(() => {
@@ -68,7 +71,7 @@ export default function Summary() {
   }
 
   async function changeState() {
-    rememberedTweet()
+    // rememberedTweet()
     // console.log("Call:Summary changeState");
     // setState(state+"1")
     // https://muchan-api-6gun3ieocq-an.a.run.app
@@ -94,6 +97,8 @@ export default function Summary() {
     //await getWord(answerText);
 
     // console.log("changeState");
+    let a = work.pop();
+    console.log(a);
   }
 
   async function changeState1() {
@@ -111,20 +116,25 @@ export default function Summary() {
 
     // let data = await getTag("かわいい")
     // console.log(data)
-
+    console.log(work.length);
+    if (work.length === 0) {
+      work = randomArray(0, 7);
+    }
+    console.log(work);
   }
 
   async function changeState2() {
+    console.log(work);
     // useTag1("すごい")
     // addWordTag1("リモコン", "硬い")
     // console.log("0:" + session_id);
     // session_id = data["session_id"];
     // // settest(data["session_id"]);
     // console.log("3:" + session_id);
-    console.log(window.innerHeight)
-    console.log(window.clientHeight)
-    console.log(window.scrollHeight)
-    console.log(window.offsetHeight　)
+    // console.log(window.innerHeight)
+    // console.log(window.clientHeight)
+    // console.log(window.scrollHeight)
+    // console.log(window.offsetHeight　)
   }
 
   let title = "学習オウム むーちゃん summary";
@@ -137,16 +147,16 @@ export default function Summary() {
   return (
     <>
       <Head title={title} description={description} />
-      
-      <Div100vh>
+
+      {/* <Div100vh>
         <div className={styles.contentArea}>
           あああ
         </div>
-      </Div100vh>
+      </Div100vh> */}
       {/* <div className={styles.contentArea}> */}
-        {/* <h1>使い方</h1> */}
+      {/* <h1>使い方</h1> */}
 
-        {/* <div className={styles.hukidasi}>
+      {/* <div className={styles.hukidasi}>
           あああああああああああああああああああああああああああああああああああああああああああああああ
         </div>
         <div className={styles.charaBack}>
@@ -156,26 +166,26 @@ export default function Summary() {
 
         {list_draw()} */}
 
-        {/* <div onClick={changeState}>{"changeState"}</div>
-        <div onClick={changeState1}>{"ボタン1"}</div>
-        <div onClick={changeState2}>{"ボタン2"}</div> */}
+      <div onClick={changeState}>{"changeState"}</div>
+      <div onClick={changeState1}>{"ボタン1"}</div>
+      <div onClick={changeState2}>{"ボタン2"}</div>
 
-        {/* <a href="https://twitter.com/MuchanApp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @MuchanApp</a> */}
-          {/* <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
-        {/* <InputAnswer /> */}
+      {/* <a href="https://twitter.com/MuchanApp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @MuchanApp</a> */}
+      {/* <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
+      {/* <InputAnswer /> */}
 
-        {/* <MuchanSpeak
+      {/* <MuchanSpeak
           pause="nomal"
           strings="こんにちわ！あそｄふぁおｄふぁｊｄふぃあじぇいあじｄｊふぃあｊｄ"
         /> */}
 
-        {/* <div>{answerText}</div> */}
+      {/* <div>{answerText}</div> */}
 
-        {/* <MyComponent /> */}
-        {/* <TextInput />
+      {/* <MyComponent /> */}
+      {/* <TextInput />
         <TextSubmit /> */}
 
-        {/* <h2>
+      {/* <h2>
           <Link href="/">
             <a>Back to home</a>
           </Link>
@@ -184,7 +194,6 @@ export default function Summary() {
     </>
   );
 }
-
 
 // import { useCallback } from "react";
 // import { atom, useRecoilCallback } from "recoil";
@@ -207,7 +216,6 @@ export default function Summary() {
 //   key: "nextState",
 //   default: ""
 // });
-
 
 // let items = [];
 // function TextSubmit() {
@@ -239,7 +247,6 @@ export default function Summary() {
 //   )
 //   return <button onClick={handleSubmit}>Submit</button>;
 // }
-
 
 // import { atom, selectorFamily, selector } from "recoil";
 // const myNumberState = atom({

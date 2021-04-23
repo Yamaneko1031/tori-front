@@ -54,17 +54,13 @@ export async function getTagChoices() {
 }
 
 export async function getTagRandom() {
-    const cookies = parseCookies();
-    let index = 0
-    if (!cookies.allTagData) {
-      // let tagData = await getTags()
-      let tagData = Object.create(await getTags());
-      setCookie(null, "allTagData", tagData);
-      index = random(0, tagData[0].length - 1)
-      return tagData[0][index];
-    }
-    else {
-      index = random(0, cookies.allTagData[0].length - 1)
-      return cookies.allTagData[0][index];
-    }
+  let response = await fetch(API_ROOT + "/tag/more0");
+  let retData;
+  if (response.ok) {
+    retData = await response.json();
+  } else {
+    console.error("HTTP-Error: " + response.status);
+    retData = false;
+  }
+  return retData;
 }

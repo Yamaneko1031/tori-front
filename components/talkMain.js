@@ -7,7 +7,7 @@ import WaitTimer from "components/waitTimer";
 import TalkStateChange from "components/talkStateChange";
 import MuchanBody from "components/muchanBody";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 
 import { talkState } from "state/talkState";
@@ -16,10 +16,11 @@ import { answerTextAtom } from "state/talkState";
 import { answerSelectAtom } from "state/talkState";
 import { answerJankenAtom } from "state/talkState";
 import { talkStateChangePreparation } from "state/talkState";
+import { randomKaiwaAtom } from "state/talkState";
 import Menu from "components/menu";
 import Div100vh from "react-div-100vh";
 
-import { random } from "util/random";
+import { random, randomArray } from "util/random";
 import {
   getWord,
   getTopicWord,
@@ -32,7 +33,7 @@ import {
   rememberedTweet,
   addJankenResult
 } from "reqests/word";
-import { getTag, getTagChoices } from "reqests/tag";
+import { getTag, getTagChoices, getTagRandom } from "reqests/tag";
 import { useSystemInfo, getJankenResult } from "reqests/system";
 import * as gtag from "util/gtag";
 
@@ -45,6 +46,7 @@ export default function TalkMain() {
   const answerJanken = useRecoilValue(answerJankenAtom);
   const answerSelect = useRecoilValue(answerSelectAtom);
   const stateChangePreparation = useRecoilValue(talkStateChangePreparation);
+  const [randomKaiwa, setRandomKaiwa] = useRecoilState(randomKaiwaAtom);
   // const { systemInfo, isSystemInfoLoading } = useSystemInfo();
 
   useEffect(() => {
@@ -55,10 +57,10 @@ export default function TalkMain() {
 
   useEffect(() => {
     gtag.event({
-      action: 'StateChange',
-      category: 'Talk',
-      label: state,
-    })
+      action: "StateChange",
+      category: "Talk",
+      label: state
+    });
   }, [state]);
 
   // 好み判定用
@@ -106,6 +108,7 @@ export default function TalkMain() {
     let keyPrep = "prep" + state;
     let workText = "";
     let workPause = "";
+    let workValue = 0;
 
     switch (state) {
       // 状態 ------------------------------------------------------------------------
@@ -114,14 +117,44 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings="こんにちは！<br>むーちゃんだよ！<br>たくさんお話しようね！"
+              strings="こんにちは！<br>むーちゃんだよ！"
             />
           ),
           PAUSE: "nml",
           USER: (
-            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} nextState="導入" />
+            // <WaitTimer key="answer" setTime={2000} />
           )
         });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "導入":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings="むーちゃんはたくさんの言葉をおぼえたいの。"
+            />
+          ),
+          PAUSE: "nml",
+          USER: (
+            // <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} />
+          )
+        });
+        if (stateChangePreparation) {
+          (async function () {
+            setAnswer["picupTag"] = await getTagRandom();
+            setAnswer["picupKeiyousi"] = setAnswer["picupTag"].text;
+            if (setAnswer["picupTag"].part == "形容詞") {
+              setAnswer["picupKeiyousiSupple"] = "";
+            } else {
+              setAnswer["picupKeiyousiSupple"] = "な";
+            }
+            setAnswerText(setAnswer);
+            setTalkState("おしえてほしい_形容詞");
+          })();
+        }
         break;
       // 状態 ------------------------------------------------------------------------
       case "何する選択肢":
@@ -327,7 +360,11 @@ export default function TalkMain() {
         });
         if (stateChangePreparation) {
           (async function () {
-            switch (random(0, 3)) {
+            workValue = Array.from(randomKaiwa);
+            if (workValue.length === 0) {
+              workValue = Array.from(randomArray(0, 4));
+            }
+            switch (workValue.pop()) {
               case 0:
                 setAnswer["targetWord"] = (await getTopicUnknown()).word;
                 setAnswer["targetKind"] = "";
@@ -389,12 +426,23 @@ export default function TalkMain() {
                   setState = "言葉を知らない";
                 }
                 break;
+              case 4:
+                setAnswer["picupTag"] = await getTagRandom();
+                setAnswer["picupKeiyousi"] = setAnswer["picupTag"].text;
+                if (setAnswer["picupTag"].part == "形容詞") {
+                  setAnswer["picupKeiyousiSupple"] = "";
+                } else {
+                  setAnswer["picupKeiyousiSupple"] = "な";
+                }
+                setState = "おしえてほしい_形容詞";
+                break;
               default:
                 console.error("想定外の値");
                 break;
             }
             setAnswerText(setAnswer);
             setTalkState(setState);
+            setRandomKaiwa(workValue);
           })();
         }
         break;
@@ -411,7 +459,7 @@ export default function TalkMain() {
           USER: (
             <SelectAnswer
               key="answer"
-              answerList={["好き", "嫌い", "どちらでもない","なにそれ？"]}
+              answerList={["好き", "嫌い", "どちらでもない", "なにそれ？"]}
             />
           )
         });
@@ -586,9 +634,7 @@ export default function TalkMain() {
           MUCHAN: (
             <MuchanSpeak
               key={state}
-              strings={
-                "さいきん聞いたことばなんだけど<BR>意味を教えてほしいの。"
-              }
+              strings={"さいきん聞いた言葉なんだけど<BR>意味を教えてほしいの。"}
             />
           ),
           PAUSE: "nml",
@@ -1214,6 +1260,40 @@ export default function TalkMain() {
         });
         break;
       // 状態 ------------------------------------------------------------------------
+      case "教えない":
+        items = setInteraction({
+          MUCHAN: <MuchanSpeak key={state} strings={"そっかぁ。"} />,
+          PAUSE: "shobon",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "おしえてほしい_形容詞":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "むーちゃんは今ねぇ。<BR>" +
+                answerText.picupKeiyousi +
+                answerText.picupKeiyousiSupple +
+                "ものについて知りたいの。"
+              }
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <SelectAnswer
+              key="answer"
+              answerList={["教えてあげる", "教えてあげない"]}
+              nextState={["単語入力_形容詞追加", "教えない"]}
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
       case "形容詞を教えに来た":
         items = setInteraction({
           MUCHAN: (
@@ -1247,7 +1327,7 @@ export default function TalkMain() {
                 "やったー！<br>" +
                 answerText.picupKeiyousi +
                 answerText.picupKeiyousiSupple +
-                "ものをおしえて！"
+                "ものって何があるかなぁ？"
               }
             />
           ),
@@ -1284,7 +1364,8 @@ export default function TalkMain() {
         });
         if (stateChangePreparation) {
           if (state == "単語入力後知っている単語分岐_形容詞追加") {
-            setState = "もっと教えてほしい";
+            // setState = "もっと教えてほしい";
+            setState = "単語入力後知っている単語分岐";
             addWordTag(answerText.targetWord, answerText.picupKeiyousi);
           } else {
             setState = "意味入力_形容詞追加";
