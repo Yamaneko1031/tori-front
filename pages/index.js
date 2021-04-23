@@ -5,6 +5,8 @@ import styles from "styles/content.module.css";
 
 import { getSessionId } from "reqests/word";
 
+import AdBanner from "components/ads";
+
 export default function Home() {
   // 初期状態セット
   useEffect(() => {
@@ -19,6 +21,7 @@ export default function Home() {
       <div className={styles.TalkBg}>
         <TalkMain />
       </div>
+      <AdBanner />
     </div>
   );
 }

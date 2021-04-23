@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Head from "components/head";
+import AdBanner from "components/ads";
 
 export default function Talk() {
   return (
     <>
       <Head title="プライバシーポリシー" viewport="width=420" />
+      <AdBanner />
       <div>
         <h1>プライバシーポリシー</h1>
         <h2>個人情報の利用目的</h2>
