@@ -21,7 +21,6 @@ export default function Home() {
       <div className={styles.TalkBg}>
         <TalkMain />
       </div>
-      <AdBanner />
     </div>
   );
 }
