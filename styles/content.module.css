@@ -157,6 +157,38 @@
   cursor: pointer;
 }
 
+.btnflatNonSelected {
+  z-index: 12;
+  position: relative;
+  font-weight: bold;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #ececec;
+  background: #259e4f;
+  transition: 0.2s;
+  margin-top: 5px;
+  padding: 0.8em 1em;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  border: 3px solid #ffffff;
+}
+
+.btnflatSelected {
+  z-index: 12;
+  position: relative;
+  font-weight: bold;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #ececec;
+  background: #3fb669;
+  transition: 0.2s;
+  margin-top: 5px;
+  padding: 0.8em 1em;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  border: 3px solid #ffffff;
+}
+
 .inputWord {
   z-index: 12;
   position: absolute;

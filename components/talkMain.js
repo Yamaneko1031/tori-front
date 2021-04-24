@@ -1,5 +1,6 @@
 import MuchanSpeak from "components/muchanSpeak";
 import SelectAnswer from "components/selectAnswer";
+import SelectAnswerView from "components/selectAnswerView";
 import InputWord from "components/inputWord";
 import InputMean from "components/inputMean";
 import InputFeature from "components/inputFeature";
@@ -229,12 +230,15 @@ export default function TalkMain() {
           PAUSE: "nml",
           USER: (
             <WaitTimer
-              key="answer"
+              key="answer2"
               setTime={2000}
               nextState={answerJanken.jankenResult}
             />
           )
         });
+        items.push(
+          <SelectAnswerView key="answer" answerList={["ぐー", "ちょき", "ぱー"]} select={answerSelect} />
+        );
         break;
       // 状態 ------------------------------------------------------------------------
       case "じゃんけん結果_勝ち":
@@ -874,9 +878,7 @@ export default function TalkMain() {
             <MuchanSpeak
               key={state}
               strings={
-                "「" +
-                answerText.targetWord +
-                "」っていう言葉も知ってるの！"
+                "「" + answerText.targetWord + "」っていう言葉も知ってるの！"
               }
             />
           ),
@@ -1128,9 +1130,7 @@ export default function TalkMain() {
         items = setInteraction({
           MUCHAN: <MuchanSpeak key={state} strings={"んーっとねー。"} />,
           PAUSE: "think",
-          USER: (
-            <WaitTimer key="answer" setTime={2000} />
-          )
+          USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
           (async function () {
