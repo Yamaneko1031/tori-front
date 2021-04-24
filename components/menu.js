@@ -1,5 +1,6 @@
 import Link from "next/link";
-import ModalExplan from "components/modalExplan";
+import ModalExplan1 from "components/modalExplan1";
+import ModalExplan2 from "components/modalExplan2";
 import ModalMuchan from "components/modalMuchan";
 import ModalOther from "components/modalOther";
 
@@ -11,19 +12,13 @@ export default function Menu() {
       <nav className={styles.globalNavi}>
         <ul>
           <li>
-            <ModalExplan />
+            <ModalExplan1 />
+          </li>
+          <li>
+            <ModalExplan2 />
           </li>
           <li>
             <ModalMuchan />
-          </li>
-          <li>
-            <a
-              className={styles.clickArea}
-              href="https://twitter.com/MuchanApp"
-              target="_blank"
-            >
-              Twitter
-            </a>
           </li>
           <li>
             <ModalOther />

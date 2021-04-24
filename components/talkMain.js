@@ -868,6 +868,29 @@ export default function TalkMain() {
         });
         break;
       // 状態 ------------------------------------------------------------------------
+      case "最近覚えた単語1_特殊":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "「" +
+                answerText.targetWord +
+                "」っていう言葉も知ってるの！"
+              }
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <WaitTimer
+              key="answer"
+              setTime={2000}
+              nextState="最近覚えた単語2"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
       case "最近覚えた単語1":
         items = setInteraction({
           MUCHAN: (
@@ -1030,8 +1053,8 @@ export default function TalkMain() {
           USER: (
             <SelectAnswer
               key="answer"
-              answerList={["褒める", "間違いを指摘する"]}
-              nextState={["褒める", "間違いを指摘"]}
+              answerList={["褒める", "褒めない", "間違いを指摘する"]}
+              nextState={["褒める", "褒めない", "間違いを指摘"]}
             />
           )
         });
@@ -1099,6 +1122,32 @@ export default function TalkMain() {
             <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
           )
         });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "褒めない":
+        items = setInteraction({
+          MUCHAN: <MuchanSpeak key={state} strings={"んーっとねー。"} />,
+          PAUSE: "think",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} />
+          )
+        });
+        if (stateChangePreparation) {
+          (async function () {
+            setAnswer["response"] = await getTopicWord();
+            if (setAnswer["response"]) {
+              setAnswer["targetWord"] = setAnswer["response"].word;
+              setAnswer["targetMean"] = setAnswer["response"].mean;
+              setAnswer["targetKind"] = "";
+              setAnswer["secretTag"] = "";
+              setState = "最近覚えた単語1_特殊";
+            } else {
+              setState = "言葉を知らない";
+            }
+            setAnswerText(setAnswer);
+            setTalkState(setState);
+          })();
+        }
         break;
       // 状態 ------------------------------------------------------------------------
       case "間違いを指摘":
