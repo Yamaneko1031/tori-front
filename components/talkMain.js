@@ -165,8 +165,18 @@ export default function TalkMain() {
           USER: (
             <SelectAnswer
               key="answer"
-              answerList={["お話する", "言葉を教える", "じゃんけん"]}
-              nextState={["お話する", "単語入力", "じゃんけん"]}
+              answerList={[
+                "お話する",
+                "言葉を教えてもらう",
+                "言葉を教える",
+                "じゃんけん"
+              ]}
+              nextState={[
+                "お話する",
+                "言葉を教えてもらう",
+                "単語入力",
+                "じゃんけん"
+              ]}
             />
           )
         });
@@ -237,7 +247,11 @@ export default function TalkMain() {
           )
         });
         items.push(
-          <SelectAnswerView key="answer" answerList={["ぐー", "ちょき", "ぱー"]} select={answerSelect} />
+          <SelectAnswerView
+            key="answer"
+            answerList={["ぐー", "ちょき", "ぱー"]}
+            select={answerSelect}
+          />
         );
         break;
       // 状態 ------------------------------------------------------------------------
@@ -349,6 +363,36 @@ export default function TalkMain() {
             <WaitTimer key="answer" setTime={3500} nextState="何する選択肢" />
           )
         });
+        break;
+      // 状態 ------------------------------------------------------------------------
+      case "言葉を教えてもらう":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={"いいよー！"}
+            />
+          ),
+          PAUSE: "happy",
+          USER: <WaitTimer key="answer" setTime={2000} />
+        });
+        if (stateChangePreparation) {
+          (async function () {
+            setAnswer["response"] = await getTopicWord();
+            if (setAnswer["response"]) {
+              setAnswer["targetWord"] = setAnswer["response"].word;
+              setAnswer["targetMean"] = setAnswer["response"].mean;
+              setAnswer["targetKind"] = "";
+              setAnswer["secretTag"] = "";
+              setState = "最近覚えた単語1";
+            } else {
+              setState = "言葉を知らない";
+            }
+            setAnswerText(setAnswer);
+            setTalkState(setState);
+            setRandomKaiwa(workValue);
+          })();
+        }
         break;
       // 状態 ------------------------------------------------------------------------
       case "お話する":
@@ -1187,9 +1231,9 @@ export default function TalkMain() {
               next_state.push("意味を知らない単語がある");
             }
             setState = next_state[random(0, next_state.length - 1)];
-            if (answerText.response.create.cnt == 1) {
-              rememberedTweet();
-            }
+            // if (answerText.response.create.cnt == 1) {
+            //   rememberedTweet();
+            // }
 
             await sleep(100);
             switch (setState) {
@@ -1462,9 +1506,9 @@ export default function TalkMain() {
           USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
-          if (answerText.response.create.cnt == 1) {
-            rememberedTweet();
-          }
+          // if (answerText.response.create.cnt == 1) {
+          //   rememberedTweet();
+          // }
           items.push(
             <TalkStateChange key={keyPrep} nextState="もっと教えてほしい" />
           );
