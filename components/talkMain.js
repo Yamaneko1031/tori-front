@@ -147,6 +147,7 @@ export default function TalkMain() {
           (async function () {
             setAnswer["picupTag"] = await getTagRandom();
             setAnswer["picupKeiyousi"] = setAnswer["picupTag"].text;
+            setAnswer["secretTag"] = setAnswer["picupTag"].text;
             if (setAnswer["picupTag"].part == "形容詞") {
               setAnswer["picupKeiyousiSupple"] = "";
             } else {
