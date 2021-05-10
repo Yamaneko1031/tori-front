@@ -3,6 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { talkState, answerTextAtom } from "state/talkState";
 import { talkStateChangePreparation } from "state/talkState";
+import { twitterLinkAtom } from "state/talkState";
 import { addWordTagText } from "reqests/word";
 import styles from "styles/content.module.css";
 
@@ -14,12 +15,14 @@ function InputFeature(props) {
   const setStateChangePreparation = useSetRecoilState(
     talkStateChangePreparation
   );
+  const setTwitterLink = useSetRecoilState(twitterLinkAtom);
 
   // 初期状態セット
   useEffect(() => {
+    setTwitterLink(false);
     return () => {
     };
-  });
+  },[]);
 
   async function onformSubmit(e) {
     if( workText.length == 0 ) {

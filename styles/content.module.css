@@ -232,3 +232,11 @@
   color: white;
   cursor: pointer;
 }
+
+.twitterLink {
+  z-index: 11;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 166px;
+}

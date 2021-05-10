@@ -7,6 +7,7 @@ import InputFeature from "components/inputFeature";
 import WaitTimer from "components/waitTimer";
 import TalkStateChange from "components/talkStateChange";
 import MuchanBody from "components/muchanBody";
+import TwitterLink from "components/twitterLink";
 
 import { useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -1529,6 +1530,7 @@ export default function TalkMain() {
       <div className={styles.contentArea}>
         <Menu />
         <div>{content()}</div>
+        <TwitterLink />
       </div>
     </Div100vh>
   );

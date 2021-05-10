@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 
 import { talkState, answerTextAtom } from "state/talkState";
+import { twitterLinkAtom } from "state/talkState";
 import { getWord } from "reqests/word";
 import styles from "styles/content.module.css";
 
@@ -13,12 +14,14 @@ function InputWord(props) {
   let workText = "";
   const setState = useSetRecoilState(talkState);
   const [answerText, setAnswerText] = useRecoilState(answerTextAtom);
+  const setTwitterLink = useSetRecoilState(twitterLinkAtom);
 
   // 初期状態セット
   useEffect(() => {
+    setTwitterLink(false);
     return () => {
     };
-  });
+  },[]);
 
   async function onformSubmit(e) {
     if( workText.length == 0 ) {

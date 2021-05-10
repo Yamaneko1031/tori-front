@@ -38,6 +38,7 @@ export const talkState = selector({
     set(talkStateAtom, newValue);
     set(typewriteStateAtom, "none");
     set(talkStateChangePreparation, false);
+    set(twitterLinkAtom, true);
   }
 });
 
@@ -104,6 +105,12 @@ export const answerData = selector({
 export const randomKaiwaAtom = atom({
   key: "randomKaiwaAtom",
   default: []
+});
+
+// ツイッターリンク表示管理
+export const twitterLinkAtom = atom({
+  key: "twitterLinkAtom",
+  default: true
 });
 
 // const currentUserNameQuery = selector({
