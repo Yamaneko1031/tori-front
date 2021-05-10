@@ -238,5 +238,14 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
+}
+
+.twitterLink a {
+  display: block;
+  line-height: 0;
+}
+
+.twitterIcon {
   width: 166px;
+  height: 51px;
 }
