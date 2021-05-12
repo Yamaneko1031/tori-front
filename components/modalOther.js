@@ -5,22 +5,14 @@ import styles from "styles/modal.module.css";
 
 const ModalOther = () => {
   return (
-    <ModalMenu title="その他">
-      <h1>その他</h1>
+    <ModalMenu title="ご主人">
+      <h1>ご主人</h1>
       <div>
         <p>
-          ＜プライバシーポリシー＞
-          <br />
-          <Link href="/privacy">
-            <a>こちらをお読みください</a>
-          </Link>
-        </p>
-        <p>
-          ＜お問い合わせ先＞
+          ねこやま
           <br />
           <img className={styles.neko} src="images/neko.png"></img>
           <br />
-          ねこやま
           muchan.app@gmail.com
         </p>
         <p>
@@ -30,7 +22,14 @@ const ModalOther = () => {
           <br />
           Twitterもやっております。
           <br />
-          興味を持っていただけた方はTwitterの方で絡んで頂けますと幸いです。
+          興味を持っていただけた方はTwitterの方で絡んで頂けますと嬉しいです。
+        </p>
+        <p>
+          ＜プライバシーポリシー＞
+          <br />
+          <Link href="/privacy">
+            <a>こちらをお読みください</a>
+          </Link>
         </p>
       </div>
     </ModalMenu>
