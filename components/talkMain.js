@@ -111,6 +111,7 @@ export default function TalkMain() {
     let workText = "";
     let workPause = "";
     let workValue = 0;
+    console.log(state);
 
     switch (state) {
       // 状態 ------------------------------------------------------------------------
@@ -1361,9 +1362,19 @@ export default function TalkMain() {
           MUCHAN: <MuchanSpeak key={state} strings={"そっかぁ。"} />,
           PAUSE: "shobon",
           USER: (
-            <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
+            <WaitTimer key="answer" setTime={2000} />
           )
         });
+        if (stateChangePreparation) {
+          setAnswer = { ...answerText };
+          setAnswer["picupTag"] = ""
+          setAnswer["picupKeiyousi"] = ""
+          setAnswer["picupKeiyousiSupple"] = "";
+          setAnswer["targetKind"] = "";
+          setAnswer["secretTag"] = "";
+          setState = "何する選択肢";
+          items.push(<TalkStateChange key={keyPrep} nextState={setState} answer={setAnswer} />);
+        }
         break;
       // 状態 ------------------------------------------------------------------------
       case "おしえてほしい_形容詞":
