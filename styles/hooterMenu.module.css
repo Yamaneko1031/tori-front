@@ -28,15 +28,15 @@
 
 .hooterMsg1 {
   position: absolute;
-  left: 40px;
+  left: 5vh;
   top: 0px;
-  font-size: 6px;
+  font-size: 1vh;
 }
 
 .hooterMsg2 {
   position: absolute;
-  font-size: 6px;
-  right: 30px;
+  font-size: 1vh;
+  right: 5vw;
   top: 0px;
 }
 
