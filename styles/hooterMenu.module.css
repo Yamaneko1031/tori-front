@@ -26,18 +26,35 @@
   margin-left: 20px;
 }
 
-.hooterMsg1 {
-  position: absolute;
-  font-size: 1vh;
-  top: 1px;
-  left: 10vw;
-}
+@media (min-width: 421px) {
+  .hooterMsg1 {
+    position: absolute;
+    font-size: 9px;
+    top: 2px;
+    left: 45px;
+  }
 
-.hooterMsg2 {
-  position: absolute;
-  font-size: 1vh;
-  top: 1px;
-  right: 10vw;
+  .hooterMsg2 {
+    position: absolute;
+    font-size: 9px;
+    top: 2px;
+    right: 30px;
+  }
+}
+@media (max-width: 420px) {
+  .hooterMsg1 {
+    position: absolute;
+    font-size: 11px;
+    top: 2px;
+    left: 10vw;
+  }
+
+  .hooterMsg2 {
+    position: absolute;
+    font-size: 11px;
+    top: 2px;
+    right: 10vw;
+  }
 }
 
 .clickArea {
@@ -73,7 +90,7 @@
 }
 
 .twitterShare:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 /* .twitterShare {
   z-index: 13;
