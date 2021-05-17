@@ -8,6 +8,10 @@ import WaitTimer from "components/waitTimer";
 import TalkStateChange from "components/talkStateChange";
 import MuchanBody from "components/muchanBody";
 import TwitterLink from "components/twitterLink";
+import ShutterButton from "components/shutterButton";
+import TwitterShare from "components/twitterShare";
+import Menu from "components/menu";
+import HooterMenu from "components/hooterMenu";
 
 import { useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -19,7 +23,6 @@ import { answerSelectAtom } from "state/talkState";
 import { answerJankenAtom } from "state/talkState";
 import { talkStateChangePreparation } from "state/talkState";
 import { randomKaiwaAtom } from "state/talkState";
-import Menu from "components/menu";
 import Div100vh from "react-div-100vh";
 
 import { random, randomArray } from "util/random";
@@ -98,7 +101,12 @@ export default function TalkMain() {
       <MuchanBody key={interaction.PAUSE} pause={interaction.PAUSE} />
     );
     if (getTypewriteStateEnd) {
-      items.push(interaction.USER);
+      items.push(
+        <div id="target-ignore" key={interaction.USER}>
+          {interaction.USER}
+        </div>
+      );
+      // items.push(interaction.USER);
     }
     return items;
   }
@@ -111,7 +119,6 @@ export default function TalkMain() {
     let workText = "";
     let workPause = "";
     let workValue = 0;
-    console.log(state);
 
     switch (state) {
       // 状態 ------------------------------------------------------------------------
@@ -370,12 +377,7 @@ export default function TalkMain() {
       // 状態 ------------------------------------------------------------------------
       case "言葉を教えてもらう":
         items = setInteraction({
-          MUCHAN: (
-            <MuchanSpeak
-              key={state}
-              strings={"いいよー！"}
-            />
-          ),
+          MUCHAN: <MuchanSpeak key={state} strings={"いいよー！"} />,
           PAUSE: "happy",
           USER: <WaitTimer key="answer" setTime={2000} />
         });
@@ -941,6 +943,29 @@ export default function TalkMain() {
         });
         break;
       // 状態 ------------------------------------------------------------------------
+      case "言葉を教えてくれる":
+        items = setInteraction({
+          MUCHAN: (
+            <MuchanSpeak
+              key={state}
+              strings={
+                "わーい！遊びに来てくれた！<br>「" +
+                answerText.targetWord +
+                "」っていう言葉を教えてあげる！"
+              }
+            />
+          ),
+          PAUSE: "happy",
+          USER: (
+            <WaitTimer
+              key="answer"
+              setTime={3000}
+              nextState="最近覚えた単語2"
+            />
+          )
+        });
+        break;
+      // 状態 ------------------------------------------------------------------------
       case "最近覚えた単語1":
         items = setInteraction({
           MUCHAN: (
@@ -973,13 +998,13 @@ export default function TalkMain() {
             />
           ),
           PAUSE: "doya",
-          USER: <WaitTimer key="answer" setTime={2000} />
+          USER: <WaitTimer key="answer" setTime={3000} />
         });
         if (stateChangePreparation) {
           (async function () {
             let next_state1 = ["最近覚えた単語4"];
             await sleep(100);
-            if (answerText.response.tags.length) {
+            if (answerText.response && answerText.response.tags.length) {
               setAnswer = { ...answerText };
               let part =
                 answerText.response.tags[
@@ -1105,6 +1130,7 @@ export default function TalkMain() {
               key="answer"
               answerList={["褒める", "褒めない", "間違いを指摘する"]}
               nextState={["褒める", "褒めない", "間違いを指摘"]}
+              tweet={answerText.targetWord}
             />
           )
         });
@@ -1361,19 +1387,23 @@ export default function TalkMain() {
         items = setInteraction({
           MUCHAN: <MuchanSpeak key={state} strings={"そっかぁ。"} />,
           PAUSE: "shobon",
-          USER: (
-            <WaitTimer key="answer" setTime={2000} />
-          )
+          USER: <WaitTimer key="answer" setTime={2000} />
         });
         if (stateChangePreparation) {
           setAnswer = { ...answerText };
-          setAnswer["picupTag"] = ""
-          setAnswer["picupKeiyousi"] = ""
+          setAnswer["picupTag"] = "";
+          setAnswer["picupKeiyousi"] = "";
           setAnswer["picupKeiyousiSupple"] = "";
           setAnswer["targetKind"] = "";
           setAnswer["secretTag"] = "";
           setState = "何する選択肢";
-          items.push(<TalkStateChange key={keyPrep} nextState={setState} answer={setAnswer} />);
+          items.push(
+            <TalkStateChange
+              key={keyPrep}
+              nextState={setState}
+              answer={setAnswer}
+            />
+          );
         }
         break;
       // 状態 ------------------------------------------------------------------------
@@ -1538,10 +1568,15 @@ export default function TalkMain() {
 
   return (
     <Div100vh>
-      <div className={styles.contentArea}>
+      <div className={styles.contentArea} id="target-component">
         <Menu />
         <div>{content()}</div>
-        <TwitterLink />
+        <div id="target-ignore">
+          <ShutterButton />
+          <HooterMenu />
+          {/* <TwitterShare />
+          <TwitterLink /> */}
+        </div>
       </div>
     </Div100vh>
   );

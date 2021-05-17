@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import SelectAnswer from "components/selectAnswer";
 import InputAnswer from "components/inputWord";
+import TwitterShare from "components/twitterShare";
 
 import { useRecoilState } from "recoil";
 import { talkState, talkStateSelector } from "state/talkState";
@@ -21,6 +22,7 @@ import { random, randomArray } from "util/random";
 import { getWord, rememberedTweet } from "reqests/word";
 
 import { getTag, getTagChoices } from "reqests/tag";
+import { getCreateTempIdFromWord } from "reqests/word";
 // import { useTags } from "reqests/tag";
 // import { addWordTag1 } from "reqests/word";
 import styles from "styles/debug.module.css";
@@ -124,7 +126,13 @@ export default function Summary() {
   }
 
   async function changeState2() {
-    console.log(work);
+    async function createUrl() {
+      let id = await getCreateTempIdFromWord("あたおか");
+      let url = "https://torichan.app/mean/" + id;
+      return url;
+    }
+    let url = await createUrl()
+    console.log(url);
     // useTag1("すごい")
     // addWordTag1("リモコン", "硬い")
     // console.log("0:" + session_id);
@@ -169,7 +177,7 @@ export default function Summary() {
       <div onClick={changeState}>{"changeState"}</div>
       <div onClick={changeState1}>{"ボタン1"}</div>
       <div onClick={changeState2}>{"ボタン2"}</div>
-
+      
       {/* <a href="https://twitter.com/MuchanApp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @MuchanApp</a> */}
       {/* <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
       {/* <InputAnswer /> */}

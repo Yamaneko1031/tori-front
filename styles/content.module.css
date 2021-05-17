@@ -129,7 +129,7 @@
 
 .selectAnswer {
   position: absolute;
-  bottom: 20px;
+  bottom: 70px;
   left: 10px;
   z-index: 20;
   min-width: 40%;
@@ -192,7 +192,7 @@
 .inputWord {
   z-index: 12;
   position: absolute;
-  bottom: 20px;
+  bottom: 70px;
   left: 10px;
   width: 100%;
 }
@@ -233,19 +233,23 @@
   cursor: pointer;
 }
 
-.twitterLink {
-  z-index: 11;
+.shutterButton {
+  z-index: 13;
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  top: 50px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  border: 2px solid #000000;
 }
 
-.twitterLink a {
+.shutterButton:hover {
+  background-color: rgba(219, 219, 219, 0.2);
+  cursor: pointer;
+}
+
+.cameraIcon {
+  width: 44px;
   display: block;
-  line-height: 0;
-}
-
-.twitterIcon {
-  width: 166px;
-  height: 51px;
+  /* height: 60px; */
 }

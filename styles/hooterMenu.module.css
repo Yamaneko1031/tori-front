@@ -1,0 +1,86 @@
+.hooterMenu {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  bottom: 0px;
+  height: 60px;
+  /* min-width: 420px; */
+}
+
+.hooterMenu ul {
+  background-color: rgba(255, 255, 255, 0.6);
+  display: block;
+  padding: 0px;
+  margin: 0px;
+  height: 60px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.hooterMenu li {
+  display: inline-block;
+  margin: 12px 9px;
+}
+
+.hooterMenu li:first-child {
+  margin-left: 20px;
+}
+
+.hooterMsg1 {
+  position: absolute;
+  left: 40px;
+  top: 0px;
+  font-size: 6px;
+}
+
+.hooterMsg2 {
+  position: absolute;
+  font-size: 6px;
+  right: 30px;
+  top: 0px;
+}
+
+.clickArea {
+  display: block;
+  padding: 0px 17px 0px 17px;
+  text-align: center;
+  letter-spacing: normal;
+  line-height: 36px;
+  color: #ececec;
+}
+
+.clickArea:hover {
+  background: #3fb669;
+  color: white;
+  cursor: pointer;
+}
+
+.twitterLink {
+  z-index: 11;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.twitterLink a {
+  display: block;
+  line-height: 0;
+}
+
+.twitterIcon {
+  width: 166px;
+  height: 51px;
+}
+
+.twitterShare:hover {
+    cursor: pointer;
+}
+/* .twitterShare {
+  z-index: 13;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(73, 121, 255, 1);
+  border-radius: 15px;
+  border: 2px solid #000000;
+} */

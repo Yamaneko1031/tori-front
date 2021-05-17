@@ -258,6 +258,24 @@ export async function getTemp(id) {
   }
 }
 
+export async function getCreateTempIdFromWord(word) {
+  const query_params = new URLSearchParams({word:word}); 
+  let response = await fetch(API_ROOT + "/create_temp_remember_word?" + query_params, {
+    method: "POST",
+  });
+  if (response.ok) {
+    let jsonData = await response.json();
+    if (jsonData.detail == "Temp not found.") {
+      return false;
+    } else {
+      return jsonData.id;
+    }
+  } else {
+    console.error("HTTP-Error: " + response.status);
+    return false;
+  }
+}
+
 export async function addJankenResult(result) {
   const query_params = new URLSearchParams({result:result}); 
   let session_id = getCookieSessionId();
