@@ -1,76 +1,116 @@
+// import { useState, useEffect } from "react";
+// import { getCreateTempIdFromWord } from "reqests/word";
+// import { useRecoilValue, useRecoilState } from "recoil";
+// import { answerTextAtom } from "state/talkState";
+
+// // import styles from "styles/content.module.css";
+// import styles from "styles/hooterMenu.module.css";
+
+// import { TwitterShareButton, TwitterIcon } from "react-share";
+
+// function TwitterShare(props) {
+//   const [answerText, setAnswerText] = useRecoilState(answerTextAtom);
+//   const [state, setState] = useState(false);
+//   const [text, setText] = useState(false);
+//   const [url, setUrl] = useState(false);
+
+//   useEffect(() => {
+//     if (state) {
+//       let button = document.getElementsByClassName("react-share__ShareButton");
+//       button[0].click();
+//     }
+//   }, [state]);
+
+//   return state ? (
+//     <>
+//       <TwitterShareButton
+//         url={url}
+//         title={text}
+//         onShareWindowClose={() => {
+//         //   setState(false);
+//         }}
+//       >
+//         {props.children}
+//       </TwitterShareButton>
+//     </>
+//   ) : (
+//     <div
+//       id="tweet_button"
+//       className={styles.twitterShare}
+//       onClick={async function () {
+//         let workUrl = "https://torichan.app";
+//         let workText = "";
+//         if (answerText.targetWord && answerText.targetMean) {
+//           let id = await getCreateTempIdFromWord(answerText.targetWord);
+//           workUrl = workUrl + "/mean/" + id;
+//           workText =
+//             "むーちゃんが「" +
+//             answerText.targetWord +
+//             "」の意味をおしえてくれるよ！";
+//         } else {
+//           workText = "むーちゃんとお話したよ！";
+//         }
+//         setText(workText);
+//         setUrl(workUrl);
+//         setState(true);
+//       }}
+//     >
+//       {props.children}
+//     </div>
+//   );
+// }
+
+// export default TwitterShare;
+
 import { useState, useEffect } from "react";
 import { getCreateTempIdFromWord } from "reqests/word";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { answerTextAtom } from "state/talkState";
 
-// import styles from "styles/content.module.css";
 import styles from "styles/hooterMenu.module.css";
 
 import { TwitterShareButton, TwitterIcon } from "react-share";
 
 function TwitterShare(props) {
   const [answerText, setAnswerText] = useRecoilState(answerTextAtom);
-  const [state, setState] = useState(false);
-  const [text, setText] = useState(false);
-  const [url, setUrl] = useState(false);
-
-  useEffect(() => {
-    if (state) {
-      let button = document.getElementsByClassName("react-share__ShareButton");
-      button[0].click();
-    }
-  }, [state]);
-
-  async function createUrl() {
-    let url = "https://torichan.app";
-    if (answerText.targetWord && answerText.targetMean) {
-      let id = await getCreateTempIdFromWord(answerText.targetWord);
-      url = url + "/mean/" + id;
-    } else {
-    }
-    return url;
-  }
-
-  return state ? (
+  return (
     <>
-      <TwitterShareButton
-        url={url}
-        title={text}
-        onShareWindowClose={() => {
-          setState(false);
+      <div
+        id="tweet_button"
+        className={styles.twitterShare}
+        onClick={async function () {
+          let url = "https://torichan.app";
+          let text = "";
+          if (answerText.targetWord && answerText.targetMean) {
+            let id = await getCreateTempIdFromWord(answerText.targetWord);
+            url = url + "/mean/" + id;
+            text =
+              "むーちゃんが「" +
+              answerText.targetWord +
+              "」の意味をおしえてくれるよ！";
+          } else {
+            text = "むーちゃんとお話したよ！";
+          }
+          const tweetLink = document.createElement("a");
+          const query_params = new URLSearchParams({
+            url: url,
+            text: text
+          });
+          tweetLink.href = "https://twitter.com/intent/tweet?" + query_params;
+          document.body.appendChild(tweetLink);
+          console.log(tweetLink);
+          tweetLink.click();
+          document.body.removeChild(tweetLink);
         }}
       >
         {props.children}
-      </TwitterShareButton>
+      </div>
     </>
-  ) : (
-    <div
-      id="tweet_button"
-      className={styles.twitterShare}
-      onClick={async function () {
-        let workUrl = "https://torichan.app";
-        let workText = "";
-        if (answerText.targetWord && answerText.targetMean) {
-          let id = await getCreateTempIdFromWord(answerText.targetWord);
-          workUrl = workUrl + "/mean/" + id;
-          workText =
-            "むーちゃんが「" +
-            answerText.targetWord +
-            "」の意味をおしえてくれるよ！";
-        } else {
-          workText = "むーちゃんとお話したよ！";
-        }
-        setText(workText);
-        setUrl(workUrl);
-        setState(true);
-      }}
-    >
-      {props.children}
-    </div>
   );
 }
 
 export default TwitterShare;
+
 
 // import { useState, useEffect } from "react";
 // import { getCreateTempIdFromWord } from "reqests/word";
