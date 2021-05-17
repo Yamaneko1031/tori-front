@@ -28,16 +28,16 @@
 
 .hooterMsg1 {
   position: absolute;
-  left: 5vh;
-  top: 0px;
   font-size: 1vh;
+  top: 1px;
+  left: 10vw;
 }
 
 .hooterMsg2 {
   position: absolute;
   font-size: 1vh;
-  right: 5vw;
-  top: 0px;
+  top: 1px;
+  right: 10vw;
 }
 
 .clickArea {
