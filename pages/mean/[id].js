@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { talkState } from "state/talkState";
 import { answerTextAtom } from "state/talkState";
-import { getTemp } from "reqests/word";
+import { getTempFront } from "reqests/word";
 import { getTag } from "reqests/tag";
 import * as gtag from "util/gtag";
 
@@ -21,7 +21,7 @@ export default function TempId() {
     if (router.query.id) {
       (async function () {
         let setAnswer = {};
-        let data = await getTemp(router.query.id);
+        let data = await getTempFront(router.query.id);
         gtag.event({
           action: "MeanIn",
           category: data.kind,
