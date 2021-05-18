@@ -949,7 +949,7 @@ export default function TalkMain() {
             <MuchanSpeak
               key={state}
               strings={
-                "わーい！遊びに来てくれた！<br>「" +
+                "わーい！遊びに来てくれたのー！？<br>「" +
                 answerText.targetWord +
                 "」っていう言葉を教えてあげる！"
               }
