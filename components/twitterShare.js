@@ -63,9 +63,14 @@
 // export default TwitterShare;
 
 import { useState, useEffect } from "react";
-import { getCreateTempIdFromWord } from "reqests/word";
+import {
+  getPostId,
+  getCreateTempIdFromWord,
+  postCreateTempIdFromWord
+} from "reqests/word";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { answerTextAtom } from "state/talkState";
+import { parseCookies, setCookie, destroyCookie } from "nookies";
 
 import styles from "styles/hooterMenu.module.css";
 
@@ -81,8 +86,11 @@ function TwitterShare(props) {
         onClick={async function () {
           let url = "https://torichan.app";
           let text = "";
+          let isWord = false;
           if (answerText.targetWord && answerText.targetMean) {
-            let id = await getCreateTempIdFromWord(answerText.targetWord);
+            // let id = await getCreateTempIdFromWord(answerText.targetWord);
+            let id = getPostId();
+            isWord = true;
             url = url + "/mean/" + id;
             text =
               "むーちゃんが「" +
@@ -96,11 +104,14 @@ function TwitterShare(props) {
             url: url,
             text: text
           });
+          tweetLink.style.cursur = "pointer";
           tweetLink.href = "https://twitter.com/intent/tweet?" + query_params;
           document.body.appendChild(tweetLink);
-          console.log(tweetLink);
           tweetLink.click();
           document.body.removeChild(tweetLink);
+          if (isWord) {
+            postCreateTempIdFromWord(answerText.targetWord);
+          }
         }}
       >
         {props.children}
@@ -110,7 +121,6 @@ function TwitterShare(props) {
 }
 
 export default TwitterShare;
-
 
 // import { useState, useEffect } from "react";
 // import { getCreateTempIdFromWord } from "reqests/word";

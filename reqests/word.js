@@ -11,6 +11,22 @@ function getCookieSessionId() {
   return session_id;
 }
 
+function getCookiePostCnt() {
+  const cookies = parseCookies();
+  let postCnt = 0;
+  if (cookies.postCnt) {
+    postCnt = cookies.postCnt;
+  }
+  return postCnt;
+}
+
+export function getPostId() {
+  let sessionId = getCookieSessionId()
+  let postCnt = getCookiePostCnt()
+  let postId = sessionId + String(postCnt)
+  return postId;
+}
+
 export async function getWord(word) {
   let response = await fetch(API_ROOT + "/words/" + word);
   let retData;
@@ -258,11 +274,29 @@ export async function getTemp(id) {
   }
 }
 
+export async function getTempFront(id) {
+  let response = await fetch(API_ROOT + "/word_temp_front/" + id);
+  if (response.ok) {
+    let jsonData = await response.json();
+    if (jsonData.detail == "Temp not found.") {
+      return false;
+    } else {
+      return jsonData;
+    }
+  } else {
+    console.error("HTTP-Error: " + response.status);
+    return false;
+  }
+}
+
 export async function getCreateTempIdFromWord(word) {
-  const query_params = new URLSearchParams({word:word}); 
-  let response = await fetch(API_ROOT + "/create_temp_remember_word?" + query_params, {
-    method: "POST",
-  });
+  const query_params = new URLSearchParams({ word: word });
+  let response = await fetch(
+    API_ROOT + "/create_temp_remember_word?" + query_params,
+    {
+      method: "POST"
+    }
+  );
   if (response.ok) {
     let jsonData = await response.json();
     if (jsonData.detail == "Temp not found.") {
@@ -276,8 +310,33 @@ export async function getCreateTempIdFromWord(word) {
   }
 }
 
+export async function postCreateTempIdFromWord(word) {
+  let session_id = getCookieSessionId();
+  let postCnt = getCookiePostCnt();
+  const query_params = new URLSearchParams({ word: word, cnt: postCnt + 1 });
+  let response = await fetch(API_ROOT + "/create_temp_fromt?" + query_params, {
+    method: "POST",
+    cache: "no-cache",
+    headers: {
+      "session-id": session_id
+    }
+  });
+  if (response.ok) {
+    let jsonData = await response.json();
+    if (jsonData.detail == "Not found.") {
+      return false;
+    } else {
+      setCookie(null, "postCnt", postCnt + 1);
+      return true;
+    }
+  } else {
+    console.error("HTTP-Error: " + response.status);
+    return false;
+  }
+}
+
 export async function addJankenResult(result) {
-  const query_params = new URLSearchParams({result:result}); 
+  const query_params = new URLSearchParams({ result: result });
   let session_id = getCookieSessionId();
   let response = await fetch(API_ROOT + "/janken?" + query_params, {
     method: "PUT",
