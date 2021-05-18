@@ -7,7 +7,9 @@ import {
   InstapaperShareButton,
   InstapaperIcon,
   HatenaShareButton,
-  HatenaIcon
+  HatenaIcon,
+  LineShareButton,
+  LineIcon
 } from "react-share";
 import TwitterLink from "components/twitterLink";
 import TwitterShare from "components/twitterShare";
@@ -39,9 +41,9 @@ export default function HooterMenu() {
             </InstapaperShareButton>
           </li> */}
           <li>
-            <HatenaShareButton url={url}>
-              <HatenaIcon size={iconSize} round={true} />
-            </HatenaShareButton>
+            <LineShareButton url={url}>
+              <LineIcon size={iconSize} round={true} />
+            </LineShareButton>
           </li>
           <li>
             <TwitterLink />
