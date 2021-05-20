@@ -33,6 +33,7 @@ function ShutterAnimation(props) {
 
 function ShutterButton(props) {
   const [albumData, setAlbumData] = useRecoilState(albumDataAtom);
+  const PAGE_MAX = 10;
 
   // 初期状態セット
   useEffect(() => {
@@ -54,19 +55,17 @@ function ShutterButton(props) {
     }).then((canvas) => {
       const targetImgUri = canvas.toDataURL("img/png");
       setAlbumData((preData) => {
-        // let newData
-        // console.log(preData);
-        // if (preData.length >= 4) {
-        //   newData = [...preData.slice(1), targetImgUri];
-        // }
-        // else {
-        //   newData = [...preData, targetImgUri];
-        // }
-        let newData = [...preData, targetImgUri];
+        let newData;
+        if (preData.length >= PAGE_MAX) {
+          newData = [
+            targetImgUri,
+            ...preData.slice(preData.length - (PAGE_MAX - 1))
+          ];
+        } else {
+          newData = [targetImgUri, ...preData];
+        }
         return newData;
       });
-      // document.getElementById("result").src = targetImgUri;
-      // saveAsImage(targetImgUri);
     });
     target.style.height = "";
   };
