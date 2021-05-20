@@ -88,7 +88,6 @@ function TwitterShare(props) {
           let text = "";
           let isWord = false;
           if (answerText.targetWord && answerText.targetMean) {
-            // let id = await getCreateTempIdFromWord(answerText.targetWord);
             let id = getPostId();
             isWord = true;
             url = url + "/mean/" + id;

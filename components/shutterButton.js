@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { twitterLinkAtom } from "state/talkState";
+import { albumDataAtom } from "state/talkState";
 import html2canvas from "html2canvas";
 import styles from "styles/content.module.css";
 
@@ -26,32 +26,39 @@ const saveAsImage = (uri) => {
   }
 };
 
-const onClickExport = () => {
-  // 画像に変換する component の id を指定
-  const target = document.getElementById("target-component");
-  target.style.height = "600px";
-  html2canvas(target, {
-    scale: 1,
-    ignoreElements: function (element) {
-      /* Remove element with id="MyElementIdHere" */
-      if ("target-ignore" == element.id) {
-        return true;
-      }
-    }
-  }).then((canvas) => {
-    const targetImgUri = canvas.toDataURL("img/png");
-    saveAsImage(targetImgUri);
-  });
-  target.style.height = "";
-};
-
 function ShutterButton(props) {
-  const [twitterLink, setTwitterLink] = useRecoilState(twitterLinkAtom);
+  const [albumData, setAlbumData] = useRecoilState(albumDataAtom);
 
   // 初期状態セット
   useEffect(() => {
     return () => {};
   });
+
+  const onClickExport = () => {
+    // 画像に変換する component の id を指定
+    const target = document.getElementById("target-component");
+    target.style.height = "600px";
+    html2canvas(target, {
+      scale: 1,
+      ignoreElements: function (element) {
+        /* Remove element with id="MyElementIdHere" */
+        if ("target-ignore" == element.id) {
+          return true;
+        }
+      }
+    }).then((canvas) => {
+      const targetImgUri = canvas.toDataURL("img/png");
+      setAlbumData((preData) => {
+        let newData = [...preData, targetImgUri];
+        return newData;
+      });
+      // document.getElementById("result").src = targetImgUri;
+      // saveAsImage(targetImgUri);
+    });
+    target.style.height = "";
+  };
+
+  console.log(albumData);
 
   return (
     <div className={styles.shutterButton} onClick={onClickExport}>

@@ -113,6 +113,12 @@ export const twitterLinkAtom = atom({
   default: true
 });
 
+// アルバム管理用
+export const albumDataAtom = atom({
+  key: "albumDataAtom",
+  default: []
+});
+
 // const currentUserNameQuery = selector({
 //   key: 'CurrentUserName',
 //   get: async ({get}) => {
