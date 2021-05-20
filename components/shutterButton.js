@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { albumDataAtom } from "state/talkState";
+import { CSSTransition } from "react-transition-group";
 import html2canvas from "html2canvas";
 import styles from "styles/content.module.css";
 
@@ -26,6 +27,10 @@ const saveAsImage = (uri) => {
   }
 };
 
+function ShutterAnimation(props) {
+  return <div></div>;
+}
+
 function ShutterButton(props) {
   const [albumData, setAlbumData] = useRecoilState(albumDataAtom);
 
@@ -49,6 +54,14 @@ function ShutterButton(props) {
     }).then((canvas) => {
       const targetImgUri = canvas.toDataURL("img/png");
       setAlbumData((preData) => {
+        // let newData
+        // console.log(preData);
+        // if (preData.length >= 4) {
+        //   newData = [...preData.slice(1), targetImgUri];
+        // }
+        // else {
+        //   newData = [...preData, targetImgUri];
+        // }
         let newData = [...preData, targetImgUri];
         return newData;
       });
@@ -58,7 +71,7 @@ function ShutterButton(props) {
     target.style.height = "";
   };
 
-  console.log(albumData);
+  // console.log(albumData);
 
   return (
     <div className={styles.shutterButton} onClick={onClickExport}>

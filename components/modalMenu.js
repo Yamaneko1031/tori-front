@@ -7,18 +7,22 @@ import menuStyles from "styles/menu.module.css";
 
 function ModalMenu(props) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  
+
   function openModal() {
-    gtag.event({
-      action: 'ModalOpen',
-      category: 'Open',
-      label: props.title,
-    })
-    setIsOpen(true);
+    if (!props.disable) {
+      gtag.event({
+        action: "ModalOpen",
+        category: "Open",
+        label: props.title
+      });
+      setIsOpen(true);
+      if (props.onOpen) {
+        props.onOpen();
+      }
+    }
   }
 
-  function afterOpenModal() {
-  }
+  function afterOpenModal() {}
 
   function closeModal() {
     setIsOpen(false);
@@ -37,15 +41,13 @@ function ModalMenu(props) {
         contentLabel="Example Modal"
         ariaHideApp={false}
       >
-        <div className={styles.drawArea}>
-          {props.children}
-        </div>
+        <div className={styles.drawArea}>{props.children}</div>
         <div className={styles.btnClose} onClick={closeModal}>
           ×
         </div>
       </Modal>
     </div>
   );
-};
+}
 
 export default ModalMenu;

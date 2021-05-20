@@ -22,3 +22,16 @@
   object-fit: cover;
   object-position: 50% 100%;
 }
+
+.indicator {
+  width: 15px;
+  color: blue;
+  text-align: center;
+  cursor: pointer;
+  border: 1px blue solid;
+}
+
+.indicator.active {
+  background: #000;
+  color: #fff;
+}
