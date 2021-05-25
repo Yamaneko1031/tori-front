@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Head from "components/head";
 
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import SelectAnswer from "components/selectAnswer";
 import InputAnswer from "components/inputWord";
@@ -23,30 +22,59 @@ import { getWord, rememberedTweet } from "reqests/word";
 
 import { getTag, getTagChoices } from "reqests/tag";
 import { getCreateTempIdFromWord } from "reqests/word";
+
+import { useSpring, useTransition, animated } from "react-spring";
+
 // import { useTags } from "reqests/tag";
 // import { addWordTag1 } from "reqests/word";
 import styles from "styles/debug.module.css";
+import loader from "styles/loader.module.css";
 
 import useSWR from "swr";
 import Div100vh from "react-div-100vh";
 
 let session_id = "";
 
+const Thing = ({ toggle }) => {
+  const props = useSpring({
+    transform: toggle ? "translate3d(0,-25px,0)" : "translate3d(0,0,0)"
+  });
+
+  return (
+    <animated.div style={props}>
+      <div
+        style={{
+          padding: "50px"
+        }}
+      >
+        THING
+      </div>
+    </animated.div>
+  );
+};
+
 export default function Summary() {
   const [state, setState] = useRecoilState(talkState);
   const [test, settest] = useState(false);
   const answerText = useRecoilValue(answerTextAtom);
-  let work = [];
-  // const { data, error } = useSWR('/api/user', getTags)
-  // const state = useSetRecoilState(testState);
+  const [enter, setEnter] = useState(false);
+  const spring = useSpring({
+    fontSize: enter ? "48pt" : "24pt",
+    color: enter ? "red" : "green"
+  });
+  const [show, set] = useState(false);
+  const transitions = useTransition(show, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    reverse: show,
+    delay: 20,
+    // config: config.molasses,
+    onRest: () => set(!show)
+  });
+  const [flag, setFlag] = useState(true);
 
-  // const { user, isLoading } = useTags();    //ユーザー情報の取得
-  // if (isLoading) {
-  //   console.log("LD")
-  //   return <p>Loading ...</p>  //ロード中
-  // }
-  // console.log("OK")
-  // return <h1>ようこそ {user.name}さん</h1>
+  let work = [];
 
   // 初期状態セット
   useEffect(() => {
@@ -73,51 +101,11 @@ export default function Summary() {
   }
 
   async function changeState() {
-    // rememberedTweet()
-    // console.log("Call:Summary changeState");
-    // setState(state+"1")
-    // https://muchan-api-6gun3ieocq-an.a.run.app
-
-    //   fetch(apiRoot + "/words", {
-    //     method: "POST",
-    //     cache: "no-cache",
-    //     body: JSON.stringify(data)
-    //   })
-    //     .then((res) => {
-    //       if (!res.ok) {
-    //         throw new Error(`${res.status} ${res.statusText}`);
-    //       }
-    //       return res.json();
-    //     })
-    //     .then((json) => {
-    //       // blob にレスポンスデータが入る
-    //       console.log(json);
-    //     })
-    //     .catch((reason) => {
-    //       console.log("reason:" + reason);
-    //     });
-    //await getWord(answerText);
-
-    // console.log("changeState");
     let a = work.pop();
     console.log(a);
   }
 
   async function changeState1() {
-    // testRequest();
-    // let data = await getTags()
-    // let data = await getTagRandom()
-    // console.log("c"+data.word)
-
-    // let tags = await getTagChoices();
-    // let data = []
-    // for (let i = 0; i < tags.length; ++i) {
-    //   data.push(tags[i].text)
-    // }
-    // console.log(data);
-
-    // let data = await getTag("かわいい")
-    // console.log(data)
     console.log(work.length);
     if (work.length === 0) {
       work = randomArray(0, 7);
@@ -131,18 +119,8 @@ export default function Summary() {
       let url = "https://torichan.app/mean/" + id;
       return url;
     }
-    let url = await createUrl()
+    let url = await createUrl();
     console.log(url);
-    // useTag1("すごい")
-    // addWordTag1("リモコン", "硬い")
-    // console.log("0:" + session_id);
-    // session_id = data["session_id"];
-    // // settest(data["session_id"]);
-    // console.log("3:" + session_id);
-    // console.log(window.innerHeight)
-    // console.log(window.clientHeight)
-    // console.log(window.scrollHeight)
-    // console.log(window.offsetHeight　)
   }
 
   let title = "学習オウム むーちゃん summary";
@@ -151,6 +129,16 @@ export default function Summary() {
   // if (error) return <div>failed to load</div>
   // if (!data) return <div>loading...</div>
   // return <div>hello {data.name}!</div>
+
+  const styleGenerator = (index) => ({
+    minWidth: 64,
+    lineHeight: "32px",
+    borderRadius: 4,
+    border: "none",
+    padding: "0 16px",
+    color: "#fff",
+    background: background ? background : "#639"
+  });
 
   return (
     <>
@@ -173,11 +161,39 @@ export default function Summary() {
         </div>
 
         {list_draw()} */}
+      <div className="App">
+        <Thing toggle={flag} />
+        <button
+          style={{
+            padding: "50px",
+            marginTop: "50px"
+          }}
+          onClick={() => setFlag(!flag)}
+        >
+          click me
+        </button>
+      </div>
 
       <div onClick={changeState}>{"changeState"}</div>
       <div onClick={changeState1}>{"ボタン1"}</div>
       <div onClick={changeState2}>{"ボタン2"}</div>
-      
+
+      {/* <img className={styles.shutter} src={"images/shutter.svg"} /> */}
+      {/* <img className={styles.shutter} src={"images/shutter.svg"} /> */}
+      {/* <div className={loader.loader} /> */}
+
+      <animated.div
+        style={spring}
+        onMouseEnter={(e) => setEnter(true)}
+        onMouseLeave={(e) => setEnter(false)}
+      >
+        Hello React Spring
+      </animated.div>
+
+      {transitions(
+        (styles, item) => item && <animated.div style={styles}>✌️</animated.div>
+      )}
+
       {/* <a href="https://twitter.com/MuchanApp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @MuchanApp</a> */}
       {/* <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
       {/* <InputAnswer /> */}

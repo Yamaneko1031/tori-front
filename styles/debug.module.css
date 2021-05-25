@@ -64,3 +64,29 @@
   height: 20%;
   border: 5px solid rgb(0, 0, 0);
 }
+
+.shutter {
+  animation: shutterClose 0.5s linear infinite;
+  transform-origin: right bottom;
+}
+ 
+@keyframes shutterClose {
+  0%   { transform: rotate(50deg); }
+  20% { transform: rotate(180deg); }
+  80% { transform: rotate(180deg); }
+  100% { transform: rotate(50deg); }
+}
+
+@keyframes shutterOpen {
+  0%   { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.testarea {
+  left: 100px;
+  /* padding: 100px; */
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}

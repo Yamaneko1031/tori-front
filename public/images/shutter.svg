@@ -1,0 +1,20 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="200" height="200">
+	<title>新規プロジェクト</title>
+	<defs>
+		<linearGradient id="grd1" gradientUnits="userSpaceOnUse"  x1="98.478" y1="376" x2="302.282" y2="23">
+			<stop offset="0" stop-color="#000000"  />
+			<stop offset="1" stop-color="#dbdbdb"  />
+		</linearGradient>
+		<linearGradient id="grd2" gradientUnits="userSpaceOnUse"  x1="0" y1="0" x2="0" y2="0">
+			<stop offset="0" stop-color="#000000"  />
+			<stop offset="1" stop-color="#dbdbdb"  />
+		</linearGradient>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: url(#grd1) } 
+		.shp1 { fill: url(#grd2) } 
+	</style>
+	<path id="Background" class="shp0" d="M54.58 376L360.76 373.22L247.96 209.23C247.96 209.23 218.21 74.88 246.72 32.73C275.23 -9.42 -3.68 81.83 45.9 376" />
+	<path id="形状 1" class="shp1" d="" />
+</svg>
