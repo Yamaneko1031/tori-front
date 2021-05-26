@@ -18,15 +18,6 @@ function TwitterLink(props) {
       </a>
     </div>
   );
-  // return twitterLink ? (
-  //   <div className={styles.twitterLink}>
-  //     <a href="https://twitter.com/MuchanApp" target="_blank">
-  //       <img className={styles.twitterIcon} src="images/img_tweet.png"></img>
-  //     </a>
-  //   </div>
-  // ) : (
-  //   <></>
-  // );
 }
 
 export default TwitterLink;

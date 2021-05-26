@@ -35,11 +35,6 @@ export default function HooterMenu() {
               <FacebookIcon size={iconSize} round={true} />
             </FacebookShareButton>
           </li>
-          {/* <li>
-            <InstapaperShareButton url={url}>
-              <InstapaperIcon size={iconSize} round={true} />
-            </InstapaperShareButton>
-          </li> */}
           <li>
             <LineShareButton url={url}>
               <LineIcon size={iconSize} round={true} />
