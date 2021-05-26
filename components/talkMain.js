@@ -8,7 +8,7 @@ import WaitTimer from "components/waitTimer";
 import TalkStateChange from "components/talkStateChange";
 import MuchanBody from "components/muchanBody";
 import TwitterLink from "components/twitterLink";
-import ShutterButton from "components/shutterButton";
+import ShutterAnim from "components/shutterAnim";
 import TwitterShare from "components/twitterShare";
 import Menu from "components/menu";
 import HooterMenu from "components/hooterMenu";
@@ -1572,7 +1572,7 @@ export default function TalkMain() {
         <Menu />
         <div>{content()}</div>
         <div id="target-ignore">
-          <ShutterButton />
+          <ShutterAnim />
           <HooterMenu />
           {/* <TwitterShare />
           <TwitterLink /> */}

@@ -1,15 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import {
-  Keyframes,
-  useSpring,
-  useTransition,
-  animated,
-  config
-} from "react-spring";
+import { useSprings, animated } from "react-spring";
+import ShutterButton from "components/shutterButton";
 
 import styles from "styles/content.module.css";
 
-const DURATION = 500;
+const DURATION = 300;
 const RATIO = 330;
 const INI_POS_X = -700;
 const INI_POS_Y = -600;
@@ -25,43 +20,58 @@ const SHUTTER_DATA = [
 ];
 
 const Translate = (props) => {
-  const spring = useSpring({
+  const [state, setState] = useState(false);
+  const [springs, api] = useSprings(SHUTTER_DATA.length, (idx) => ({
     config: { duration: DURATION },
     from: {
-      transform: "rotate(" + props.data.fromRot + "deg)"
+      x: 0
     },
-    reverse: true,
-    to: {
-        transform: "rotate(" + props.data.toRot + "deg)"
-    }
-  });
+    x: 1,
+    immediate: true
+  }));
 
   return (
-    <animated.img
-      src={"images/shutter.svg"}
-      width="900"
-      height="900"
-      style={{
-        ...spring,
-        position: "absolute",
-        left: INI_POS_X + RATIO * props.data.posX + "px",
-        top: INI_POS_Y + RATIO * props.data.posY + "px",
-        transformOrigin: "right bottom"
-      }}
-    ></animated.img>
+    <>
+      {springs.map((item, idx) => (
+        <animated.img
+          key={"shutter" + idx}
+          src={"images/shutter.svg"}
+          width="900"
+          height="900"
+          style={{
+            position: "absolute",
+            left: INI_POS_X + RATIO * SHUTTER_DATA[idx].posX + "px",
+            top: INI_POS_Y + RATIO * SHUTTER_DATA[idx].posY + "px",
+            transformOrigin: "right bottom",
+            transform: item.x
+              .to({
+                range: [0, 0.2, 0.8, 1],
+                output: [
+                  SHUTTER_DATA[idx].fromRot,
+                  SHUTTER_DATA[idx].toRot,
+                  SHUTTER_DATA[idx].toRot,
+                  SHUTTER_DATA[idx].fromRot
+                ]
+              })
+              .to((val) => `rotate(${val}deg)`)
+          }}
+        />
+      ))}
+      <ShutterButton
+        onClick={() => {
+          setState(!state);
+          api.start({ immediate: false, x: state ? 1 : 0 });
+        }}
+      />
+    </>
   );
 };
 
 function ShutterAnim(props) {
-  const timerTouch = setTimeout(() => {
-    props.rest();
-  }, DURATION * 2 + 20);
   return (
     <>
       <div className={styles.shutterArea}>
-        {SHUTTER_DATA.map((value, index, array) => {
-          return <Translate key={index} data={value} />;
-        })}
+        <Translate />
       </div>
     </>
   );

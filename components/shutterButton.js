@@ -131,7 +131,6 @@ function ShutterAnimation(props) {
 }
 
 function ShutterButton(props) {
-  const [state, setState] = useState(false);
   const [albumData, setAlbumData] = useRecoilState(albumDataAtom);
   const PAGE_MAX = 10;
 
@@ -141,9 +140,7 @@ function ShutterButton(props) {
   });
 
   const onClickExport = () => {
-    if (state) {
-      return;
-    }
+    props.onClick();
     // 画像に変換する component の id を指定
     const target = document.getElementById("target-component");
     target.style.height = "600px";
@@ -172,7 +169,6 @@ function ShutterButton(props) {
     });
     target.style.height = "";
 
-    setState(true);
     // const timerTouch = setTimeout(() => {
     //   console.log(state);
     //   setState(false);
@@ -181,18 +177,6 @@ function ShutterButton(props) {
 
   return (
     <>
-      {/* <div className={styles.shutterArea}>
-      </div> */}
-      {/* {state ? <ShutterAnimation /> : <></>} */}
-      {state ? (
-        <ShutterAnim
-          rest={() => {
-            setState(false);
-          }}
-        />
-      ) : (
-        <></>
-      )}
       <div className={styles.shutterButton} onClick={onClickExport}>
         <img className={styles.cameraIcon} src="images/camera.png"></img>
       </div>

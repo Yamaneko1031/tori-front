@@ -1,11 +1,7 @@
-<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="200" height="200">
-	<title>新規プロジェクト</title>
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+	<title>shutter-svg</title>
 	<defs>
-		<linearGradient id="grd1" gradientUnits="userSpaceOnUse"  x1="98.478" y1="376" x2="302.282" y2="23">
-			<stop offset="0" stop-color="#000000"  />
-			<stop offset="1" stop-color="#dbdbdb"  />
-		</linearGradient>
-		<linearGradient id="grd2" gradientUnits="userSpaceOnUse"  x1="0" y1="0" x2="0" y2="0">
+		<linearGradient id="grd1" gradientUnits="userSpaceOnUse"  x1="209.931" y1="373.22" x2="328.829" y2="167.282">
 			<stop offset="0" stop-color="#000000"  />
 			<stop offset="1" stop-color="#dbdbdb"  />
 		</linearGradient>
@@ -13,8 +9,6 @@
 	<style>
 		tspan { white-space:pre }
 		.shp0 { fill: url(#grd1) } 
-		.shp1 { fill: url(#grd2) } 
 	</style>
-	<path id="Background" class="shp0" d="M54.58 376L360.76 373.22L247.96 209.23C247.96 209.23 218.21 74.88 246.72 32.73C275.23 -9.42 -3.68 81.83 45.9 376" />
-	<path id="形状 1" class="shp1" d="" />
+	<path id="Background" class="shp0" d="M178 371.67L360.76 373.22L240.5 220.34C241 223.84 223.71 187.13 221.5 168.34C220.5 159.84 198.5 204.5 196.5 225.84" />
 </svg>
