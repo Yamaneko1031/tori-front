@@ -40,7 +40,17 @@ const Translate = (props) => {
           height="900"
           style={{
             position: "absolute",
-            left: INI_POS_X + RATIO * SHUTTER_DATA[idx].posX + "px",
+            zIndex: "200",
+            // left: INI_POS_X + RATIO * SHUTTER_DATA[idx].posX + "px",
+            left: item.x.to({
+              range: [0, 0.01, 0.99, 1],
+              output: [
+                "-2000px",
+                INI_POS_X + RATIO * SHUTTER_DATA[idx].posX + "px",
+                INI_POS_X + RATIO * SHUTTER_DATA[idx].posX + "px",
+                "-2000px",
+              ]
+            }),
             top: INI_POS_Y + RATIO * SHUTTER_DATA[idx].posY + "px",
             transformOrigin: "right bottom",
             transform: item.x
