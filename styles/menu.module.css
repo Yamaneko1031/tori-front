@@ -6,7 +6,8 @@
 }
 
 .globalNavi ul {
-  background-color: rgba(0, 120, 0, 0.8);
+  /* background-color: rgba(0, 120, 0, 0.8); */
+  background-color: rgba(207, 96, 5, 0.8);
   /* background-color: #259e4f; */
   display: block;
   padding: 0px;
@@ -35,7 +36,8 @@
 }
 
 .clickArea:hover {
-  background: #3fb669;
+  /* background: #3fb669; */
+  background: #ff9736;
   color: white;
   cursor: pointer;
 }
