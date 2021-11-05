@@ -142,8 +142,8 @@
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ececec;
-  /* background: #259e4f; */
-  background: #d35912;
+  background: #259e4f;
+  /* background: #d35912; */
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -153,8 +153,8 @@
 }
 
 .btnflatSimple:hover {
-  /* background: #3fb669; */
-  background: #ff9736;
+  background: #3fb669;
+  /* background: #ff9736; */
   color: white;
   cursor: pointer;
 }
@@ -166,8 +166,8 @@
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ececec;
-  /* background: #259e4f; */
-  background: #d35912;
+  background: #259e4f;
+  /* background: #d35912; */
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -183,7 +183,8 @@
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ececec;
-  background: #b6793f;
+  background: #3fb669;
+  /* background: #b6793f; */
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -205,8 +206,8 @@
   width: calc(100% - 129px);
   height: 60px;
   padding: 0.5em;
-  /* border: 3px solid #259e4f; */
-  border: 3px solid #d35912;
+  border: 3px solid #259e4f;
+  /* border: 3px solid #d35912; */
   border-radius: 5px;
   display: inline-block;
   vertical-align: top;
@@ -219,8 +220,8 @@
   font-weight: bold;
   text-decoration: none;
   color: #ececec;
-  /* background: #259e4f; */
-  background: #d35912;
+  background: #259e4f;
+  /* background: #d35912; */
   transition: 0.2s;
   margin-right: 5px;
   padding: 1em 0em;
@@ -233,8 +234,8 @@
 }
 
 .btnInputOk:hover {
-  /* background: #3fb669; */
-  background: #ff9736;
+  background: #3fb669;
+  /* background: #ff9736; */
   color: white;
   cursor: pointer;
 }
