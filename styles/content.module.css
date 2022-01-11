@@ -142,11 +142,13 @@
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ececec;
-  /* background: #259e4f; */
+  background: #259e4f;
   /* ハロウィン */
   /* background: #d35912; */
   /* クリスマス */
-  background: #9b0d0d;
+  /* background: #9b0d0d; */
+  /* 冬 */
+  background: #034188;
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -156,11 +158,13 @@
 }
 
 .btnflatSimple:hover {
-  /* background: #3fb669; */
+  background: #3fb669;
   /* ハロウィン */
   /* background: #ff9736; */
   /* クリスマス */
-  background: #b92f2f;
+  /* background: #b92f2f; */
+  /* 冬 */
+  background: #144d8d;
   color: white;
   cursor: pointer;
 }
@@ -172,11 +176,13 @@
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ececec;
-  /* background: #259e4f; */
+  background: #259e4f;
   /* ハロウィン */
   /* background: #d35912; */
   /* クリスマス */
-  background: #9b0d0d;
+  /* background: #9b0d0d; */
+  /* 冬 */
+  background: #034188;
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -192,11 +198,13 @@
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ececec;
-  /* background: #3fb669; */
+  background: #3fb669;
   /* ハロウィン */
   /* background: #b6793f; */
   /* クリスマス */
-  background: #b92f2f;
+  /* background: #b92f2f; */
+  /* 冬 */
+  background: #144d8d;
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -218,11 +226,13 @@
   width: calc(100% - 129px);
   height: 60px;
   padding: 0.5em;
-  /* border: 3px solid #259e4f; */
+  border: 3px solid #259e4f;
   /* ハロウィン */
   /* border: 3px solid #d35912; */
   /* クリスマス */
-  background: #9b0d0d;
+  /* background: #9b0d0d; */
+  /* 冬 */
+  background: #034188;
   border-radius: 5px;
   display: inline-block;
   vertical-align: top;
@@ -235,9 +245,13 @@
   font-weight: bold;
   text-decoration: none;
   color: #ececec;
-  /* background: #259e4f; */
+  background: #259e4f;
+  /* ハロウィン */
   /* background: #d35912; */
-  background: #9b0d0d;
+  /* クリスマス */
+  /* background: #9b0d0d; */
+  /* 冬 */
+  background: #034188;
   transition: 0.2s;
   margin-right: 5px;
   padding: 1em 0em;
@@ -250,11 +264,13 @@
 }
 
 .btnInputOk:hover {
-  /* background: #3fb669; */
+  background: #3fb669;
   /* ハロウィン */
   /* background: #ff9736; */
   /* クリスマス */
-  background: #b92f2f;
+  /* background: #b92f2f; */
+  /* 冬 */
+  background: #144d8d;
   color: white;
   cursor: pointer;
 }

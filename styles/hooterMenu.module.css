@@ -67,7 +67,9 @@
 }
 
 .clickArea:hover {
-  background: #3fb669;
+  /* background: #3fb669; */
+  /* クリスマス */
+  background: #b92f2f;
   color: white;
   cursor: pointer;
 }

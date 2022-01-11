@@ -6,11 +6,13 @@
 }
 
 .globalNavi ul {
-  /* background-color: rgba(0, 120, 0, 0.8); */
+  background-color: rgba(0, 120, 0, 0.8);
   /* ハロウィン */
   /* background-color: rgba(207, 96, 5, 0.8); */
   /* クリスマス */
-  background-color: rgba(153, 21, 21, 0.8);
+  /* background-color: rgba(153, 21, 21, 0.8); */
+  /* 冬 */
+  background-color: rgba(1, 32, 134, 0.8);
   display: block;
   padding: 0px;
   margin: 0;
@@ -38,11 +40,13 @@
 }
 
 .clickArea:hover {
-  /* background: #3fb669; */
+  background: #3fb669;
   /* ハロウィン */
   /* background: #ff9736; */
   /* クリスマス */
-  background: #b92f2f;
+  /* background: #b92f2f; */
+  /* 冬 */
+  background: #144d8d;
   color: white;
   cursor: pointer;
 }
