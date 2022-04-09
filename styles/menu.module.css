@@ -12,7 +12,9 @@
   /* クリスマス */
   /* background-color: rgba(153, 21, 21, 0.8); */
   /* 冬 */
-  background-color: rgba(1, 32, 134, 0.8);
+  /* background-color: rgba(1, 32, 134, 0.8); */
+  /* 冬 */
+  background-color: rgba(255, 95, 95, 0.8);
   display: block;
   padding: 0px;
   margin: 0;
@@ -46,7 +48,9 @@
   /* クリスマス */
   /* background: #b92f2f; */
   /* 冬 */
-  background: #144d8d;
+  /* background: #144d8d; */
+  /* 桜 */
+  background: #ff8c8c;
   color: white;
   cursor: pointer;
 }

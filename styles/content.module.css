@@ -148,7 +148,9 @@
   /* クリスマス */
   /* background: #9b0d0d; */
   /* 冬 */
-  background: #034188;
+  /* background: #034188; */
+  /* 桜 */
+  background: #ff8d8d;
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -164,7 +166,9 @@
   /* クリスマス */
   /* background: #b92f2f; */
   /* 冬 */
-  background: #144d8d;
+  /* background: #144d8d; */
+  /* 桜 */
+  background: #fdb1b1;
   color: white;
   cursor: pointer;
 }
@@ -182,7 +186,9 @@
   /* クリスマス */
   /* background: #9b0d0d; */
   /* 冬 */
-  background: #034188;
+  /* background: #034188; */
+  /* 桜 */
+  background: #ff8d8d;
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -204,7 +210,9 @@
   /* クリスマス */
   /* background: #b92f2f; */
   /* 冬 */
-  background: #144d8d;
+  /* background: #144d8d; */
+  /* 冬 */
+  background: #fdb1b1;
   transition: 0.2s;
   margin-top: 5px;
   padding: 0.8em 1em;
@@ -232,7 +240,10 @@
   /* クリスマス */
   /* background: #9b0d0d; */
   /* 冬 */
-  background: #034188;
+  /* background: #034188; */
+  /* 桜 */
+  background: #ffd7d7;
+  border: 3px solid #ff8787;
   border-radius: 5px;
   display: inline-block;
   vertical-align: top;
@@ -251,7 +262,9 @@
   /* クリスマス */
   /* background: #9b0d0d; */
   /* 冬 */
-  background: #034188;
+  /* background: #034188; */
+  /* 桜 */
+  background: #ff8d8d;
   transition: 0.2s;
   margin-right: 5px;
   padding: 1em 0em;
@@ -270,7 +283,9 @@
   /* クリスマス */
   /* background: #b92f2f; */
   /* 冬 */
-  background: #144d8d;
+  /* background: #144d8d; */
+  /* 桜 */
+  background: #ff8c8c;
   color: white;
   cursor: pointer;
 }
