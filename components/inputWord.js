@@ -19,33 +19,36 @@ function InputWord(props) {
   // 初期状態セット
   useEffect(() => {
     setTwitterLink(false);
-    return () => {
-    };
-  },[]);
+    return () => {};
+  }, []);
 
   async function onformSubmit(e) {
-    if( workText.length == 0 ) {
-      return
+    if (workText.length == 0) {
+      return;
     }
-    workText = workText.replace(/\r?\n/g, '');
-    
+    if (workText.length > 50) {
+      setState(props.nextStateNg);
+      return;
+    }
+    workText = workText.replace(/\r?\n/g, "");
+
     let response = await getWord(workText);
-    let setData = { ...answerText }
+    let setData = { ...answerText };
     if (response) {
-      setData.text = ""
-      setData.response = response
-      setData.select = 0
-      setData.targetWord = response.word
-      setData.targetMean = response.mean
-      setAnswerText(setData)
+      setData.text = "";
+      setData.response = response;
+      setData.select = 0;
+      setData.targetWord = response.word;
+      setData.targetMean = response.mean;
+      setAnswerText(setData);
       setState(props.nextStateKnown);
     } else {
-      setData.text = ""
-      setData.response = response
-      setData.select = 0
-      setData.targetWord = workText
-      setData.targetMean = ""
-      setAnswerText(setData)
+      setData.text = "";
+      setData.response = response;
+      setData.select = 0;
+      setData.targetWord = workText;
+      setData.targetMean = "";
+      setAnswerText(setData);
       setState(props.nextStateUnknown);
     }
   }

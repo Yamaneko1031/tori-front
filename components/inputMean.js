@@ -19,12 +19,15 @@ function InputMean(props) {
   // 初期状態セット
   useEffect(() => {
     setTwitterLink(false);
-    return () => {
-    };
-  },[]);
+    return () => {};
+  }, []);
 
   async function onformSubmit(e) {
     if (workText.length == 0) {
+      return;
+    }
+    if (workText.length > 100) {
+      setState(props.nextStateNg);
       return;
     }
     workText = workText.replace(/\r?\n/g, "");

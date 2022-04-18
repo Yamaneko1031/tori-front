@@ -1347,7 +1347,7 @@ export default function TalkMain() {
       // 状態 ------------------------------------------------------------------------
       case "キャンセル":
         items = setInteraction({
-          MUCHAN: <MuchanSpeak key={state} strings={"あれ？？"} />,
+          MUCHAN: <MuchanSpeak key={state} strings={"むー？？"} />,
           PAUSE: "kasige",
           USER: (
             <WaitTimer key="answer" setTime={2000} nextState="何する選択肢" />
