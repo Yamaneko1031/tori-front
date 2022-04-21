@@ -56,7 +56,7 @@ export default function TalkMain() {
 
   useEffect(() => {
     return () => {
-      setTalkState("メンテナンス");
+      setTalkState("開始");
     };
   }, []);
 

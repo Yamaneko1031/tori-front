@@ -21,10 +21,26 @@ function getCookiePostCnt() {
 }
 
 export function getPostId() {
-  let sessionId = getCookieSessionId()
-  let postCnt = getCookiePostCnt()
-  let postId = sessionId + String(postCnt)
+  let sessionId = getCookieSessionId();
+  let postCnt = getCookiePostCnt();
+  let postId = sessionId + String(postCnt);
   return postId;
+}
+
+export async function apiTest() {
+  let response = await fetch(API_ROOT + "/users");
+  let retData;
+  if (response.ok) {
+    retData = await response.json();
+    if (retData["detail"] == "unknown word.") {
+      retData = false;
+    }
+    console.log(retData);
+  } else {
+    console.error("HTTP-Error: " + response.status);
+    retData = false;
+  }
+  return retData;
 }
 
 export async function getWord(word) {
