@@ -56,7 +56,7 @@ export default function TalkMain() {
 
   useEffect(() => {
     return () => {
-      setTalkState("開始");
+      setTalkState("メンテナンス");
     };
   }, []);
 
@@ -121,6 +121,16 @@ export default function TalkMain() {
     let workValue = 0;
 
     switch (state) {
+      // 状態 ------------------------------------------------------------------------
+      case "メンテナンス":
+        items = setInteraction({
+          MUCHAN: <MuchanSpeak key={state} strings="メンテナンス中なの！！" />,
+          PAUSE: "happy",
+          USER: (
+            <WaitTimer key="answer" setTime={2000} nextState="メンテナンス" />
+          )
+        });
+        break;
       // 状態 ------------------------------------------------------------------------
       case "開始":
         items = setInteraction({

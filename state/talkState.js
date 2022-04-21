@@ -5,7 +5,7 @@ import { selector } from "recoil";
 // 会話全体の状態
 const talkStateAtom = atom({
   key: "talkStateAtom",
-  default: "開始"
+  default: "メンテナンス"
 });
 
 // 会話全体の状態
@@ -94,10 +94,10 @@ export const answerData = selector({
   key: "answerData",
   get: async ({ get }) => {
     // let state = await get(talkState)
-    let state = get(talkStateAtom)
-    let answer = get(answerTextAtom)
-    let data = await setMyTalkState(state, answer)
-    return data
+    let state = get(talkStateAtom);
+    let answer = get(answerTextAtom);
+    let data = await setMyTalkState(state, answer);
+    return data;
   }
 });
 
