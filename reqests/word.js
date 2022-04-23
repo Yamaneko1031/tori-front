@@ -267,7 +267,9 @@ export async function getSessionId() {
     if (response.ok) {
       let retData = await response.json();
       if (retData["session_id"]) {
-        setCookie(null, "session_id", retData["session_id"]);
+        setCookie(null, "session_id", retData["session_id"], {
+          maxAge: 7 * 24 * 60 * 60
+        });
       }
     } else {
       console.error("HTTP-Error: " + response.status);
