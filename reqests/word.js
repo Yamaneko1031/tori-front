@@ -180,18 +180,18 @@ export async function addWordTag(word, tag) {
     })
   });
   if (response.ok) {
-    // 合わせてツイートも呼んでおく
-    fetch(API_ROOT + "/tag_add_tweet", {
-      method: "POST",
-      cache: "no-cache",
-      headers: {
-        "session-id": session_id
-      },
-      body: JSON.stringify({
-        word: word,
-        tag: tag
-      })
-    });
+    // // 合わせてツイートも呼んでおく
+    // fetch(API_ROOT + "/tag_add_tweet", {
+    //   method: "POST",
+    //   cache: "no-cache",
+    //   headers: {
+    //     "session-id": session_id
+    //   },
+    //   body: JSON.stringify({
+    //     word: word,
+    //     tag: tag
+    //   })
+    // });
   } else {
     console.error("HTTP-Error: " + response.status);
   }
