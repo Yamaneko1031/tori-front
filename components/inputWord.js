@@ -32,7 +32,6 @@ function InputWord(props) {
     }
     workText = workText.replace(/\r?\n/g, "");
     workText = workText.replace(/\s/g, "");
-    console.log(workText);
 
     let response = await getWord(workText);
     let setData = { ...answerText };
