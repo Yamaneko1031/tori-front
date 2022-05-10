@@ -42,14 +42,36 @@ export default function ({
       <meta name="twitter:image" content={image} />
       <link rel="canonical" href={url} />
 
-      <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_package/apple-touch-icon.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_package/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_package/favicon-16x16.png" />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/images/favicon_package/apple-touch-icon.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/images/favicon_package/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/images/favicon_package/favicon-16x16.png"
+      />
       <link rel="manifest" href="/images/favicon_package/site.webmanifest" />
-      <link rel="mask-icon" href="/images/favicon_package/safari-pinned-tab.svg" color="#5bbad5" />
+      <link
+        rel="mask-icon"
+        href="/images/favicon_package/safari-pinned-tab.svg"
+        color="#5bbad5"
+      />
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta name="theme-color" content="#ffffff"></meta>
-      
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6473717830087020"
+        crossorigin="anonymous"
+      ></script>
       {/* <link rel="shortcut icon" href={'https://t-cr.jp/favicon.ico'} />
       <link rel="apple-touch-icon" href={'https://t-cr.jp/logo.png'} /> */}
     </Head>
