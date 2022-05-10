@@ -1,5 +1,6 @@
 // import * as React from 'react';
 import Head from "next/head";
+import React, { useEffect } from "react";
 
 // Head.defaultProps = {
 //   title: "学習オウム むーちゃん",
@@ -18,6 +19,15 @@ export default function ({
   image = "https://torichan.app/images/top_page.png",
   viewport = "width=device-width initial-scale=1.0"
 }) {
+  useEffect(() => {
+    if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
+      window.adsbygoogle.push({
+        google_ad_client: "ca-pub-6473717830087020",
+        enable_page_level_ads: true,
+        overlays: { bottom: true }
+      });
+    }
+  }, []);
   return (
     <Head>
       <title>{title}</title>
@@ -67,11 +77,13 @@ export default function ({
       />
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta name="theme-color" content="#ffffff"></meta>
+
       <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6473717830087020"
         crossorigin="anonymous"
       ></script>
+
       {/* <link rel="shortcut icon" href={'https://t-cr.jp/favicon.ico'} />
       <link rel="apple-touch-icon" href={'https://t-cr.jp/logo.png'} /> */}
     </Head>
