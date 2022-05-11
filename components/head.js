@@ -19,15 +19,6 @@ export default function ({
   image = "https://torichan.app/images/top_page.png",
   viewport = "width=device-width initial-scale=1.0"
 }) {
-  useEffect(() => {
-    if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
-      window.adsbygoogle.push({
-        google_ad_client: "ca-pub-6473717830087020",
-        enable_page_level_ads: true,
-        overlays: { bottom: true }
-      });
-    }
-  }, []);
   return (
     <Head>
       <title>{title}</title>
