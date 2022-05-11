@@ -15,15 +15,15 @@ function MyApp({ Component, pageProps }) {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
-  useEffect(() => {
-    if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
-      window.adsbygoogle.push({
-        google_ad_client: "ca-pub-6473717830087020",
-        enable_page_level_ads: true,
-        overlays: { bottom: true }
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
+  //     window.adsbygoogle.push({
+  //       google_ad_client: "ca-pub-6473717830087020",
+  //       enable_page_level_ads: true,
+  //       overlays: { bottom: true }
+  //     });
+  //   }
+  // }, []);
   return (
     <RecoilRoot>
       <Component {...pageProps} />
