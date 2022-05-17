@@ -18,9 +18,9 @@ export default function Home() {
   return (
     <>
       <Head viewport="width=420" />
-      <div>
+      {/* <div>
         <img className="TOP" src="images/mente.png" />
-      </div>
+      </div> */}
       {/* <div>
         <h1>学習オウムむーちゃん</h1>
         <img className="TOP" src="images/top_page.png" />
@@ -28,13 +28,13 @@ export default function Home() {
           <a>ログイン</a>
         </Link>
       </div> */}
-    </>
-    // <div>
-    //   <Head viewport="width=420" />
+      <div>
+        <Head viewport="width=420" />
 
-    //   <div className={styles.TalkBg}>
-    //     <TalkMain />
-    //   </div>
-    // </div>
+        <div className={styles.TalkBg}>
+          <TalkMain />
+        </div>
+      </div>
+    </>
   );
 }
